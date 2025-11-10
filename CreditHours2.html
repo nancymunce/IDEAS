@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Calculating Time on Task (Online & Hybrid Courses)</title>
+<meta name="description" content="Guidance for estimating student time-on-task in online courses, including rule-of-thumb tables and links to workload calculators and policies." />
+<style>
+  :root{
+    --ink:#1f2937; --muted:#4b5563; --bg:#ffffff;
+    --soft:#f7f7f9; --border:#e5e7eb; --card:#ffffff;
+    --accent:#0d6efd; --accent-ink:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#e6e6e6; --muted:#aab3be; --bg:#0b0f14;
+      --soft:#121823; --border:#1f2a3a; --card:#0f141b;
+      --accent:#78b3ff; --accent-ink:#0b0f14;
+    }
+  }
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.site{background:var(--soft);border-bottom:1px solid var(--border)}
+  .site-inner{max-width:1100px;margin:auto;padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem}
+  .site-title{margin:0;font-weight:600;font-size:clamp(1.1rem,2.2vw,1.35rem)}
+  .wrap{max-width:1100px;margin:auto;padding:1.25rem 1rem 2.5rem}
+  h1{font-size:clamp(1.85rem,2.6vw,2.25rem);line-height:1.2;margin:.5rem 0 .5rem}
+  .lede{color:var(--muted);margin:0 0 1rem}
+  .hr{height:1px;background:var(--border);margin:1rem 0}
+  .kpi{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0 1.25rem}
+  .pill{background:var(--soft);border:1px solid var(--border);border-radius:999px;padding:.25rem .7rem;font-size:.95rem}
+  .grid{display:grid;gap:1rem}
+  @media(min-width:900px){.grid.cols-2{grid-template-columns:1fr 1fr}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:.5rem;padding:1rem}
+  h2{font-size:clamp(1.25rem,2vw,1.5rem);margin:0 0 .5rem}
+  h3{font-size:1.05rem;margin:1rem 0 .35rem}
+  p{margin:0 0 .75rem}
+  .note{border-left:4px solid var(--accent);background:rgba(13,110,253,.08);padding:.75rem 1rem;border-radius:.25rem;margin:.75rem 0}
+  table{width:100%;border-collapse:collapse;margin:.5rem 0 1rem;font-size:.95rem}
+  th,td{border:1px solid var(--border);padding:.55rem .6rem;text-align:left}
+  th{background:var(--soft)}
+  caption{caption-side:top;text-align:left;font-weight:600;padding:.25rem 0}
+  .toc{border:1px solid var(--border);background:var(--soft);border-radius:.5rem;padding:.75rem 1rem;margin:1rem 0}
+  .toc ul{margin:.25rem 0 0;padding-left:1rem}
+  .small{font-size:.92rem;color:var(--muted)}
+  .footer{margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border)}
+  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);border-radius:.45rem;padding:.5rem .85rem;border:1px solid transparent;text-decoration:none}
+  .btn:hover{opacity:.9}
+</style>
+</head>
+<body>
+<header class="site" role="banner">
+  <div class="site-inner">
+    <p class="site-title">Online Teaching Resources</p>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <h1>Calculating Time on Task</h1>
+  <p class="lede">Use these planning guides to estimate the weekly workload students should expect in online and hybrid courses, along with calculators and policy references.</p>
+
+  <nav class="toc" aria-label="On this page">
+    <strong>Quick links</strong>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#ug">Undergraduate Estimates</a></li>
+      <li><a href="#grad">Graduate Estimates</a></li>
+      <li><a href="#calculators">Calculators</a></li>
+      <li><a href="#policies">Guidelines &amp; Policies</a></li>
+    </ul>
+  </nav>
+
+  <section id="overview" class="card">
+    <h2>Overview</h2>
+    <p>The traditional credit hour stems from the Carnegie model (contact time plus outside preparation). For online learning, planning focuses on <em>time on task</em>&mdash;the overall time students spend engaging with course activities: reading, viewing, discussion, collaboration, practice, and assessment.</p>
+    <div class="note" role="note">
+      <strong>Rule of thumb (undergraduate):</strong> roughly 3 hours of work per credit each week across a typical 15-week term.
+    </div>
+    <div class="kpi" aria-hidden="true">
+      <span class="pill">3 hrs/credit/week (UG)</span>
+      <span class="pill">15-week example term</span>
+      <span class="pill">Online = online + offline tasks</span>
+    </div>
+  </section>
+
+  <section id="ug" class="card">
+    <h2>Undergraduate Estimates</h2>
+    <p>Approximate weekly workload by course credits and term length:</p>
+    <table aria-describedby="ug-desc">
+      <caption>Undergraduate workload by credits and term length</caption>
+      <thead>
+        <tr>
+          <th scope="col">Credits</th>
+          <th scope="col">15-Week Term</th>
+          <th scope="col">8-Week Term</th>
+          <th scope="col">3-Week Term</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">3</th><td>~9 hrs/week</td><td>~17 hrs/week</td><td>~45 hrs/week</td></tr>
+        <tr><th scope="row">2</th><td>~6 hrs/week</td><td>~12 hrs/week</td><td>~30 hrs/week</td></tr>
+        <tr><th scope="row">1</th><td>~3 hrs/week</td><td>~6 hrs/week</td><td>~15 hrs/week</td></tr>
+      </tbody>
+    </table>
+    <p id="ug-desc" class="small">Example: a 3-credit course over 15 weeks ≈ 135 total hours (~9 per week × 15 weeks).</p>
+  </section>
+
+  <section id="grad" class="card">
+    <h2>Graduate Estimates</h2>
+    <p>Graduate courses generally expect more time per week. Examples:</p>
+    <table aria-describedby="grad-desc">
+      <caption>Graduate workload by credits and term length</caption>
+      <thead>
+        <tr>
+          <th scope="col">Credits</th>
+          <th scope="col">15-Week Term</th>
+          <th scope="col">8-Week Term</th>
+          <th scope="col">3-Week Term</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">4</th><td>~15 hrs/week</td><td>~28 hrs/week</td><td class="small">intensive/varies</td></tr>
+        <tr><th scope="row">3</th><td>~12 hrs/week</td><td>~24 hrs/week</td><td class="small">intensive/varies</td></tr>
+        <tr><th scope="row">2</th><td>~9 hrs/week</td><td>~17 hrs/week</td><td>~45 hrs/week</td></tr>
+        <tr><th scope="row">1</th><td>~6 hrs/week</td><td>~12 hrs/week</td><td>~30 hrs/week</td></tr>
+      </tbody>
+    </table>
+    <p id="grad-desc" class="small">Examples: 4-credit ≈ 225 total hours; 3-credit ≈ 180 total hours across 15 weeks.</p>
+  </section>
+
+  <div class="hr" role="separator" aria-hidden="true"></div>
+
+  <section id="calculators" class="card">
+    <h2>Calculators</h2>
+    <p>Use these external tools to refine course workload estimates:</p>
+    <ul>
+      <li><a href="https://cte.rice.edu" target="_blank" rel="noopener">Course Workload Estimator</a> &ndash; Rice</li>
+      <li><a href="https://cat.wfu.edu" target="_blank" rel="noopener">Enhanced Course Workload Estimator</a> &ndash; Wake Forest</li>
+      <li><a href="https://www.rit.edu/academicaffairs/tls/sites/rit.edu.academicaffairs.tls/files/docs/OnlineCourseDesign_TimeOnTask.pdf" target="_blank" rel="noopener">Converting seat time &amp; homework to learning time</a> &ndash; RIT (PDF)</li>
+      <li><a href="https://www.uky.edu" target="_blank" rel="noopener">Time on Task</a> &ndash; University of Kentucky</li>
+      <li><a href="https://www.aic.edu" target="_blank" rel="noopener">Credit Hour Calculator</a> &ndash; AIC</li>
+      <li><a href="https://flexiblelearning.auckland.ac.nz" target="_blank" rel="noopener">Tools for calculating student workload</a> &ndash; University of Auckland</li>
+      <li><a href="https://www.calconic.com" target="_blank" rel="noopener">Course workload estimator</a> &ndash; Calconic</li>
+      <li><a href="https://www.massey.ac.nz" target="_blank" rel="noopener">Student workload calculator</a> &ndash; Massey</li>
+    </ul>
+  </section>
+
+  <section id="policies" class="card">
+    <h2>Guidelines &amp; Policies</h2>
+    <ul>
+      <li><a href="https://www.worldcampus.psu.edu" target="_blank" rel="noopener">How many hours a week do online courses require?</a> &ndash; Penn State</li>
+      <li>University of Arizona:
+        <ul>
+          <li><a href="https://academicadmin.arizona.edu" target="_blank" rel="noopener">Defining unit of credit, contact hours and course workload</a></li>
+          <li><a href="https://catalog.arizona.edu" target="_blank" rel="noopener">Unit of Credit definition</a></li>
+          <li><a href="https://public.azregents.edu" target="_blank" rel="noopener">Regents policy</a></li>
+          <li><a href="https://catalog.arizona.edu" target="_blank" rel="noopener">Credit hour best practices</a></li>
+          <li><a href="https://catalog.arizona.edu" target="_blank" rel="noopener">Table</a></li>
+        </ul>
+      </li>
+      <li><a href="https://www.uwidocs.org" target="_blank" rel="noopener">Determining Credit Hours in an Online Course</a> &ndash; UWI</li>
+      <li><a href="https://www.binghamton.edu" target="_blank" rel="noopener">Credit hour policy</a> &ndash; Binghamton University</li>
+      <li><a href="https://www.geneseo.edu" target="_blank" rel="noopener">Credit contact hour guidelines</a> &ndash; Geneseo</li>
+      <li><a href="https://www.purchase.edu" target="_blank" rel="noopener">Credits and workload</a> &ndash; Purchase</li>
+      <li><a href="https://www.nysed.gov" target="_blank" rel="noopener">NY Department of Education: workload &amp; remote instruction</a></li>
+      <li><a href="https://www.msche.org" target="_blank" rel="noopener">Middle States: Credit Hour Policy</a></li>
+      <li><a href="https://www.suny.edu" target="_blank" rel="noopener">SUNY Policy: Credit/Contact Hour</a></li>
+    </ul>
+    <p class="small">Always verify with your institution’s official credit-hour policy and program accreditation requirements.</p>
+  </section>
+
+  <footer class="footer small">
+    <p>This page paraphrases widely used workload guidance and aggregates public calculators and policies. Links mirror those commonly referenced by higher-education institutions.</p>
+  </footer>
+</main>
+</body>
+</html>
