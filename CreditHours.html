@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SPC Guide: Estimating Time-on-Task for Online Courses</title>
+<meta name="description" content="St. Petersburg College guide for estimating student time-on-task in online and hybrid courses with calculators, examples, and policy links." />
+
+<style>
+/* =========================
+   SPC-STYLE: Embedded CSS
+   ========================= */
+:root{
+  /* Adjust to SPC brand as needed */
+  --brand:#005aa7;      /* SPC blue (placeholder) */
+  --brand-ink:#ffffff;
+  --ink:#1f2937;
+  --muted:#4b5563;
+  --bg:#ffffff;
+  --soft:#f6f7f9;
+  --card:#ffffff;
+  --border:#e5e7eb;
+  --accent:#e9f2ff;
+  --focus:#ffb703;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --brand:#78b3ff;
+    --brand-ink:#0b0f14;
+    --ink:#e6e6e6;
+    --muted:#aab3be;
+    --bg:#0b0f14;
+    --soft:#121823;
+    --card:#0f141b;
+    --border:#1f2a3a;
+    --accent:#0b1220;
+    --focus:#ffd166;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin:0; padding:0;
+  background:var(--bg); color:var(--ink);
+  font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";
+  scroll-behavior: smooth;
+}
+a { color: var(--brand); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: auto;
+  width: 1px; height: 1px; overflow: hidden;
+}
+.skip-link:focus {
+  position: fixed; left: 1rem; top: 1rem;
+  width: auto; height: auto; padding: .5rem .75rem;
+  background: var(--brand); color: var(--brand-ink); border-radius: .375rem;
+  z-index: 1000;
+}
+
+.header {
+  background: var(--brand); color: var(--brand-ink);
+  border-bottom: 4px solid rgba(255,255,255,.14);
+}
+.header-inner {
+  max-width: 1100px; margin: 0 auto; padding: .75rem 1rem;
+  display: grid; grid-template-columns: auto 1fr auto; gap: .75rem; align-items: center;
+}
+.logo { height: 44px; width: auto; }
+.title { margin:0; font-size: clamp(1.1rem, 2.2vw, 1.35rem); }
+.theme-toggle {
+  background: rgba(255,255,255,.12); color: var(--brand-ink);
+  border: 1px solid rgba(255,255,255,.35);
+  padding: .4rem .65rem; border-radius: .5rem; cursor: pointer;
+}
+
+.wrap { max-width: 1100px; margin: auto; padding: 1.5rem 1rem 3rem; display: grid; gap: 1.25rem; grid-template-columns: 280px 1fr; }
+@media (max-width: 980px){ .wrap { grid-template-columns: 1fr; } }
+
+.toc {
+  position: sticky; top: 0.75rem;
+  border: 1px solid var(--border); background: var(--soft); border-radius: .5rem; padding: .75rem 1rem;
+}
+.toc h2 { font-size: 1rem; margin:.1rem 0 .4rem; }
+.toc ul { list-style: none; margin: 0; padding: 0; }
+.toc a { text-decoration: none; display: block; padding: .3rem 0; border-radius: .25rem; }
+.toc a[aria-current="true"] { background: var(--accent); }
+
+.main h1 {
+  font-size: clamp(1.8rem, 2.6vw, 2.25rem); line-height: 1.2; margin: 0 0 .25rem;
+}
+.lede { color: var(--muted); margin: 0 0 .75rem; }
+.kpi { display:flex; flex-wrap:wrap; gap:.5rem; margin: .75rem 0 1.25rem; }
+.pill { background:var(--soft); border:1px solid var(--border); border-radius:999px; padding: .25rem .7rem; font-size:.95rem; }
+
+.section { background: var(--card); border: 1px solid var(--border); border-radius: .5rem; padding: 1rem; }
+.section h2 { font-size: clamp(1.25rem, 2vw, 1.5rem); margin: 0 0 .5rem; }
+.note { border-left: 4px solid var(--brand); background: var(--accent); padding: .75rem 1rem; border-radius: .25rem; margin: .75rem 0; }
+.small { font-size: .92rem; color: var(--muted); }
+
+table { width: 100%; border-collapse: collapse; margin: .5rem 0 1rem; font-size: .95rem; }
+th, td { border:1px solid var(--border); padding:.55rem .6rem; text-align:left; }
+th { background: var(--soft); }
+caption { caption-side: top; text-align: left; font-weight: 600; padding: .25rem 0; }
+
+.grid { display: grid; gap: 1rem; }
+.cols-2 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 760px){ .cols-2 { grid-template-columns: 1fr; } }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: .5rem; padding: 1rem; }
+.card h3 { margin-top: 0; font-size: 1.05rem; }
+
+.button-link {
+  display: inline-block; padding: .5rem .85rem; border-radius: .45rem; border:1px solid var(--border);
+  background: var(--soft); text-decoration: none; color: var(--ink);
+}
+.button-link:hover { border-color: var(--brand); }
+
+.accordion summary {
+  cursor: pointer; list-style: none; font-weight: 600; padding: .4rem 0;
+}
+.accordion summary::-webkit-details-marker { display: none; }
+.accordion details {
+  border: 1px solid var(--border); background: var(--card); border-radius: .5rem; padding: .75rem 1rem; margin-bottom: .6rem;
+}
+
+.footer { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.badge { font-size: .825rem; padding: .2rem .45rem; border-radius: .35rem; border: 1px solid var(--border); background: var(--soft); }
+
+/* Calculator styles */
+.calc {
+  display: grid; gap: .6rem;
+}
+.calc-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .6rem;
+}
+@media (max-width: 560px){ .calc-row { grid-template-columns: 1fr; } }
+.calc input, .calc select {
+  width: 100%; padding: .55rem .6rem; border: 1px solid var(--border); border-radius: .4rem; background: var(--card); color: var(--ink);
+}
+.result {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: .4rem;
+}
+@media (max-width: 680px){ .result { grid-template-columns: 1fr; } }
+.result .num {
+  border:1px solid var(--border); background: var(--soft); border-radius:.5rem; padding:.6rem .75rem;
+}
+.result .num b { font-size: 1.05rem; }
+</style>
+</head>
+
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="header" role="banner">
+  <div class="header-inner">
+    <!-- Swap to official SPC logo if desired -->
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Placeholder_logo.svg/120px-Placeholder_logo.svg.png" alt="St. Petersburg College logo" />
+    <p class="title">St. Petersburg College • Online Learning &amp; Instructional Design</p>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Toggle theme">Toggle theme</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- Sticky TOC (left column on desktop) -->
+  <aside class="toc" aria-label="On this page">
+    <h2>Quick links</h2>
+    <ul id="tocList">
+      <li><a href="#intro">Overview</a></li>
+      <li><a href="#ug">Undergraduate Estimates</a></li>
+      <li><a href="#grad">Graduate Estimates</a></li>
+      <li><a href="#calc">Workload Calculator</a></li>
+      <li><a href="#resources">Calculators</a></li>
+      <li><a href="#policies">Guidelines &amp; Policies</a></li>
+      <li><a href="#canvas">Communicating in Canvas</a></li>
+      <li><a href="#support">Questions &amp; Support</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main" id="main">
+    <header>
+      <h1>Estimating Time-on-Task for Online Courses</h1>
+      <p class="lede">Use the estimates and tools below to set clear workload expectations that align with SPC credit hours and support student success.</p>
+      <div class="kpi" aria-hidden="true">
+        <span class="pill">Undergrad rule: ~3 hrs/week per credit</span>
+        <span class="pill">Typical term: 15 weeks</span>
+        <span class="pill">Online = online + offline work</span>
+      </div>
+    </header>
+
+    <section id="intro" class="section" tabindex="-1">
+      <h2>Credit Hour &amp; Time-on-Task</h2>
+      <p>In face-to-face formats, “seat time” tracks contact minutes. In online learning, SPC emphasizes <em>time-on-task</em>—the total time students spend engaging with learning activities and assessments (reading, viewing, discussion, practice, collaboration, and reflection).</p>
+      <div class="note" role="note">
+        <strong>Design judgment matters.</strong> These figures are planning guides. Instructors and designers should calibrate workload by activity types, course level, prior knowledge, and modality.
+      </div>
+    </section>
+
+    <section id="ug" class="section" tabindex="-1">
+      <h2>Undergraduate Planning Estimates</h2>
+      <p>Approximate weekly workload by credit and term length (online activities + independent work):</p>
+      <table aria-describedby="ug-desc">
+        <caption>Undergraduate workload by credits and term length</caption>
+        <thead>
+          <tr>
+            <th scope="col">Credits</th>
+            <th scope="col">15-Week Term</th>
+            <th scope="col">8-Week Term</th>
+            <th scope="col">3-Week Term</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">3</th><td>~9 hrs/week</td><td>~17 hrs/week</td><td>~45 hrs/week</td></tr>
+          <tr><th scope="row">2</th><td>~6 hrs/week</td><td>~12 hrs/week</td><td>~30 hrs/week</td></tr>
+          <tr><th scope="row">1</th><td>~3 hrs/week</td><td>~6 hrs/week</td><td>~15 hrs/week</td></tr>
+        </tbody>
+      </table>
+      <p id="ug-desc" class="small">Example: a 3-credit, 15-week course totals about 135 hours (~9 hrs/week × 15 weeks).</p>
+    </section>
+
+    <section id="grad" class="section" tabindex="-1">
+      <h2>Graduate Planning Estimates</h2>
+      <p>Graduate expectations are higher. These examples reflect common planning ranges:</p>
+      <table aria-describedby="grad-desc">
+        <caption>Graduate workload by credits and term length</caption>
+        <thead>
+          <tr>
+            <th scope="col">Credits</th>
+            <th scope="col">15-Week Term</th>
+            <th scope="col">8-Week Term</th>
+            <th scope="col">3-Week Term</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">4</th><td>~15 hrs/week</td><td>~28 hrs/week</td><td class="small">intensive/varies</td></tr>
+          <tr><th scope="row">3</th><td>~12 hrs/week</td><td>~24 hrs/week</td><td class="small">intensive/varies</td></tr>
+          <tr><th scope="row">2</th><td>~9 hrs/week</td><td>~17 hrs/week</td><td>~45 hrs/week</td></tr>
+          <tr><th scope="row">1</th><td>~6 hrs/week</td><td>~12 hrs/week</td><td>~30 hrs/week</td></tr>
+        </tbody>
+      </table>
+      <p id="grad-desc" class="small">Examples: 4-credit ≈225 total hours; 3-credit ≈180 total hours over 15 weeks.</p>
+    </section>
+
+    <section id="calc" class="section" tabindex="-1" aria-labelledby="calc-title">
+      <h2 id="calc-title">Workload Calculator</h2>
+      <p class="small">This quick estimator uses common rules of thumb (UG ≈ 3 hrs/credit/week over 15 weeks). Adjust as appropriate for your course and term.</p>
+
+      <form class="calc" id="workloadForm" onsubmit="return false;">
+        <div class="calc-row">
+          <label>
+            Credits
+            <input type="number" inputmode="decimal" id="credits" min="0" step="0.5" value="3" aria-describedby="creditsHelp" />
+          </label>
+          <label>
+            Term Length (weeks)
+            <input type="number" id="weeks" min="1" step="1" value="15" />
+          </label>
+        </div>
+        <div class="calc-row">
+          <label>
+            Level
+            <select id="level">
+              <option value="ug" selected>Undergraduate</option>
+              <option value="grad">Graduate</option>
+            </select>
+          </label>
+          <label>
+            Hours per Credit per Week (override)
+            <input type="number" id="hpcw" min="0" step="0.25" placeholder="Leave blank for default" aria-describedby="hpcwHelp" />
+          </label>
+        </div>
+        <div class="small" id="creditsHelp">E.g., 3-credit course over 15 weeks.</div>
+        <div class="small" id="hpcwHelp">Defaults: UG ≈ 3; Grad ≈ 4–5 (adjust to your context).</div>
+
+        <div class="result" aria-live="polite" aria-atomic="true">
+          <div class="num"><div class="small">Assumed hours/credit/week</div><b id="outHpcw">3</b></div>
+          <div class="num"><div class="small">Estimated hours per week</div><b id="outWeekly">9</b></div>
+          <div class="num"><div class="small">Estimated total hours</div><b id="outTotal">135</b></div>
+        </div>
+      </form>
+    </section>
+
+    <section id="resources" class="section" tabindex="-1">
+      <h2>Calculators</h2>
+      <div class="grid cols-2">
+        <article class="card">
+          <h3>Course Workload Estimator (Rice)</h3>
+          <p><a href="https://cte.rice.edu" target="_blank" rel="noopener">cte.rice.edu</a></p>
+          <p class="small">Task-type assumptions for reading, writing, exams, and media.</p>
+        </article>
+        <article class="card">
+          <h3>Enhanced Estimator (Wake Forest)</h3>
+          <p><a href="https://cat.wfu.edu" target="_blank" rel="noopener">cat.wfu.edu</a></p>
+          <p class="small">Adds nuance for cognitive load and activity complexity.</p>
+        </article>
+        <article class="card">
+          <h3>Seat-Time → Learning-Time (RIT)</h3>
+          <p><a href="https://www.rit.edu/academicaffairs/tls/sites/rit.edu.academicaffairs.tls/files/docs/OnlineCourseDesign_TimeOnTask.pdf" target="_blank" rel="noopener">RIT TLS PDF</a></p>
+        </article>
+        <article class="card">
+          <h3>Time on Task (University of Kentucky)</h3>
+          <p><a href="https://uky.edu" target="_blank" rel="noopener">uky.edu</a></p>
+        </article>
+        <article class="card">
+          <h3>Credit Hour Calculator (AIC)</h3>
+          <p><a href="https://aic.edu" target="_blank" rel="noopener">aic.edu</a></p>
+        </article>
+        <article class="card">
+          <h3>Tools for Calculating Student Workload (Auckland)</h3>
+          <p><a href="https://flexiblelearning.auckland.ac.nz" target="_blank" rel="noopener">flexiblelearning.auckland.ac.nz</a></p>
+        </article>
+        <article class="card">
+          <h3>Course Workload Estimator (Calconic)</h3>
+          <p><a href="https://www.calconic.com" target="_blank" rel="noopener">calconic.com</a></p>
+        </article>
+        <article class="card">
+          <h3>Student Workload Calculator (Massey)</h3>
+          <p><a href="https://www.massey.ac.nz" target="_blank" rel="noopener">massey.ac.nz</a></p>
+        </article>
+      </div>
+      <p class="small">These external tools are provided for planning; use SPC policies as the source of record.</p>
+    </section>
+
+    <section id="policies" class="section" tabindex="-1">
+      <h2>Guidelines &amp; Policies</h2>
+      <div class="accordion" role="region" aria-label="Policies">
+        <details>
+          <summary>How many hours a week do online courses require? (Penn State)</summary>
+          <p><a href="https://www.worldcampus.psu.edu" target="_blank" rel="noopener">worldcampus.psu.edu</a></p>
+        </details>
+        <details>
+          <summary>Defining Unit of Credit &amp; Workload (University of Arizona)</summary>
+          <p>
+            <a href="https://academicadmin.arizona.edu" target="_blank" rel="noopener">Overview</a> &nbsp;•&nbsp;
+            <a href="https://catalog.arizona.edu" target="_blank" rel="noopener">Unit of Credit</a> &nbsp;•&nbsp;
+            <a href="https://public.azregents.edu" target="_blank" rel="noopener">Regents Policy</a>
+          </p>
+        </details>
+        <details>
+          <summary>Credit Hour Policy (Binghamton University)</summary>
+          <p><a href="https://www.binghamton.edu" target="_blank" rel="noopener">binghamton.edu</a></p>
+        </details>
+        <details>
+          <summary>Credit Contact Hour Guidelines (Geneseo)</summary>
+          <p><a href="https://www.geneseo.edu" target="_blank" rel="noopener">geneseo.edu</a></p>
+        </details>
+        <details>
+          <summary>Middle States Commission: Credit Hour Policy</summary>
+          <p><a href="https://www.msche.org" target="_blank" rel="noopener">msche.org</a></p>
+        </details>
+        <details>
+          <summary>SPC Credit Hour Definition</summary>
+          <p><!-- Replace with SPC policy link --> <a href="#" aria-disabled="true">SPC Policy (link coming soon)</a></p>
+        </details>
+        <details>
+          <summary>SPC Online &amp; Hybrid Course Standards</summary>
+          <p><!-- Replace with SPC standards link --> <a href="#" aria-disabled="true">SPC Standards (link coming soon)</a></p>
+        </details>
+      </div>
+    </section>
+
+    <section id="canvas" class="section" tabindex="-1">
+      <h2>Communicating Workload in Canvas</h2>
+      <div class="card">
+        <h3>Suggested Syllabus Language</h3>
+        <p class="small">Copy/paste and adjust credits, weeks, and workload numbers:</p>
+        <p><em>“This course carries <strong>[X]</strong> credit hours over <strong>[Y]</strong> weeks. Students should plan for approximately <strong>[Z]</strong> hours per week completing readings, media, practice, discussions, and assessments. Actual time may vary based on prior knowledge and learning preferences.”</em></p>
+      </div>
+
+      <div class="card">
+        <h3>Weekly “Time-on-Task” Table</h3>
+        <table>
+          <caption>Example Weekly Work Plan</caption>
+          <thead>
+            <tr><th scope="col">Task</th><th scope="col">Est. Time</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Readings &amp; Media</td><td>2.5 hrs</td></tr>
+            <tr><td>Practice/Notes/Study</td><td>2 hrs</td></tr>
+            <tr><td>Discussion/Collaboration</td><td>1.5 hrs</td></tr>
+            <tr><td>Assignment/Quiz</td><td>3 hrs</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><th scope="row">Total</th><th>~9 hrs</th></tr>
+          </tfoot>
+        </table>
+        <p class="small">Adjust the mix to match your module design and level.</p>
+      </div>
+
+      <p><a class="button-link" href="#main">Back to top</a> <span class="badge">JS enabled</span></p>
+    </section>
+
+    <section id="support" class="section" tabindex="-1">
+      <h2>Questions &amp; Support</h2>
+      <p>SPC faculty can contact the Instructional Design team for help estimating workload and aligning activities with outcomes.</p>
+      <p>Email: <a href="mailto:ideas@spcollege.edu">ideas@spcollege.edu</a></p>
+    </section>
+
+    <footer class="footer small">
+      <p><strong>Provenance:</strong> This SPC guide adapts widely used higher-education workload principles and public calculators (see links above). Verify alignment with SPC’s official policy documents before use in program materials.</p>
+      <p>Last updated: November 10, 2025</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+/* =========================
+   Embedded JavaScript
+   ========================= */
+
+// Theme toggle (respects system preference; user can force)
+(function(){
+  const btn = document.getElementById('themeToggle');
+  const storageKey = 'spcTheme';
+  const root = document.documentElement;
+
+  const setTheme = (mode) => {
+    if(mode === 'light'){ root.style.colorScheme = 'light'; root.dataset.theme = 'light'; }
+    else if(mode === 'dark'){ root.style.colorScheme = 'dark'; root.dataset.theme = 'dark'; }
+    else { root.style.colorScheme = ''; delete root.dataset.theme; }
+    try { localStorage.setItem(storageKey, mode); } catch(e){}
+    btn.setAttribute('aria-pressed', mode === 'dark');
+  };
+
+  // Initialize from storage
+  let saved = null;
+  try { saved = localStorage.getItem(storageKey); } catch(e){}
+  if(saved){ setTheme(saved); }
+
+  btn.addEventListener('click', () => {
+    const current = root.dataset.theme || 'system';
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+})();
+
+// TOC active section highlighting using IntersectionObserver
+(function(){
+  const links = Array.from(document.querySelectorAll('.toc a[href^="#"]'));
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const opts = { rootMargin: '0px 0px -70% 0px', threshold: [0, 1] };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const id = e.target.id;
+      const link = map.get(id);
+      if(!link) return;
+      if(e.isIntersecting){
+        links.forEach(a => a.removeAttribute('aria-current'));
+        link.setAttribute('aria-current', 'true');
+      }
+    });
+  }, opts);
+
+  map.forEach((_, id) => {
+    const el = document.getElementById(id);
+    if(el) io.observe(el);
+  });
+
+  // Smooth scroll focus management for accessibility
+  links.forEach(a => {
+    a.addEventListener('click', (evt) => {
+      const id = a.getAttribute('href').slice(1);
+      const section = document.getElementById(id);
+      if(section){
+        evt.preventDefault();
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Move focus after scroll to aid keyboard users
+        setTimeout(() => section.setAttribute('tabindex','-1'), 0);
+        setTimeout(() => section.focus({ preventScroll: true }), 350);
+      }
+    });
+  });
+})();
+
+// Simple workload calculator
+(function(){
+  const credits = document.getElementById('credits');
+  const weeks   = document.getElementById('weeks');
+  const level   = document.getElementById('level');
+  const hpcw    = document.getElementById('hpcw');
+  const outHpcw = document.getElementById('outHpcw');
+  const outWeekly = document.getElementById('outWeekly');
+  const outTotal  = document.getElementById('outTotal');
+
+  function n(v){ const x = Number(v); return Number.isFinite(x) ? x : 0; }
+  function round1(v){ return Math.round(v * 10)/10; }
+
+  function compute(){
+    const c = Math.max(0, n(credits.value));
+    const w = Math.max(1, Math.floor(n(weeks.value) || 1));
+    const custom = n(hpcw.value);
+    let base;
+    if(hpcw.value !== '') {
+      base = Math.max(0, custom);
+    } else {
+      base = (level.value === 'grad') ? 4 : 3; // default assumptions
+    }
+    const weekly = c * base;
+    const total  = weekly * w;
+
+    outHpcw.textContent = round1(base);
+    outWeekly.textContent = round1(weekly);
+    outTotal.textContent  = round1(total);
+  }
+
+  ['input','change'].forEach(ev => {
+    credits.addEventListener(ev, compute);
+    weeks.addEventListener(ev, compute);
+    level.addEventListener(ev, compute);
+    hpcw.addEventListener(ev, compute);
+  });
+
+  compute();
+})();
+</script>
+</body>
+</html>
