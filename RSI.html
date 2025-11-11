@@ -66,7 +66,7 @@
 
         /* RSI Definition Section */
         .definition-box {
-            background-color: var(--color-navy); /* Changed from Dark Navy to Navy */
+            background-color: var(--color-navy);
             color: var(--color-white);
             padding: 20px;
             border-radius: 8px;
@@ -99,6 +99,7 @@
             transition: background-color 0.4s;
             position: relative;
         }
+        /* Styling for the 4 Pillars (Key Components) */
         .accordion-button.key-component-btn {
             background-color: var(--color-gold);
             color: var(--color-navy);
@@ -106,12 +107,9 @@
             font-weight: 600;
         }
         .accordion-button.key-component-btn:hover, .accordion-button.key-component-btn.active {
-            background-color: #E6A000; /* Darker gold for hover effect */
+            background-color: #E6A000; /* Darker gold for hover/active effect */
         }
-        .accordion-button:hover, .accordion-button.active {
-            background-color: var(--color-navy); /* Hover/Active state remains Navy */
-        }
-        /* Icon styling for the buttons */
+        /* Icon styling */
         .accordion-button::after {
             content: '\002B'; /* Plus sign */
             font-size: 1.5em;
@@ -131,21 +129,19 @@
         .accordion-content {
             padding: 0 18px;
             background-color: var(--color-white);
-            max-height: 0;
+            max-height: 0; /* Default closed state */
             overflow: hidden;
             transition: max-height 0.2s ease-out;
             font-size: 1.0em;
         }
+        /* Specific content padding for the Key Components when open */
+        .key-component-content.open {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
         .accordion-content ul {
             padding-left: 20px;
             margin: 10px 0;
-        }
-        .accordion-content li .strategy-detail {
-            color: var(--color-navy);
-        }
-        .key-component-content {
-            padding: 15px 18px;
-            font-size: 1.0em;
         }
         .key-component-content .key-descriptor {
             color: var(--color-gold);
@@ -267,7 +263,6 @@
             </div>
         </div>
 
-
         <h2>🎯 Why Prioritize RSI?</h2>
         <p>RSI is crucial for outcomes, quality, and compliance.</p>
         <ul class="importance-list">
@@ -276,7 +271,6 @@
             <li><span class="key-descriptor">Accreditation Compliance:</span> Meeting the RSI requirement is essential for maintaining accreditation and eligibility for federal funding.</li>
             <li><span class="key-descriptor">Building Community:</span> Fosters a sense of community and belonging, which can help reduce feelings of isolation and improve student retention.</li>
         </ul>
-
 
         <h2>🛠️ Practical Strategies: Implementing RSI</h2>
         <p>Expand the sections below for actionable ideas you can implement in your online course design right away!</p>
@@ -329,9 +323,7 @@
                 </div>
             </div>
 
-        </div> 
-
-        <h2>💡 Examples in Practice</h2>
+        </div> <h2>💡 Examples in Practice</h2>
         <p>RSI isn't just theory—it's practical action in every discipline:</p>
         <ul>
             <li><span class="strategy-detail">Mathematics:</span> Provide detailed feedback on problem sets, offer step-by-step solutions to challenging problems, and host live Q&A sessions.</li>
@@ -339,7 +331,6 @@
             <li><span class="strategy-detail">Science:</span> Conduct virtual lab simulations, provide feedback on lab reports, and facilitate online discussions about scientific concepts.</li>
             <li><span class="strategy-detail">History:</span> Share primary source documents, facilitate online debates about historical events, provide feedback on research papers, and host virtual museum tours.</li>
         </ul>
-
 
         <h2>⚠️ Addressing Common Concerns</h2>
         <p>Here are quick tips for managing common RSI challenges:</p>
@@ -378,19 +369,17 @@
                 if (content.style.maxHeight) {
                     // Close the content
                     content.style.maxHeight = null;
-                    // Reset padding if needed for smooth transition out of key components content
+                    // Remove padding for smooth close
                     if (this.classList.contains('key-component-btn')) {
-                         content.style.paddingTop = '0';
-                         content.style.paddingBottom = '0';
+                         content.classList.remove('open');
                     }
                 } else {
                     // Open the content
-                    // Set max-height to the scrollHeight to allow for smooth transition based on content size
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    // Restore padding for key components content
+                    // Set max-height to the scrollHeight + a little extra to ensure it fully opens
+                    content.style.maxHeight = content.scrollHeight + 30 + "px";
+                    // Add padding for key components content
                     if (this.classList.contains('key-component-btn')) {
-                         content.style.paddingTop = '15px';
-                         content.style.paddingBottom = '15px';
+                         content.classList.add('open');
                     }
                 }
             });
