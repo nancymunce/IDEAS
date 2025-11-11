@@ -82,6 +82,7 @@
             display: block;
             margin-bottom: 8px;
             cursor: pointer;
+            padding: 5px;
         }
         
         .quiz-question input[type="radio"] {
@@ -89,44 +90,30 @@
             accent-color: var(--color-lime);
         }
 
-        #submitQuiz {
-            background-color: var(--color-gold);
-            color: var(--color-navy);
-            border: none;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            font-weight: bold;
+        /* Feedback Styling */
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
             border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #quizResult {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 5px;
+            font-size: 1em;
             font-weight: bold;
-            text-align: center;
-            border: 2px solid var(--color-navy);
-            display: none;
+            display: none; /* Hidden by default */
         }
-
-        .correct {
+        .correct-feedback {
             background-color: #e8f5e9; /* Light green */
             border-left: 5px solid var(--color-lime);
+            color: var(--color-navy);
         }
-        
-        .incorrect {
+        .incorrect-feedback {
             background-color: #ffebee; /* Light red */
             border-left: 5px solid red;
+            color: #CC0000;
         }
         
-        .explanation {
-            font-size: 0.9em;
-            color: #555;
+        .summary-sentence {
+            font-weight: normal;
+            display: block;
             margin-top: 5px;
-            padding: 5px 0;
-            font-style: italic;
         }
         
         /* --- Spot the Flaw Activity Styles --- */
@@ -192,55 +179,57 @@
     <div class="container">
 
         <section id="engagementQuiz">
-            <h2>🧠 Activity 1: Self-Assessment Quiz (Auto-Graded)</h2>
-            <p>Select the best answer for each question. Click Submit to view your score and feedback.</p>
+            <h2>🧠 Activity 1: Self-Assessment Quiz</h2>
+            <p>Select an answer for immediate feedback.</p>
 
             <form id="quizForm">
 
-                <div class="quiz-question" id="q1">
+                <div class="quiz-question" id="q1-container">
                     <p>1. Which dimension of engagement is satisfied when a student feels a sense of belonging and motivation within the course?</p>
-                    <label><input type="radio" name="q1" value="A"> Behavioral Engagement</label>
-                    <label><input type="radio" name="q1" value="B"> Cognitive Engagement</label>
-                    <label><input type="radio" name="q1" value="C"> Emotional Engagement</label>
-                    <label><input type="radio" name="q1" value="D"> Passive Engagement</label>
+                    <label><input type="radio" name="q1" value="A" onclick="checkAnswer('q1', this)"> Behavioral Engagement</label>
+                    <label><input type="radio" name="q1" value="B" onclick="checkAnswer('q1', this)"> Cognitive Engagement</label>
+                    <label><input type="radio" name="q1" value="C" onclick="checkAnswer('q1', this)"> Emotional Engagement</label>
+                    <label><input type="radio" name="q1" value="D" onclick="checkAnswer('q1', this)"> Passive Engagement</label>
+                    <div id="q1-feedback" class="feedback"></div>
                 </div>
                 
-                <div class="quiz-question" id="q2">
+                <div class="quiz-question" id="q2-container">
                     <p>2. The principle of Autonomy in activity design is best represented by which strategy?</p>
-                    <label><input type="radio" name="q2" value="A"> Providing specific, detailed feedback on all submissions.</label>
-                    <label><input type="radio" name="q2" value="B"> Requiring a 3-2-1 reflection prompt after a reading assignment.</label>
-                    <label><input type="radio" name="q2" value="C"> Allowing students to choose between creating a video or an infographic for their final project.</label>
-                    <label><input type="radio" name="q2" value="D"> Posting weekly announcements and check-in messages.</label>
+                    <label><input type="radio" name="q2" value="A" onclick="checkAnswer('q2', this)"> Providing specific, detailed feedback on all submissions.</label>
+                    <label><input type="radio" name="q2" value="B" onclick="checkAnswer('q2', this)"> Requiring a 3-2-1 reflection prompt after a reading assignment.</label>
+                    <label><input type="radio" name="q2" value="C" onclick="checkAnswer('q2', this)"> Allowing students to choose between creating a video or an infographic for their final project.</label>
+                    <label><input type="radio" name="q2" value="D" onclick="checkAnswer('q2', this)"> Posting weekly announcements and check-in messages.</label>
+                    <div id="q2-feedback" class="feedback"></div>
                 </div>
                 
-                <div class="quiz-question" id="q3">
+                <div class="quiz-question" id="q3-container">
                     <p>3. According to the Active vs. Passive spectrum, which of the following is considered a Passive activity?</p>
-                    <label><input type="radio" name="q3" value="A"> A Learner-to-Learner group project.</label>
-                    <label><input type="radio" name="q3" value="B"> A case study requiring students to apply course concepts to a scenario.</label>
-                    <label><input type="radio" name="q3" value="C"> Watching a 30-minute lecture video without any integrated checks or prompts.</label>
-                    <label><input type="radio" name="q3" value="D"> Designing a concept map to summarize the week’s reading.</label>
+                    <label><input type="radio" name="q3" value="A" onclick="checkAnswer('q3', this)"> A Learner-to-Learner group project.</label>
+                    <label><input type="radio" name="q3" value="B" onclick="checkAnswer('q3', this)"> A case study requiring students to apply course concepts to a scenario.</label>
+                    <label><input type="radio" name="q3" value="C" onclick="checkAnswer('q3', this)"> Watching a 30-minute lecture video without any integrated checks or prompts.</label>
+                    <label><input type="radio" name="q3" value="D" onclick="checkAnswer('q3', this)"> Designing a concept map to summarize the week’s reading.</label>
+                    <div id="q3-feedback" class="feedback"></div>
                 </div>
                 
-                <div class="quiz-question" id="q4">
+                <div class="quiz-question" id="q4-container">
                     <p>4. Which type of interaction is directly addressed when an instructor participates meaningfully in a discussion forum by asking a guiding question?</p>
-                    <label><input type="radio" name="q4" value="A"> Learner-to-Content</label>
-                    <label><input type="radio" name="q4" value="B"> Learner-to-Content and Learner-to-Learner</label>
-                    <label><input type="radio" name="q4" value="C"> Learner-to-Instructor and Learner-to-Learner</label>
-                    <label><input type="radio" name="q4" value="D"> Learner-to-Instructor</label>
+                    <label><input type="radio" name="q4" value="A" onclick="checkAnswer('q4', this)"> Learner-to-Content</label>
+                    <label><input type="radio" name="q4" value="B" onclick="checkAnswer('q4', this)"> Learner-to-Content and Learner-to-Learner</label>
+                    <label><input type="radio" name="q4" value="C" onclick="checkAnswer('q4', this)"> Learner-to-Instructor and Learner-to-Learner</label>
+                    <label><input type="radio" name="q4" value="D" onclick="checkAnswer('q4', this)"> Learner-to-Instructor</label>
+                    <div id="q4-feedback" class="feedback"></div>
                 </div>
                 
-                <div class="quiz-question" id="q5">
+                <div class="quiz-question" id="q5-container">
                     <p>5. An activity requiring students to move beyond recall and justify their answer with evidence focuses primarily on which dimension of engagement?</p>
-                    <label><input type="radio" name="q5" value="A"> Behavioral Engagement</label>
-                    <label><input type="radio" name="q5" value="B"> Cognitive Engagement</label>
-                    <label><input type="radio" name="q5" value="C"> Emotional Engagement</label>
-                    <label><input type="radio" name="q5" value="D"> Transfer Engagement</label>
+                    <label><input type="radio" name="q5" value="A" onclick="checkAnswer('q5', this)"> Behavioral Engagement</label>
+                    <label><input type="radio" name="q5" value="B" onclick="checkAnswer('q5', this)"> Cognitive Engagement</label>
+                    <label><input type="radio" name="q5" value="C" onclick="checkAnswer('q5', this)"> Emotional Engagement</label>
+                    <label><input type="radio" name="q5" value="D" onclick="checkAnswer('q5', this)"> Transfer Engagement</label>
+                    <div id="q5-feedback" class="feedback"></div>
                 </div>
 
-                <button type="button" id="submitQuiz" onclick="submitQuiz()">Submit Quiz</button>
             </form>
-
-            <div id="quizResult"></div>
         </section>
 
         <section id="designChallenge">
@@ -288,7 +277,6 @@
     </div>
 
     <script>
-        // --- JAVASCRIPT FOR ACTIVITY 1: QUIZ ---
         const correctAnswers = {
             q1: 'C',
             q2: 'C',
@@ -305,53 +293,26 @@
             q5: 'Moving beyond recall to justification, analysis, or application is the definition of deep, Cognitive Engagement.'
         };
 
-        function submitQuiz() {
-            let score = 0;
-            const quizForm = document.getElementById('quizForm');
-            const resultDiv = document.getElementById('quizResult');
-            const totalQuestions = Object.keys(correctAnswers).length;
-
-            resultDiv.innerHTML = '';
-            resultDiv.style.display = 'block';
+        function checkAnswer(questionName, selectedInput) {
+            const selectedValue = selectedInput.value;
+            const correctAnswer = correctAnswers[questionName];
+            const feedbackDiv = document.getElementById(questionName + '-feedback');
             
-            for (let i = 1; i <= totalQuestions; i++) {
-                const qName = `q${i}`;
-                const questionElement = document.getElementById(qName);
-                const selected = quizForm.elements[qName].value;
-                const correct = correctAnswers[qName];
+            // Clear previous classes and content
+            feedbackDiv.className = 'feedback';
+            feedbackDiv.style.display = 'block';
+
+            if (selectedValue === correctAnswer) {
+                feedbackDiv.classList.add('correct-feedback');
+                feedbackDiv.innerHTML = '🎉 **Correct!** ' +
+                    '<span class="summary-sentence">Yes! This is the correct answer because: ' + explanations[questionName] + '</span>';
                 
-                questionElement.classList.remove('correct', 'incorrect');
-                const previousExplanation = questionElement.querySelector('.explanation');
-                if (previousExplanation) {
-                    previousExplanation.remove();
-                }
-
-                const explanationText = document.createElement('div');
-                explanationText.className = 'explanation';
-                explanationText.innerHTML = 'Correct Answer: ' + correct + '. ' + explanations[qName];
-
-                if (selected === correct) {
-                    score++;
-                    questionElement.classList.add('correct');
-                    explanationText.style.color = 'var(--color-navy)';
-                } else {
-                    questionElement.classList.add('incorrect');
-                    explanationText.style.color = 'red';
-                }
-                
-                questionElement.appendChild(explanationText);
-            }
-
-            if (score === totalQuestions) {
-                resultDiv.innerHTML = '🌟 PERFECT SCORE! You got ' + score + ' out of ' + totalQuestions + ' questions correct. Great mastery of the concepts!';
-                resultDiv.style.backgroundColor = 'var(--color-lime)';
-                resultDiv.style.color = 'var(--color-navy)';
-                resultDiv.style.borderColor = 'var(--color-navy)';
+                // Disable all radio buttons for this question after correct answer
+                const radioButtons = document.getElementsByName(questionName);
+                radioButtons.forEach(radio => radio.disabled = true);
             } else {
-                resultDiv.innerHTML = '👍 Review Needed. You scored ' + score + ' out of ' + totalQuestions + ' correct. Review the questions marked in red and their explanations above.';
-                resultDiv.style.backgroundColor = '#FFC72C'; /* Gold */
-                resultDiv.style.color = 'var(--color-navy)';
-                resultDiv.style.borderColor = 'var(--color-navy)';
+                feedbackDiv.classList.add('incorrect-feedback');
+                feedbackDiv.innerHTML = '❌ **That’s not quite right.** Please try again.';
             }
         }
 
