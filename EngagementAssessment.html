@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity: Review and Design Challenge | SPC Engagement</title>
+    <style>
+        /* SPC Color Palette */
+        :root {
+            --color-navy: #002D62; /* Navy Blue */
+            --color-gold: #FFC72C; /* Gold/Yellow */
+            --color-white: #FFFFFF; /* White */
+            --color-lime: #A4DE00; /* Lime Green Accent */
+            --color-light-grey: #f4f4f9;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-light-grey);
+            color: #333;
+        }
+
+        header {
+            background-color: var(--color-navy);
+            color: var(--color-white);
+            padding: 20px 5%;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: var(--color-gold);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 10px;
+        }
+
+        section {
+            background: var(--color-white);
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--color-navy);
+            border-bottom: 3px solid var(--color-gold);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.6em;
+        }
+        
+        h3 {
+             color: var(--color-navy);
+             margin-top: 20px;
+             font-size: 1.3em;
+        }
+
+        /* Quiz Styles */
+        .quiz-question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .quiz-question p {
+            font-weight: bold;
+            color: var(--color-navy);
+            margin-top: 0;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        
+        .quiz-question input[type="radio"] {
+            margin-right: 8px;
+            accent-color: var(--color-lime); /* Lime accent for radio buttons */
+        }
+
+        #submitQuiz {
+            background-color: var(--color-gold);
+            color: var(--color-navy);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #submitQuiz:hover {
+            background-color: #ffda6a; /* Lighter gold */
+        }
+        
+        #quizResult {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid var(--color-navy);
+            display: none; /* Hidden until submission */
+        }
+
+        /* Feedback Styles (Dynamically applied by JS) */
+        .correct {
+            background-color: #e8f5e9; /* Light green */
+            border-left: 5px solid var(--color-lime);
+        }
+        
+        .incorrect {
+            background-color: #ffebee; /* Light red */
+            border-left: 5px solid red;
+        }
+        
+        .explanation {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 5px;
+            padding: 5px 0;
+            font-style: italic;
+        }
+
+        /* Design Challenge Styles */
+        #designChallenge textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid var(--color-navy);
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .hint-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: var(--color-navy);
+            color: var(--color-white);
+            border-radius: 5px;
+        }
+        
+        .hint-box strong {
+            color: var(--color-gold);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Activity: Review & Design Challenge</h1>
+        <p>Test your knowledge and apply the principles of engaging online learning.</p>
+    </header>
+
+    <div class="container">
+
+        <section id="engagementQuiz">
+            <h2>🧠 Self-Assessment Quiz (Auto-Graded)</h2>
+            <p>Select the best answer for each question. Click 'Submit' to view your score and feedback.</p>
+
+            <form id="quizForm">
+
+                <div class="quiz-question" id="q1">
+                    <p>1. Which dimension of engagement is satisfied when a student feels a sense of belonging and motivation within the course?</p>
+                    <label><input type="radio" name="q1" value="A"> Behavioral Engagement</label>
+                    <label><input type="radio" name="q1" value="B"> Cognitive Engagement</label>
+                    <label><input type="radio" name="q1" value="C"> Emotional Engagement</label>
+                    <label><input type="radio" name="q1" value="D"> Passive Engagement</label>
+                </div>
+                
+                <div class="quiz-question" id="q2">
+                    <p>2. The principle of **Autonomy** in activity design is best represented by which strategy?</p>
+                    <label><input type="radio" name="q2" value="A"> Providing specific, detailed feedback on all submissions.</label>
+                    <label><input type="radio" name="q2" value="B"> Requiring a 3-2-1 reflection prompt after a reading assignment.</label>
+                    <label><input type="radio" name="q2" value="C"> Allowing students to choose between creating a video or an infographic for their final project.</label>
+                    <label><input type="radio" name="q2" value="D"> Posting weekly announcements and check-in messages.</label>
+                </div>
+                
+                <div class="quiz-question" id="q3">
+                    <p>3. According to the Active vs. Passive spectrum, which of the following is considered a **Passive** activity?</p>
+                    <label><input type="radio" name="q3" value="A"> A Learner-to-Learner group project.</label>
+                    <label><input type="radio" name="q3" value="B"> A case study requiring students to apply course concepts to a scenario.</label>
+                    <label><input type="radio" name="q3" value="C"> Watching a 30-minute lecture video without any integrated checks or prompts.</label>
+                    <label><input type="radio" name="q3" value="D"> Designing a concept map to summarize the week’s reading.</label>
+                </div>
+                
+                <div class="quiz-question" id="q4">
+                    <p>4. Which type of interaction is directly addressed when an instructor participates meaningfully in a discussion forum by asking a guiding question?</p>
+                    <label><input type="radio" name="q4" value="A"> Learner-to-Content</label>
+                    <label><input type="radio" name="q4" value="B"> Learner-to-Content and Learner-to-Learner</label>
+                    <label><input type="radio" name="q4" value="C"> Learner-to-Instructor and Learner-to-Learner</label>
+                    <label><input type="radio" name="q4" value="D"> Learner-to-Instructor</label>
+                </div>
+                
+                <div class="quiz-question" id="q5">
+                    <p>5. An activity requiring students to move beyond recall and justify their answer with evidence focuses primarily on which dimension of engagement?</p>
+                    <label><input type="radio" name="q5" value="A"> Behavioral Engagement</label>
+                    <label><input type="radio" name="q5" value="B"> Cognitive Engagement</label>
+                    <label><input type="radio" name="q5" value="C"> Emotional Engagement</label>
+                    <label><input type="radio" name="q5" value="D"> Transfer Engagement</label>
+                </div>
+
+                <button type="button" id="submitQuiz" onclick="submitQuiz()">Submit Quiz</button>
+            </form>
+
+            <div id="quizResult"></div>
+        </section>
+
+        <section id="designChallenge">
+            <h2>✍️ Design & Analysis Challenge</h2>
+            <p>Identify a recent learning activity (or a discussion prompt, assignment, or resource) you used or saw used in an online course. Analyze its effectiveness and propose an improvement based on the principles of engagement.</p>
+            
+            <div class="hint-box">
+                <strong>HINT:</strong> In your analysis, specifically reference at least one **Dimension of Engagement** (Behavioral, Emotional, or Cognitive) and at least two of the **Five Traits** (Relevance, Autonomy, Interaction, Challenge, Feedback).
+            </div>
+            
+            <h3>My Analysis and Design Plan:</h3>
+            <textarea placeholder="Part 1: Describe the existing activity (e.g., 'Read Chapter 3 and post a summary of the main points.').
+
+Part 2: Analyze the activity using engagement principles (e.g., 'This activity is low in Cognitive Engagement because it only requires recall. It lacks Autonomy as all students do the same thing.').
+
+Part 3: Redesign the activity to increase engagement (e.g., 'Improvement: Transform the activity into a "Mini-Debate": Students choose one of three controversial concepts from the chapter and argue for or against it in a peer reply. This increases Cognitive Engagement and Autonomy.')."></textarea>
+            <p style="text-align: right; font-style: italic; color: #666;">(This section is for reflection and cannot be auto-graded.)</p>
+        </section>
+
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'C',
+            q2: 'C',
+            q3: 'C',
+            q4: 'D',
+            q5: 'B'
+        };
+
+        const explanations = {
+            q1: 'Emotional Engagement is about feeling connected, motivated, and seeing personal relevance.',
+            q2: 'Autonomy means giving students choice in how they learn or demonstrate understanding.',
+            q3: 'Watching a non-interactive video is passive; there is no required response, creation, or application.',
+            q4: 'When the instructor initiates the action, it is Learner-to-Instructor interaction, even if it guides peer discussion.',
+            q5: 'Moving beyond recall to justification, analysis, or application is the definition of deep, Cognitive Engagement.'
+        };
+
+        function submitQuiz() {
+            let score = 0;
+            const quizForm = document.getElementById('quizForm');
+            const resultDiv = document.getElementById('quizResult');
+            const totalQuestions = Object.keys(correctAnswers).length;
+
+            // Reset previous results
+            resultDiv.innerHTML = '';
+            resultDiv.style.display = 'block';
+            resultDiv.classList.remove('correct', 'incorrect');
+            
+            // Loop through each question
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qName = `q${i}`;
+                const questionElement = document.getElementById(qName);
+                const selected = quizForm.elements[qName].value;
+                const correct = correctAnswers[qName];
+                
+                // Clear previous state styles
+                questionElement.classList.remove('correct', 'incorrect');
+                const previousExplanation = questionElement.querySelector('.explanation');
+                if (previousExplanation) {
+                    previousExplanation.remove();
+                }
+
+                const explanationText = document.createElement('div');
+                explanationText.className = 'explanation';
+                explanationText.innerHTML = `**Correct Answer: ${correct}.** ${explanations[qName]}`;
+
+
+                if (selected === correct) {
+                    score++;
+                    questionElement.classList.add('correct');
+                    explanationText.style.color = 'var(--color-navy)';
+                } else {
+                    questionElement.classList.add('incorrect');
+                    explanationText.style.color = 'red';
+                }
+                
+                questionElement.appendChild(explanationText);
+            }
+
+            // Display overall score
+            if (score === totalQuestions) {
+                resultDiv.innerHTML = `🌟 **PERFECT SCORE!** You got ${score} out of ${totalQuestions} questions correct. Great mastery of the concepts!`;
+                resultDiv.style.backgroundColor = 'var(--color-lime)';
+                resultDiv.style.color = 'var(--color-navy)';
+                resultDiv.style.borderColor = 'var(--color-navy)';
+            } else {
+                resultDiv.innerHTML = `👍 **Review Needed.** You scored ${score} out of ${totalQuestions} correct. Review the questions marked in red and their explanations above.`;
+                resultDiv.style.backgroundColor = '#FFC72C'; /* Gold */
+                resultDiv.style.color = 'var(--color-navy)';
+                resultDiv.style.borderColor = 'var(--color-navy)';
+            }
+        }
+    </script>
+</body>
+</html>
