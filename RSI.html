@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPC | Regular & Substantive Interaction (RSI)</title>
     <style>
-        [cite_start]/* St. Petersburg College Official Color Palette [cite: 1] */
+        /* St. Petersburg College Official Color Palette */
         :root {
-            --color-white: #FFFFFF; [cite_start]/* [cite: 1] */
-            --color-gold: #F9AB00; [cite_start]/* [cite: 1] */
-            --color-navy: #002147; [cite_start]/* [cite: 1] */
-            --color-green: #82B82B; [cite_start]/* Accent Green [cite: 1] */
+            --color-white: #FFFFFF;
+            --color-gold: #F9AB00; /* Official Gold */
+            --color-navy: #002147; /* Official Navy */
+            --color-green: #82B82B; /* Official Accent Green (Lime Green) */
             --color-dark-navy: #001A38; /* Slightly darker shade of Navy for subtle contrast */
             --color-text: #333333;
         }
@@ -59,7 +59,10 @@
             color: var(--color-navy);
             padding: 2px 5px;
             border-radius: 3px;
-            font-weight: 600; /* Use a moderate weight instead of Markdown bolding */
+            font-weight: 600;
+        }
+        .key-term, .key-descriptor, .strategy-detail {
+            font-weight: 600;
         }
 
         /* RSI Definition Section */
@@ -75,7 +78,6 @@
         }
         .definition-box .key-term {
             color: var(--color-gold);
-            font-weight: 600;
         }
 
         /* Key Components - Flip Cards */
@@ -109,7 +111,6 @@
         .flip-card:hover .flip-card-inner {
             transform: rotateY(180deg);
         }
-        /* Rotated state for JavaScript interaction */
         .flip-card.rotated .flip-card-inner {
             transform: rotateY(180deg);
         }
@@ -118,7 +119,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            -webkit-backface-visibility: hidden; /* Safari */
+            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             border-radius: 8px;
             display: flex;
@@ -141,10 +142,6 @@
             transform: rotateY(180deg);
             text-align: left;
             font-size: 0.9em;
-        }
-        .flip-card-back .key-descriptor {
-            text-decoration: underline;
-            font-weight: 600;
         }
 
         /* Strategies - Accordion */
@@ -196,7 +193,6 @@
         }
         .accordion-content li .strategy-detail {
             color: var(--color-navy);
-            font-weight: 600;
         }
 
         /* Importance Section - List */
@@ -213,15 +209,39 @@
             color: var(--color-navy);
             padding: 15px;
             border-radius: 5px;
-            flex: 1 1 200px; /* Flex-grow, flex-shrink, basis */
+            flex: 1 1 200px;
             font-weight: 600;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            transition: transform 0.3s, background-color 0.3s;
         }
         .importance-list li:hover {
             transform: translateY(-5px);
             background-color: var(--color-green);
             color: var(--color-white);
+        }
+        .importance-list li:hover .key-descriptor {
+            color: var(--color-white);
+        }
+
+        /* Common Concerns Grid */
+        .concern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .concern-item {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-gold);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .concern-item h3 {
+            color: var(--color-navy);
+            margin-top: 0;
+            border-bottom: 2px solid var(--color-green);
+            padding-bottom: 5px;
         }
 
         /* Footer */
@@ -251,9 +271,9 @@
         <h2>🧐 What is RSI?</h2>
         <div class="definition-box">
             <p>
-                [cite_start]<span class="highlight">RSI is a federal requirement</span> (34 CFR 602.17(g)) for distance education programs to be eligible for Title IV funding[cite: 7].
+                <span class="highlight">RSI is a federal requirement</span> (34 CFR 602.17(g)) for distance education programs to be eligible for Title IV funding.
                 <br><br>
-                It is more than just posting announcements or grading. [cite_start]It's about creating a <span class="key-term">dynamic and engaging learning environment</span> where instructors actively participate and provide meaningful feedback and support to students[cite: 8].
+                It is more than just posting announcements or grading assignments. It's about creating a <span class="key-term">dynamic and engaging learning environment</span> where instructors actively participate in the learning process and provide meaningful feedback and support to students.
             </p>
         </div>
 
@@ -267,7 +287,7 @@
                 <div class="flip-card-inner">
                     <div class="flip-card-front">Regular</div>
                     <div class="flip-card-back">
-                        [cite_start]<span class="key-descriptor">Interaction must occur frequently and predictably</span> throughout the course[cite: 10, 20]. [cite_start]This builds a consistent presence and connection for students[cite: 10].
+                        <span class="key-descriptor">Interaction occurs frequently and predictably</span> throughout the course. This establishes a consistent presence and helps students feel connected to the instructor and the course.
                     </div>
                 </div>
             </div>
@@ -276,16 +296,16 @@
                 <div class="flip-card-inner">
                     <div class="flip-card-front">Substantive</div>
                     <div class="flip-card-back">
-                        [cite_start]Interaction is <span class="key-descriptor">meaningful, relevant to the content</span> [cite: 11, 18, 19][cite_start], and focuses on intellectual engagement and the exchange of ideas—going beyond simple administrative tasks[cite: 12].
+                        Interaction is <span class="key-descriptor">meaningful and relevant to the course content</span>. It goes beyond simple administrative tasks and focuses on intellectual engagement and the exchange of ideas.
                     </div>
                 </div>
             </div>
 
             <div class="flip-card" onclick="this.classList.toggle('rotated')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front">Instructor-Initiated</div>
+                    <div class="flip-card-front">Initiated by the Instructor</div>
                     <div class="flip-card-back">
-                        [cite_start]The <span class="key-descriptor">instructor takes the lead in starting interaction</span> [cite: 13, 23][cite_start], rather than solely relying on student-initiated contact[cite: 13].
+                        The <span class="key-descriptor">instructor takes the lead in starting interaction</span>, rather than solely relying on student-initiated contact.
                     </div>
                 </div>
             </div>
@@ -294,7 +314,7 @@
                 <div class="flip-card-inner">
                     <div class="flip-card-front">Focus on Instruction</div>
                     <div class="flip-card-back">
-                        [cite_start]The interaction is primarily centered on <span class="key-descriptor">teaching and learning</span> [cite: 14, 24][cite_start], providing guidance, feedback, and support to students[cite: 14].
+                        The interaction is primarily centered on <span class="key-descriptor">teaching and learning</span>, providing guidance, feedback, and support to students.
                     </div>
                 </div>
             </div>
@@ -303,27 +323,27 @@
         ---
 
         <h2>🎯 Why Prioritize RSI?</h2>
-        [cite_start]<p>RSI is crucial for outcomes, quality, and compliance[cite: 28].</p>
+        <p>RSI is crucial for outcomes, quality, and compliance.</p>
         <ul class="importance-list">
-            [cite_start]<li>Student Success: Improves student engagement, motivation, and learning outcomes in online courses[cite: 29].</li>
-            [cite_start]<li>Quality Assurance: Helps ensure online courses meet quality standards and provide a comparable learning experience to face-to-face courses[cite: 30].</li>
-            [cite_start]<li>Accreditation/Funding: Meeting the RSI requirement is essential for maintaining accreditation and eligibility for federal funding[cite: 31].</li>
-            [cite_start]<li>Building Community: Fosters a sense of community and belonging, which can help reduce feelings of isolation and improve student retention[cite: 32].</li>
+            <li><span class="key-descriptor">Student Success:</span> Improves student engagement, motivation, and learning outcomes in online courses.</li>
+            <li><span class="key-descriptor">Quality Assurance:</span> Helps ensure that online courses meet quality standards and provide a comparable learning experience to face-to-face courses.</li>
+            <li><span class="key-descriptor">Accreditation Compliance:</span> Meeting the RSI requirement is essential for maintaining accreditation and eligibility for federal funding.</li>
+            <li><span class="key-descriptor">Building Community:</span> Fosters a sense of community and belonging, which can help reduce feelings of isolation and improve student retention.</li>
         </ul>
 
         ---
 
         <h2>🛠️ Practical Strategies: Implementing RSI</h2>
-        [cite_start]<p>Expand the sections below for actionable ideas you can implement in your online course design right away[cite: 34]!</p>
+        <p>Expand the sections below for actionable ideas you can implement in your online course design right away!</p>
 
         <div class="accordion">
             <div class="accordion-item">
                 <button class="accordion-button">1. Proactive Communication</button>
                 <div class="accordion-content">
                     <ul>
-                        [cite_start]<li><span class="strategy-detail">Welcome Announcement:</span> Start with an intro, course overview, and set expectations for interaction[cite: 36].</li>
-                        [cite_start]<li><span class="strategy-detail">Course Updates:</span> Send regular updates, reminders, and content-related insights[cite: 37].</li>
-                        [cite_start]<li><span class="strategy-detail">Check-in Messages:</span> Send personalized messages to students who may be struggling or falling behind[cite: 37].</li>
+                        <li><span class="strategy-detail">Welcome Announcement:</span> Start the course with a welcoming announcement, overview, and clear expectations for interaction.</li>
+                        <li><span class="strategy-detail">Course Updates:</span> Send regular updates, reminders, and insights related to the course content.</li>
+                        <li><span class="strategy-detail">Check-in Messages:</span> Send personalized check-in messages to students who may be struggling or falling behind.</li>
                     </ul>
                 </div>
             </div>
@@ -332,10 +352,10 @@
                 <button class="accordion-button">2. Engaging Content & Activities</button>
                 <div class="accordion-content">
                     <ul>
-                        [cite_start]<li><span class="strategy-detail">Interactive Lectures:</span> Use polls, quizzes, or discussion prompts within lectures[cite: 39].</li>
-                        [cite_start]<li><span class="strategy-detail">Discussion Forums:</span> Facilitate structured forums for sharing ideas and asking questions[cite: 40].</li>
-                        [cite_start]<li><span class="strategy-detail">Collaborative Projects:</span> Design activities requiring students to work together and interact with each other[cite: 41].</li>
-                        [cite_start]<li><span class="strategy-detail">Multimedia:</span> Use videos, podcasts, and infographics to enhance engagement and cater to different learning styles[cite: 42].</li>
+                        <li><span class="strategy-detail">Interactive Lectures:</span> Incorporate polls, quizzes, and discussion prompts into your lectures.</li>
+                        <li><span class="strategy-detail">Discussion Forums:</span> Facilitate engaging discussion forums where students can share ideas and ask questions.</li>
+                        <li><span class="strategy-detail">Collaborative Projects:</span> Design projects that require students to work together and interact with each other.</li>
+                        <li><span class="strategy-detail">Multimedia Content:</span> Use videos, podcasts, and infographics to enhance engagement.</li>
                     </ul>
                 </div>
             </div>
@@ -344,10 +364,10 @@
                 <button class="accordion-button">3. Meaningful Feedback</button>
                 <div class="accordion-content">
                     <ul>
-                        [cite_start]<li><span class="strategy-detail">Timely Feedback:</span> Provide prompt feedback on assignments so students can learn from mistakes and improve performance[cite: 44].</li>
-                        [cite_start]<li><span class="strategy-detail">Personalized Feedback:</span> Offer specific suggestions for improvement tailored to the individual student needs[cite: 45].</li>
-                        [cite_start]<li><span class="strategy-detail">Audio/Video Feedback:</span> Use recorded feedback to provide a more personal and engaging experience[cite: 46].</li>
-                        [cite_start]<li><span class="strategy-detail">Rubrics:</span> Utilize clear rubrics to provide clear expectations and consistent feedback on assignments[cite: 47].</li>
+                        <li><span class="strategy-detail">Timely Feedback:</span> Provide prompt feedback on assignments so students can learn from mistakes.</li>
+                        <li><span class="strategy-detail">Personalized Feedback:</span> Offer specific suggestions for improvement tailored to the individual student.</li>
+                        <li><span class="strategy-detail">Audio/Video Feedback:</span> Consider using recorded feedback for a more personal experience.</li>
+                        <li><span class="strategy-detail">Rubrics:</span> Use rubrics to provide clear expectations and consistent feedback.</li>
                     </ul>
                 </div>
             </div>
@@ -356,10 +376,10 @@
                 <button class="accordion-button">4. Strong Instructor Presence</button>
                 <div class="accordion-content">
                     <ul>
-                        [cite_start]<li><span class="strategy-detail">Active Participation:</span> Join discussion forums by asking questions, providing feedback, and sharing your own insights[cite: 49].</li>
-                        [cite_start]<li><span class="strategy-detail">Virtual Office Hours:</span> Offer virtual office hours where students can meet with you[cite: 50].</li>
-                        [cite_start]<li><span class="strategy-detail">Q&A Forums:</span> Create a dedicated forum where students can ask questions and receive timely responses[cite: 51].</li>
-                        [cite_start]<li><span class="strategy-detail">Personal Introductions:</span> Share a video or biography to help students get to know you better[cite: 52].</li>
+                        <li><span class="strategy-detail">Active Participation in Discussions:</span> Actively participate in discussion forums by asking questions and sharing your own insights.</li>
+                        <li><span class="strategy-detail">Office Hours:</span> Offer virtual office hours where students can meet with you.</li>
+                        <li><span class="strategy-detail">Q&A Forums:</span> Create a dedicated forum for questions with timely responses from you or peers.</li>
+                        <li><span class="strategy-detail">Personal Introductions:</span> Share a video or biography to help students get to know you better.</li>
                     </ul>
                 </div>
             </div>
@@ -367,16 +387,36 @@
         </div> ---
 
         <h2>💡 Examples in Practice</h2>
-        [cite_start]<p>RSI isn't just theory—it's practical action in every discipline[cite: 59]:</p>
+        <p>RSI isn't just theory—it's practical action in every discipline:</p>
         <ul>
-            [cite_start]<li>Mathematics: Provide detailed feedback on problem sets, offer step-by-step solutions, and host live Q&A sessions to address student questions[cite: 60].</li>
-            [cite_start]<li>English: Provide personalized feedback on essays, facilitate online discussions about literary works, and offer virtual writing workshops[cite: 61].</li>
-            [cite_start]<li>Science: Conduct virtual lab simulations, provide feedback on lab reports, and facilitate online discussions about scientific concepts[cite: 63].</li>
+            <li><span class="strategy-detail">Mathematics:</span> Provide detailed feedback on problem sets, offer step-by-step solutions to challenging problems, and host live Q&A sessions.</li>
+            <li><span class="strategy-detail">English:</span> Provide personalized feedback on essays, facilitate online discussions about literary works, and offer virtual writing workshops.</li>
+            <li><span class="strategy-detail">Science:</span> Conduct virtual lab simulations, provide feedback on lab reports, and facilitate online discussions about scientific concepts.</li>
+            <li><span class="strategy-detail">History:</span> Share primary source documents, facilitate online debates about historical events, and provide feedback on research papers.</li>
         </ul>
 
+        ---
+
+        <h2>⚠️ Addressing Common Concerns</h2>
+        <p>Here are quick tips for managing common RSI challenges:</p>
+        <div class="concern-grid">
+            <div class="concern-item">
+                <h3>Time Commitment</h3>
+                <p>Prioritize activities that will have the greatest impact on student learning and engagement. Implementing RSI is an investment in student success.</p>
+            </div>
+            <div class="concern-item">
+                <h3>Scalability</h3>
+                <p>For larger class sizes, use technology to automate some tasks and focus your time on providing meaningful, personalized feedback and support.</p>
+            </div>
+            <div class="concern-item">
+                <h3>Student Participation</h3>
+                <p>Use a variety of strategies to encourage participation, such as assigning participation grades or offering extra credit.</p>
+            </div>
+        </div>
+
     </div> <div class="footer">
-        [cite_start]<p>Regular and substantive interaction is a critical component of quality online education[cite: 72]. [cite_start]By prioritizing RSI, you ensure a valuable and rewarding learning experience for your students[cite: 75].</p>
-        <p>&copy; 2025 St. Petersburg College Faculty Development | [cite_start]Guidance based on resources like ASCDE at Ohio State University[cite: 5].</p>
+        <p>Regular and substantive interaction is a critical component of quality online education. By prioritizing RSI, you ensure a valuable and rewarding learning experience for your students.</p>
+        <p>&copy; 2025 St. Petersburg College Faculty Development | Guidance based on resources such as the ASCDE at Ohio State University.</p>
     </div>
 
     <script>
@@ -401,8 +441,6 @@
                 }
             });
         }
-        
-        // Note: Flip cards use a simpler CSS/HTML-based toggle via the 'onclick' attribute for reduced JS complexity.
     </script>
 
 </body>
