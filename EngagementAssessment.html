@@ -100,14 +100,14 @@
             display: none; /* Hidden by default */
         }
         .correct-feedback {
-            background-color: #e8f5e9; /* Light green */
+            background-color: #e8f5e9; /* Light green base */
             border-left: 5px solid var(--color-lime);
             color: var(--color-navy);
         }
         .incorrect-feedback {
-            background-color: #ffebee; /* Light red */
-            border-left: 5px solid red;
-            color: #CC0000;
+            background-color: #FFF6E0; /* Very light gold/cream base */
+            border-left: 5px solid var(--color-gold);
+            color: var(--color-navy); /* Use navy text for contrast on light gold */
         }
         
         .summary-sentence {
@@ -292,6 +292,14 @@
             q4: 'When the instructor initiates the action, it is Learner-to-Instructor interaction, even if it guides peer discussion.',
             q5: 'Moving beyond recall to justification, analysis, or application is the definition of deep, Cognitive Engagement.'
         };
+        
+        const hints = {
+            q1: 'Emotional engagement deals with a student\'s feelings, motivation, and sense of belonging.',
+            q2: 'Autonomy is the principle of student choice and control over their learning.',
+            q3: 'Passive activities involve consumption without a required response or creation of an artifact.',
+            q4: 'Interaction is classified by who initiates the contact: Learner, Instructor, or Content.',
+            q5: 'Cognitive engagement relates directly to the level of critical thinking required in the task.'
+        };
 
         function checkAnswer(questionName, selectedInput) {
             const selectedValue = selectedInput.value;
@@ -312,7 +320,7 @@
                 radioButtons.forEach(radio => radio.disabled = true);
             } else {
                 feedbackDiv.classList.add('incorrect-feedback');
-                feedbackDiv.innerHTML = '❌ **That’s not quite right.** Please try again.';
+                feedbackDiv.innerHTML = '⚠️ **Not quite.** Remember: ' + hints[questionName] + ' Please try again.';
             }
         }
 
