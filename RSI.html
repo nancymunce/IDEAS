@@ -11,7 +11,6 @@
             --color-gold: #F9AB00; /* Official Gold */
             --color-navy: #002147; /* Official Navy */
             --color-green: #82B82B; /* Official Accent Green (Lime Green) */
-            --color-dark-navy: #001A38; /* Slightly darker shade of Navy for subtle contrast */
             --color-text: #333333;
         }
 
@@ -52,7 +51,7 @@
             margin-top: 30px;
         }
         h3 {
-            color: var(--color-dark-navy);
+            color: var(--color-navy);
         }
         .highlight {
             background-color: var(--color-green);
@@ -67,7 +66,7 @@
 
         /* RSI Definition Section */
         .definition-box {
-            background-color: var(--color-dark-navy);
+            background-color: var(--color-navy); /* Changed from Dark Navy to Navy */
             color: var(--color-white);
             padding: 20px;
             border-radius: 8px;
@@ -80,71 +79,7 @@
             color: var(--color-gold);
         }
 
-        /* Key Components - Flip Cards */
-        .key-components {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            perspective: 1000px;
-            margin-top: 20px;
-        }
-
-        .flip-card {
-            background-color: transparent;
-            height: 200px;
-            border: 1px solid var(--color-gold);
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-            border-radius: 8px;
-        }
-
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-        .flip-card.rotated .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-
-        .flip-card-front {
-            background-color: var(--color-navy);
-            color: var(--color-white);
-            font-size: 1.3em;
-            font-weight: 600;
-        }
-
-        .flip-card-back {
-            background-color: var(--color-gold);
-            color: var(--color-navy);
-            transform: rotateY(180deg);
-            text-align: left;
-            font-size: 0.9em;
-        }
-
-        /* Strategies - Accordion */
+        /* Accordion Styling (Used for Key Components and Strategies) */
         .accordion-item {
             border: 1px solid var(--color-navy);
             margin-bottom: 10px;
@@ -164,9 +99,19 @@
             transition: background-color 0.4s;
             position: relative;
         }
-        .accordion-button:hover, .accordion-button.active {
-            background-color: var(--color-dark-navy);
+        .accordion-button.key-component-btn {
+            background-color: var(--color-gold);
+            color: var(--color-navy);
+            font-size: 1.3em;
+            font-weight: 600;
         }
+        .accordion-button.key-component-btn:hover, .accordion-button.key-component-btn.active {
+            background-color: #E6A000; /* Darker gold for hover effect */
+        }
+        .accordion-button:hover, .accordion-button.active {
+            background-color: var(--color-navy); /* Hover/Active state remains Navy */
+        }
+        /* Icon styling for the buttons */
         .accordion-button::after {
             content: '\002B'; /* Plus sign */
             font-size: 1.5em;
@@ -177,6 +122,9 @@
             transform: translateY(-50%);
             transition: transform 0.3s;
         }
+        .accordion-button.key-component-btn::after {
+            color: var(--color-navy); /* Navy icon for Gold buttons */
+        }
         .accordion-button.active::after {
             content: '\2212'; /* Minus sign */
         }
@@ -186,6 +134,7 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.2s ease-out;
+            font-size: 1.0em;
         }
         .accordion-content ul {
             padding-left: 20px;
@@ -194,6 +143,14 @@
         .accordion-content li .strategy-detail {
             color: var(--color-navy);
         }
+        .key-component-content {
+            padding: 15px 18px;
+            font-size: 1.0em;
+        }
+        .key-component-content .key-descriptor {
+            color: var(--color-gold);
+        }
+
 
         /* Importance Section - List */
         .importance-list {
@@ -273,175 +230,22 @@
             <p>
                 <span class="highlight">RSI is a federal requirement</span> (34 CFR 602.17(g)) for distance education programs to be eligible for Title IV funding.
                 <br><br>
-                It is more than just posting announcements or grading assignments. It's about creating a <span class="key-term">dynamic and engaging learning environment</span> where instructors actively participate in the learning process and provide meaningful feedback and support to students.
+                It's more than just posting announcements or grading assignments. It's about creating a <span class="key-term">dynamic and engaging learning environment</span> where instructors actively participate in the learning process and provide meaningful feedback and support to students.
             </p>
         </div>
 
         ---
 
         <h2>🌟 The Four Pillars: Key Components of RSI</h2>
-        <p>Click or tap on the cards below to reveal the crucial characteristics of each pillar.</p>
+        <p>Expand the sections below to understand the crucial characteristics of each pillar.</p>
 
-        <div class="key-components">
-            <div class="flip-card" onclick="this.classList.toggle('rotated')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">Regular</div>
-                    <div class="flip-card-back">
-                        <span class="key-descriptor">Interaction occurs frequently and predictably</span> throughout the course. This establishes a consistent presence and helps students feel connected to the instructor and the course.
-                    </div>
-                </div>
-            </div>
-
-            <div class="flip-card" onclick="this.classList.toggle('rotated')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">Substantive</div>
-                    <div class="flip-card-back">
-                        Interaction is <span class="key-descriptor">meaningful and relevant to the course content</span>. It goes beyond simple administrative tasks and focuses on intellectual engagement and the exchange of ideas.
-                    </div>
-                </div>
-            </div>
-
-            <div class="flip-card" onclick="this.classList.toggle('rotated')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">Initiated by the Instructor</div>
-                    <div class="flip-card-back">
-                        The <span class="key-descriptor">instructor takes the lead in starting interaction</span>, rather than solely relying on student-initiated contact.
-                    </div>
-                </div>
-            </div>
-
-            <div class="flip-card" onclick="this.classList.toggle('rotated')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">Focus on Instruction</div>
-                    <div class="flip-card-back">
-                        The interaction is primarily centered on <span class="key-descriptor">teaching and learning</span>, providing guidance, feedback, and support to students.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        ---
-
-        <h2>🎯 Why Prioritize RSI?</h2>
-        <p>RSI is crucial for outcomes, quality, and compliance.</p>
-        <ul class="importance-list">
-            <li><span class="key-descriptor">Student Success:</span> Improves student engagement, motivation, and learning outcomes in online courses.</li>
-            <li><span class="key-descriptor">Quality Assurance:</span> Helps ensure that online courses meet quality standards and provide a comparable learning experience to face-to-face courses.</li>
-            <li><span class="key-descriptor">Accreditation Compliance:</span> Meeting the RSI requirement is essential for maintaining accreditation and eligibility for federal funding.</li>
-            <li><span class="key-descriptor">Building Community:</span> Fosters a sense of community and belonging, which can help reduce feelings of isolation and improve student retention.</li>
-        </ul>
-
-        ---
-
-        <h2>🛠️ Practical Strategies: Implementing RSI</h2>
-        <p>Expand the sections below for actionable ideas you can implement in your online course design right away!</p>
-
-        <div class="accordion">
+        <div class="key-components accordion">
             <div class="accordion-item">
-                <button class="accordion-button">1. Proactive Communication</button>
-                <div class="accordion-content">
-                    <ul>
-                        <li><span class="strategy-detail">Welcome Announcement:</span> Start the course with a welcoming announcement, overview, and clear expectations for interaction.</li>
-                        <li><span class="strategy-detail">Course Updates:</span> Send regular updates, reminders, and insights related to the course content.</li>
-                        <li><span class="strategy-detail">Check-in Messages:</span> Send personalized check-in messages to students who may be struggling or falling behind.</li>
-                    </ul>
+                <button class="accordion-button key-component-btn">1. Regular</button>
+                <div class="accordion-content key-component-content">
+                    Interaction <span class="key-descriptor">occurs frequently and predictably throughout the course</span>. This establishes a consistent instructor presence and helps students feel connected to the course.
                 </div>
             </div>
 
             <div class="accordion-item">
-                <button class="accordion-button">2. Engaging Content & Activities</button>
-                <div class="accordion-content">
-                    <ul>
-                        <li><span class="strategy-detail">Interactive Lectures:</span> Incorporate polls, quizzes, and discussion prompts into your lectures.</li>
-                        <li><span class="strategy-detail">Discussion Forums:</span> Facilitate engaging discussion forums where students can share ideas and ask questions.</li>
-                        <li><span class="strategy-detail">Collaborative Projects:</span> Design projects that require students to work together and interact with each other.</li>
-                        <li><span class="strategy-detail">Multimedia Content:</span> Use videos, podcasts, and infographics to enhance engagement.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-button">3. Meaningful Feedback</button>
-                <div class="accordion-content">
-                    <ul>
-                        <li><span class="strategy-detail">Timely Feedback:</span> Provide prompt feedback on assignments so students can learn from mistakes.</li>
-                        <li><span class="strategy-detail">Personalized Feedback:</span> Offer specific suggestions for improvement tailored to the individual student.</li>
-                        <li><span class="strategy-detail">Audio/Video Feedback:</span> Consider using recorded feedback for a more personal experience.</li>
-                        <li><span class="strategy-detail">Rubrics:</span> Use rubrics to provide clear expectations and consistent feedback.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-button">4. Strong Instructor Presence</button>
-                <div class="accordion-content">
-                    <ul>
-                        <li><span class="strategy-detail">Active Participation in Discussions:</span> Actively participate in discussion forums by asking questions and sharing your own insights.</li>
-                        <li><span class="strategy-detail">Office Hours:</span> Offer virtual office hours where students can meet with you.</li>
-                        <li><span class="strategy-detail">Q&A Forums:</span> Create a dedicated forum for questions with timely responses from you or peers.</li>
-                        <li><span class="strategy-detail">Personal Introductions:</span> Share a video or biography to help students get to know you better.</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div> ---
-
-        <h2>💡 Examples in Practice</h2>
-        <p>RSI isn't just theory—it's practical action in every discipline:</p>
-        <ul>
-            <li><span class="strategy-detail">Mathematics:</span> Provide detailed feedback on problem sets, offer step-by-step solutions to challenging problems, and host live Q&A sessions.</li>
-            <li><span class="strategy-detail">English:</span> Provide personalized feedback on essays, facilitate online discussions about literary works, and offer virtual writing workshops.</li>
-            <li><span class="strategy-detail">Science:</span> Conduct virtual lab simulations, provide feedback on lab reports, and facilitate online discussions about scientific concepts.</li>
-            <li><span class="strategy-detail">History:</span> Share primary source documents, facilitate online debates about historical events, and provide feedback on research papers.</li>
-        </ul>
-
-        ---
-
-        <h2>⚠️ Addressing Common Concerns</h2>
-        <p>Here are quick tips for managing common RSI challenges:</p>
-        <div class="concern-grid">
-            <div class="concern-item">
-                <h3>Time Commitment</h3>
-                <p>Prioritize activities that will have the greatest impact on student learning and engagement. Implementing RSI is an investment in student success.</p>
-            </div>
-            <div class="concern-item">
-                <h3>Scalability</h3>
-                <p>For larger class sizes, use technology to automate some tasks and focus your time on providing meaningful, personalized feedback and support.</p>
-            </div>
-            <div class="concern-item">
-                <h3>Student Participation</h3>
-                <p>Use a variety of strategies to encourage participation, such as assigning participation grades or offering extra credit.</p>
-            </div>
-        </div>
-
-    </div> <div class="footer">
-        <p>Regular and substantive interaction is a critical component of quality online education. By prioritizing RSI, you ensure a valuable and rewarding learning experience for your students.</p>
-        <p>&copy; 2025 St. Petersburg College Faculty Development | Guidance based on resources such as the ASCDE at Ohio State University.</p>
-    </div>
-
-    <script>
-        // Accordion functionality for Strategies section
-        var acc = document.getElementsByClassName("accordion-button");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-                // Toggle the 'active' class on the button
-                this.classList.toggle("active");
-
-                // Get the content panel
-                var content = this.nextElementSibling;
-                if (content.style.maxHeight) {
-                    // Close the content
-                    content.style.maxHeight = null;
-                } else {
-                    // Open the content
-                    // Set max-height to the scrollHeight to allow for smooth transition based on content size
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
-            });
-        }
-    </script>
-
-</body>
-</html>
+                <button class="accordion-button key-component-btn">
