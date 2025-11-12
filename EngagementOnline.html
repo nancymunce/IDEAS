@@ -13,36 +13,46 @@
             --color-lime: #A4DE00; /* Lime Green Accent */
             --color-light-grey: #f4f4f9;
         }
-    /* AI INSIGHTS CALLOUT STYLES */
-    .ai-insights {
-        /* Base Container Styling */
-        background-color: var(--color-navy);
-        color: var(--color-white);
-        padding: 25px;
-        margin: 30px 0; /* Add margin around the box */
+    /* AI INSIGHTS CALLOUT STYLES - CONTAINER */
+    .ai-insights-container {
+        /* This container holds the structure, border, and shadow */
+        margin: 30px 0;
         border-radius: 8px;
-        border: 3px solid var(--color-lime);
+        border: 3px solid var(--color-lime); /* Lime border around the box */
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.6;
-        max-width: 800px; /* Optional: Adjust max width for layout */
+        max-width: 800px;
+        overflow: hidden; /* Ensures child elements respect the container's border-radius */
+    }
+
+    /* AI INSIGHTS CALLOUT STYLES - HEADER (Gold Background, Navy Text) */
+    .ai-insights-header {
+        background-color: var(--color-gold);
+        color: var(--color-navy);
+        padding: 15px 25px;
     }
     
-    .ai-insights h3 {
-        color: var(--color-gold);
+    .ai-insights-header h3 {
+        color: var(--color-navy);
         font-size: 1.5em;
-        margin-top: 0;
-        border-bottom: 1px solid var(--color-gold);
-        padding-bottom: 10px;
-        margin-bottom: 15px;
+        margin: 0;
+        border-bottom: none; 
     }
     
-    .ai-insights ul {
+    /* AI INSIGHTS CALLOUT STYLES - CONTENT (White Background, Navy/Lime Text) */
+    .ai-insights-content {
+        background-color: var(--color-white);
+        color: var(--color-navy); /* Default content text is Navy */
+        padding: 25px;
+    }
+    
+    .ai-insights-content ul {
         list-style: none;
         padding-left: 0;
     }
     
-    .ai-insights li {
+    .ai-insights-content li {
         margin-bottom: 15px;
         padding-left: 20px;
         position: relative;
@@ -50,7 +60,7 @@
     }
 
     /* Custom bullet point using the lime accent color */
-    .ai-insights li:before {
+    .ai-insights-content li:before {
         content: "→";
         color: var(--color-lime);
         font-weight: bold;
@@ -61,17 +71,17 @@
         left: 0;
     }
 
-    .ai-insights .key-point {
+    .ai-insights-content .key-point {
         font-weight: bold;
-        color: var(--color-lime);
+        color: var(--color-navy); /* Navy for strong emphasis on white background */
     }
     
-    .ai-insights .footnote {
+    .ai-insights-content .footnote {
         margin-top: 20px;
         padding-top: 15px;
         border-top: 1px dashed var(--color-gold);
         font-style: italic;
-        color: var(--color-gold);
+        color: #333; /* Darker grey/black for footnote on white */
     }
         /* Base Styles */
         body {
@@ -505,17 +515,21 @@
             </ul>
             <p>If you can answer yes to most of these, you're designing for engagement!</p>
         </section>
-        <div class="ai-insights">
-    <h3>AI Insights: Design Partner for Engagement</h3>
-    <p>Use AI as a design partner to refresh existing assignments so they spark deeper participation and connection.</p>
-    <ul>
-        <li><span class="key-point">Analyze:</span> Paste your current activity into an AI tool and ask which engagement types it supports—behavioral (doing), cognitive (thinking), or emotional (connecting)—and which are missing.</li>
-        <li><span class="key-point">Align:</span> Share your learning objective and prompt AI to suggest ways to meet that goal while deepening engagement.</li>
-        <li><span class="key-point">Innovate:</span> Ask AI to rewrite or expand the task so it includes one action, one reasoning or creation step, and one personal or reflective element.</li>
-        <li><span class="key-point">Integrate Presence:</span> Request ideas for visible instructor interaction (announcements, video recaps, or feedback points) that keep the activity human-centered and RSI-compliant.</li>
-    </ul>
-    <div class="footnote">
-        💡 AI won’t make your course engaging on its own—but it can help you see your assignments differently, turning passive tasks into interactive, meaningful learning experiences.
+        <div class="ai-insights-container">
+    <div class="ai-insights-header">
+        <h3>AI Insights</h3>
+    </div>
+    <div class="ai-insights-content">
+        <p>Use AI as a design partner to refresh existing assignments so they spark deeper participation and connection.</p>
+        <ul>
+            <li><span class="key-point">Analyze:</span> Paste your current activity into an AI tool and ask which engagement types it supports—behavioral (doing), cognitive (thinking), or emotional (connecting)—and which are missing.</li>
+            <li><span class="key-point">Align:</span> Share your learning objective and prompt AI to suggest ways to meet that goal while deepening engagement.</li>
+            <li><span class="key-point">Innovate:</span> Ask AI to rewrite or expand the task so it includes one action, one reasoning or creation step, and one personal or reflective element.</li>
+            <li><span class="key-point">Integrate Presence:</span> Request ideas for visible instructor interaction (announcements, video recaps, or feedback points) that keep the activity human-centered and RSI-compliant.</li>
+        </ul>
+        <div class="footnote">
+            💡 AI won’t make your course engaging on its own—but it can help you see your assignments differently, turning passive tasks into interactive, meaningful learning experiences.
+        </div>
     </div>
 </div>
         <div class="key-takeaway">
