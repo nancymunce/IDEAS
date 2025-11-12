@@ -13,7 +13,66 @@
             --color-lime: #A4DE00; /* Lime Green Accent */
             --color-light-grey: #f4f4f9;
         }
+    /* AI INSIGHTS CALLOUT STYLES */
+    .ai-insights {
+        /* Base Container Styling */
+        background-color: var(--color-navy);
+        color: var(--color-white);
+        padding: 25px;
+        margin: 30px 0; /* Add margin around the box */
+        border-radius: 8px;
+        border: 3px solid var(--color-lime);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        max-width: 800px; /* Optional: Adjust max width for layout */
+    }
+    
+    .ai-insights h3 {
+        color: var(--color-gold);
+        font-size: 1.5em;
+        margin-top: 0;
+        border-bottom: 1px solid var(--color-gold);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .ai-insights ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    .ai-insights li {
+        margin-bottom: 15px;
+        padding-left: 20px;
+        position: relative;
+        font-size: 1.05em;
+    }
 
+    /* Custom bullet point using the lime accent color */
+    .ai-insights li:before {
+        content: "→";
+        color: var(--color-lime);
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+        position: absolute;
+        left: 0;
+    }
+
+    .ai-insights .key-point {
+        font-weight: bold;
+        color: var(--color-lime);
+    }
+    
+    .ai-insights .footnote {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px dashed var(--color-gold);
+        font-style: italic;
+        color: var(--color-gold);
+    }
         /* Base Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -446,7 +505,19 @@
             </ul>
             <p>If you can answer yes to most of these, you're designing for engagement!</p>
         </section>
-        
+        <div class="ai-insights">
+    <h3>AI Insights: Design Partner for Engagement</h3>
+    <p>Use AI as a design partner to refresh existing assignments so they spark deeper participation and connection.</p>
+    <ul>
+        <li><span class="key-point">Analyze:</span> Paste your current activity into an AI tool and ask which engagement types it supports—behavioral (doing), cognitive (thinking), or emotional (connecting)—and which are missing.</li>
+        <li><span class="key-point">Align:</span> Share your learning objective and prompt AI to suggest ways to meet that goal while deepening engagement.</li>
+        <li><span class="key-point">Innovate:</span> Ask AI to rewrite or expand the task so it includes one action, one reasoning or creation step, and one personal or reflective element.</li>
+        <li><span class="key-point">Integrate Presence:</span> Request ideas for visible instructor interaction (announcements, video recaps, or feedback points) that keep the activity human-centered and RSI-compliant.</li>
+    </ul>
+    <div class="footnote">
+        💡 AI won’t make your course engaging on its own—but it can help you see your assignments differently, turning passive tasks into interactive, meaningful learning experiences.
+    </div>
+</div>
         <div class="key-takeaway">
             Key Takeaway: Design engagement into your activities by encouraging participation, inviting student voice, and expecting deeper thinking. Utilize relevance, autonomy, interaction, challenge, and feedback to design learning experiences that engage students as active participants, not passive observers.
         </div>
