@@ -3,121 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Item Accessibility Flowchart</title>
+    <title>Interactive Growing Decision Tree</title>
     <style>
-        /* CSS for Styling and Layout */
+        /* CSS for Styling and Tree Structure */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 20px;
             background-color: #f4f4f9;
             color: #333;
         }
 
-        #flowchart-container {
-            max-width: 800px;
+        #tree-container {
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
-            border: 2px solid #001F3F; /* Navy border */
-            border-radius: 10px;
+            padding: 30px;
             background-color: #ffffff;
+            border: 3px solid #001F3F; /* Navy border */
+            border-radius: 15px;
+            min-height: 600px; /* Ensure space for the tree */
         }
 
+        h2 {
+            color: #001F3F; /* Navy */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* --- Node Styling --- */
         .node {
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
+            padding: 12px 20px;
+            border-radius: 25px; /* Pill shape */
             text-align: center;
             font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-        }
-
-        .node:hover {
-            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
+            margin: 10px auto;
+            max-width: 300px;
         }
 
         /* Color Scheme */
-        /* Gold (for starting/ending/action nodes) */
-        .start-node, .action-node {
-            background-color: #FFD700; /* Gold */
-            color: #001F3F; /* Navy text */
-            border: 1px solid #001F3F;
-        }
-
-        /* Navy (for decision/question nodes) */
-        .decision-node {
+        .question-node {
             background-color: #001F3F; /* Navy */
-            color: #FFFFFF; /* White text */
-            border: 1px solid #FFD700;
+            color: #FFD700; /* Gold text */
+            border: 2px solid #FFD700;
         }
 
-        /* Lime Green (for instructions/tutorials) */
-        .result-node {
+        .action-node {
             background-color: #32CD32; /* Lime Green */
             color: #001F3F; /* Navy text */
-            border: 1px solid #001F3F;
+            border: 2px solid #001F3F;
         }
 
-        /* Input and Button Styling */
-        .options-container {
+        .start-node {
+            background-color: #FFD700; /* Gold */
+            color: #001F3F; /* Navy text */
+            border: 2px solid #001F3F;
+            margin-bottom: 40px;
+        }
+
+        /* --- Options and Path Styling --- */
+        #options-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
+            gap: 25px;
+            margin-top: 25px;
+            margin-bottom: 25px;
         }
 
         .option-button {
-            padding: 10px 20px;
+            padding: 10px 25px;
             border: none;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.1s;
             background-color: #001F3F; /* Navy */
             color: #FFD700; /* Gold text */
         }
 
         .option-button:hover {
             background-color: #003366;
+            transform: scale(1.05);
         }
 
-        #result {
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #f0f0f0;
-            text-align: left;
-            min-height: 50px;
+        /* --- Tree Structure Display --- */
+        #flow-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Use padding to ensure the connecting lines have space */
+            padding-bottom: 50px; 
         }
 
-        h2 {
+        .path-segment {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .path-label {
+            font-size: 0.9em;
+            font-weight: bold;
             color: #001F3F; /* Navy */
-            text-align: center;
+            background-color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 5px;
+            position: absolute;
+            top: -15px; /* Position above the line */
         }
 
-        /* Hide options and result initially */
+        .path-line {
+            width: 2px;
+            height: 40px; /* Length of the line connecting nodes */
+            background-color: #001F3F; /* Navy line */
+        }
+
+        /* Hidden class for dynamic reveal */
         .hidden {
-            display: none;
+            display: none !important;
+        }
+        
+        .result-text {
+            white-space: pre-wrap; /* Keeps line breaks from \n */
+            text-align: left;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px dashed #001F3F;
+            background-color: #f0fff0; /* Lightest green for background */
+            border-radius: 8px;
+        }
+
+        #reset-button {
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
 
-    <div id="flowchart-container">
-        <h2>Canvas Item Accessibility Remediation Flowchart</h2>
+    <div id="tree-container">
+        <h2>🌳 Canvas Accessibility Decision Tree</h2>
 
-        <div id="current-node" class="node start-node">
-            Consider Canvas Item.
+        <div id="flow-display">
+            <div id="start-node" class="node start-node">
+                Consider Canvas Item.
+            </div>
+            </div>
+
+        <div id="controls" style="text-align: center;">
+            <div id="options-container" class="hidden">
+                </div>
+            <button id="reset-button" class="option-button hidden" onclick="resetFlow()">Start Over</button>
         </div>
-
-        <div id="options" class="options-container hidden">
-            </div>
-
-        <div id="result" class="result-node hidden">
-            </div>
-
-        <button id="reset-button" class="option-button hidden" onclick="resetFlow()">Start Over</button>
     </div>
 
     <script>
@@ -130,14 +169,14 @@
                 type: 'decision',
                 options: [
                     { label: 'Yes', next: 'q2' },
-                    { label: 'No', next: 'action1' }
+                    { label: 'No', next: 'a1' } // Changed action names for brevity
                 ]
             },
             'q2': {
                 question: 'Was this item provided by a third party (e.g., vendor, district)?',
                 type: 'decision',
                 options: [
-                    { label: 'Yes', next: 'action2' },
+                    { label: 'Yes', next: 'a2' },
                     { label: 'No', next: 'q3' }
                 ]
             },
@@ -145,7 +184,7 @@
                 question: 'What kind of item is this?',
                 type: 'decision',
                 options: [
-                    { label: 'Canvas Assignment, Discussion, or Page', next: 'action3' },
+                    { label: 'Canvas Assignment, Discussion, or Page', next: 'a3' },
                     { label: 'Word, PowerPoint, Excel, or PDF File', next: 'q4' }
                 ]
             },
@@ -153,7 +192,7 @@
                 question: 'Can this be converted to a Canvas Page?',
                 type: 'decision',
                 options: [
-                    { label: 'Yes', next: 'action4' },
+                    { label: 'Yes', next: 'a4' },
                     { label: 'No', next: 'q5' }
                 ]
             },
@@ -161,116 +200,153 @@
                 question: 'What kind of file is this?',
                 type: 'decision',
                 options: [
-                    { label: 'Word', next: 'action5' },
-                    { label: 'PowerPoint', next: 'action6' },
-                    { label: 'Excel', next: 'action7' },
-                    { label: 'PDF', next: 'action8' }
+                    { label: 'Word', next: 'a5' },
+                    { label: 'PowerPoint', next: 'a6' },
+                    { label: 'Excel', next: 'a7' },
+                    { label: 'PDF', next: 'a8' }
                 ]
             },
             // Actions / End points
-            'action1': {
-                result: 'Remove old Module and Delete from Files. \n\n Watch Tutorial.',
+            'a1': {
+                result: 'Remove from Module and Delete from Files. \n\n Watch Tutorial.',
                 type: 'result'
             },
-            'action2': {
+            'a2': {
                 result: 'Contact third party to provide an accessible version, and then add to Module. Remove old item from Module and Delete from Files. \n\n Watch Tutorial.',
                 type: 'result'
             },
-            'action3': {
+            'a3': {
                 result: 'Use YuJa’s Panorama to remediate item. \n\n Watch Tutorial.',
                 type: 'result'
             },
-            'action4': {
+            'a4': {
                 result: 'Add a Page and type (or clean copy/paste) information. Remove old file from Module and Delete from Files. \n\n Watch Tutorial.',
                 type: 'result'
             },
-            'action5': {
+            'a5': {
                 result: 'Download save file, open with Word, remediate, and add to Module. Remove old Word file from Module and Delete from Files. \n\n Watch Tutorial.',
                 type: 'result'
             },
-            'action6': {
+            'a6': {
                 result: 'Download save file, open with PowerPoint, remediate, and add to Module. Remove old PowerPoint file from Module and Delete from Files. \n\n Watch Tutorial.',
                 type: 'result'
             },
-            'action7': {
+            'a7': {
                 result: 'Download save file, open with Excel, remediate, and add to Module. Remove old Excel file from Module and Delete from Files. \n\n Watch Tutorial.',
                 type: 'result'
             },
-            'action8': {
+            'a8': {
                 result: 'Download save file, open with Adobe Acrobat, remediate, and add to Module. Remove old PDF file from Module and Delete from Files. \n\n Watch Tutorial.',
                 type: 'result'
             }
         };
 
-        let currentNodeKey = 'start';
-        const currentNodeEl = document.getElementById('current-node');
-        const optionsEl = document.getElementById('options');
-        const resultEl = document.getElementById('result');
+        const flowDisplayEl = document.getElementById('flow-display');
+        const optionsEl = document.getElementById('options-container');
         const resetButtonEl = document.getElementById('reset-button');
+        let currentPath = []; // Stores the keys of the nodes in the path
 
         /**
-         * Renders the current step of the flowchart.
-         * @param {string} key - The key of the current node in the flowchart object.
+         * Renders the current path of the flowchart as a growing tree.
+         * @param {string} key - The key of the next node to add.
+         * @param {string | null} selectedLabel - The label of the choice that led to this node.
          */
-        function renderFlow(key) {
-            currentNodeKey = key;
+        function renderFlow(key, selectedLabel = null) {
             const node = flowchart[key];
 
-            // 1. Update Node Display
-            currentNodeEl.textContent = node.question || "Start Flowchart";
-            currentNodeEl.className = 'node'; // Reset classes
-            optionsEl.innerHTML = ''; // Clear old buttons
-            optionsEl.classList.add('hidden');
-            resultEl.classList.add('hidden');
-            resetButtonEl.classList.add('hidden');
+            // 1. Add the path segment (line and label)
+            if (selectedLabel) {
+                const segment = document.createElement('div');
+                segment.className = 'path-segment';
 
-            if (key === 'start') {
-                currentNodeEl.classList.add('start-node');
-            } else if (node.type === 'decision') {
-                currentNodeEl.classList.add('decision-node');
-            } else if (node.type === 'result') {
-                currentNodeEl.classList.add('result-node');
+                const line = document.createElement('div');
+                line.className = 'path-line';
+
+                const label = document.createElement('span');
+                label.className = 'path-label';
+                label.textContent = selectedLabel;
+
+                segment.appendChild(line);
+                segment.appendChild(label);
+                flowDisplayEl.appendChild(segment);
             }
 
-            // 2. Handle Decision Nodes (Show Buttons)
+            // 2. Create and Add the Node Element
+            const newNodeEl = document.createElement('div');
+            newNodeEl.id = key;
+            newNodeEl.className = `node ${node.type === 'decision' ? 'question-node' : 'action-node'}`;
+
+            if (node.type === 'decision') {
+                newNodeEl.textContent = node.question;
+            } else {
+                // If it's a result, display a summary of the action
+                newNodeEl.textContent = 'Action Required';
+                
+                const resultTextEl = document.createElement('div');
+                resultTextEl.className = 'result-text';
+                resultTextEl.textContent = node.result;
+                newNodeEl.appendChild(resultTextEl);
+            }
+            
+            flowDisplayEl.appendChild(newNodeEl);
+            currentPath.push(key);
+
+            // 3. Clear and Set Options
+            optionsEl.innerHTML = '';
+            
             if (node.type === 'decision') {
                 optionsEl.classList.remove('hidden');
+                resetButtonEl.classList.add('hidden');
+                
                 node.options.forEach(option => {
                     const button = document.createElement('button');
                     button.className = 'option-button';
                     button.textContent = option.label;
-                    button.onclick = () => renderFlow(option.next);
+                    button.onclick = () => renderFlow(option.next, option.label);
                     optionsEl.appendChild(button);
                 });
-            }
-            // 3. Handle Result Nodes (Show Result)
-            else if (node.type === 'result') {
-                // Change current node to an action style for the final step display
-                currentNodeEl.textContent = 'Remediation Action:';
-                currentNodeEl.className = 'node action-node';
-
-                resultEl.textContent = node.result;
-                resultEl.classList.remove('hidden');
+            } else {
+                // It's a result node, show the reset button
+                optionsEl.classList.add('hidden');
                 resetButtonEl.classList.remove('hidden');
             }
+
+            // Scroll to the newest node
+            newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
 
         /**
          * Resets the flowchart to the starting position.
          */
         function resetFlow() {
-            // "Consider Canvas Item" is the true start, but 'start' is the first question
-            currentNodeEl.textContent = 'Consider Canvas Item.';
-            currentNodeEl.className = 'node start-node';
+            currentPath = [];
+            flowDisplayEl.innerHTML = `
+                <div id="start-node" class="node start-node">
+                    Consider Canvas Item.
+                </div>
+            `;
+            optionsEl.classList.remove('hidden');
+            resetButtonEl.classList.add('hidden');
             
-            // Wait a moment then load the first question
-            setTimeout(() => {
-                renderFlow('start');
-            }, 500);
+            // Start the flow with the first decision
+            optionsEl.innerHTML = '';
+            flowchart['start'].options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-button';
+                button.textContent = option.label;
+                // Note: The first transition uses a blank label because the start node is already shown.
+                button.onclick = () => renderFlow(option.next, option.label); 
+                optionsEl.appendChild(button);
+            });
+            
+            document.getElementById('start-node').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Initial render
-        document.addEventListener('DOMContentLoaded', resetFlow);
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+             // Set up the initial buttons after the "Consider Canvas Item" node
+             resetFlow();
+        });
     </script>
 
 </body>
