@@ -258,4 +258,131 @@
                 emoji: '✍️'
             },
             'a6': {
-                result: '1. Download. \n2. Open PowerPoint
+                result: '1. Download. \n2. Open PowerPoint file. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.',
+                type: 'result',
+                emoji: '💡'
+            },
+            'a7': {
+                result: '1. Download. \n2. Open Excel file. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.',
+                type: 'result',
+                emoji: '📊'
+            },
+            'a8': {
+                result: '1. Download. \n2. Open with Adobe Acrobat. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file.',
+                type: 'result',
+                emoji: '🛡️',
+                acrobat: true
+            }
+        };
+
+        const flowDisplayEl = document.getElementById('flow-display');
+        const optionsEl = document.getElementById('options-container');
+        const resetButtonEl = document.getElementById('reset-button');
+        const acrobatNoteEl = document.getElementById('acrobat-note');
+        
+        /**
+         * Renders the current path of the flowchart as a growing tree.
+         * @param {string} key - The key of the next node to add.
+         * @param {string | null} selectedLabel - The label of the choice that led to this node.
+         */
+        function renderFlow(key, selectedLabel = null) {
+            const node = flowchart[key];
+
+            // 1. Add the path segment (line and label)
+            if (selectedLabel) {
+                const segment = document.createElement('div');
+                segment.className = 'path-segment';
+
+                const line = document.createElement('div');
+                line.className = 'path-line';
+
+                const label = document.createElement('span');
+                label.className = 'path-label';
+                label.textContent = selectedLabel;
+
+                segment.appendChild(line);
+                segment.appendChild(label);
+                flowDisplayEl.appendChild(segment);
+            }
+
+            // 2. Create and Add the Node Element
+            const newNodeEl = document.createElement('div');
+            newNodeEl.id = key;
+            newNodeEl.className = `node ${node.type === 'decision' ? 'question-node' : 'action-node'}`;
+
+            if (node.type === 'decision') {
+                newNodeEl.textContent = node.question;
+            } else {
+                // If it's a result, display the detailed action
+                newNodeEl.textContent = `${node.emoji || '✅'} Remediation Action:`;
+                
+                const resultTextEl = document.createElement('div');
+                resultTextEl.className = 'result-text';
+                resultTextEl.textContent = node.result;
+                newNodeEl.appendChild(resultTextEl);
+            }
+            
+            flowDisplayEl.appendChild(newNodeEl);
+
+            // 3. Clear and Set Options
+            optionsEl.innerHTML = '';
+            acrobatNoteEl.classList.add('hidden');
+
+            if (node.type === 'decision') {
+                optionsEl.classList.remove('hidden');
+                resetButtonEl.classList.add('hidden');
+                
+                node.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-button';
+                    button.textContent = option.label;
+                    button.onclick = () => renderFlow(option.next, option.label);
+                    optionsEl.appendChild(button);
+                });
+            } else {
+                // It's a result node, show the reset button
+                optionsEl.classList.add('hidden');
+                resetButtonEl.classList.remove('hidden');
+
+                // Special case for PDF remediation
+                if (node.acrobat) {
+                    acrobatNoteEl.classList.remove('hidden');
+                }
+            }
+
+            // Scroll to the newest node
+            newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+
+        /**
+         * Resets the flowchart to the starting position.
+         */
+        function resetFlow() {
+            flowDisplayEl.innerHTML = `
+                <div id="start-node" class="node start-node">
+                    Item in Canvas
+                </div>
+            `;
+            optionsEl.classList.remove('hidden');
+            resetButtonEl.classList.add('hidden');
+            acrobatNoteEl.classList.add('hidden');
+
+            // Load the buttons for the first question (q1)
+            optionsEl.innerHTML = '';
+            flowchart['q1'].options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-button';
+                button.textContent = option.label;
+                button.onclick = () => renderFlow(option.next, option.label); 
+                optionsEl.appendChild(button);
+            });
+            
+            document.getElementById('start-node').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', resetFlow);
+    </script>
+
+</body>
+</html>
