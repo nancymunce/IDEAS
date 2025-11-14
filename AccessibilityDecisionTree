@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Decision Tree</title>
+    <style>
+        /* --- General Styling --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        #tree-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border: 4px solid #001F3F; /* Navy border */
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 31, 63, 0.1);
+        }
+
+        h2 {
+            color: #001F3F; /* Navy */
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2em;
+        }
+
+        /* --- Node Styling --- */
+        .node {
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            margin: 10px auto;
+            max-width: 350px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Color Scheme */
+        .question-node {
+            background-color: #001F3F; /* Navy */
+            color: #FFD700; /* Gold text */
+            border: 2px solid #FFD700;
+        }
+
+        .action-node {
+            background-color: #32CD32; /* Lime Green */
+            color: #001F3F; /* Navy text */
+            border: 2px solid #001F3F;
+        }
+
+        .start-node {
+            background-color: #FFD700; /* Gold */
+            color: #001F3F; /* Navy text */
+            border: 2px solid #001F3F;
+            margin-bottom: 40px;
+        }
+
+        /* --- Options and Path Styling --- */
+        #options-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .option-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            background-color: #001F3F; /* Navy */
+            color: #FFD700; /* Gold text */
+        }
+
+        .option-button:hover {
+            background-color: #003366;
+            transform: scale(1.05);
+        }
+
+        /* --- Tree Structure Display --- */
+        #flow-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 50px; 
+        }
+
+        .path-segment {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .path-label {
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #001F3F; /* Navy */
+            background-color: #ffffff;
+            padding: 2px 10px;
+            border: 1px solid #001F3F;
+            border-radius: 5px;
+            position: absolute;
+            top: -15px;
+            z-index: 10;
+        }
+
+        .path-line {
+            width: 3px;
+            height: 40px;
+            background-color: #FFD700; /* Gold line for visibility */
+            border-radius: 1.5px;
+        }
+        
+        /* Text formatting for results */
+        .result-text {
+            white-space: pre-wrap;
+            text-align: left;
+            padding: 20px;
+            margin-top: 15px;
+            border: 2px dashed #001F3F;
+            background-color: #f0fff0; /* Lightest green background */
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #reset-button {
+            margin-top: 40px;
+        }
+        
+        #acrobat-note {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #FFD700;
+            background-color: #fff8e1; /* Pale gold */
+            border-radius: 8px;
+            color: #333;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="tree-container">
+        <h2>✨ Canvas Accessibility Remediation Tree</h2>
+
+        <div id="flow-display">
+            <div id="start-node" class="node start-node">
+                Item in Canvas
+            </div>
+            </div>
+
+        <div id="controls" style="text-align: center;">
+            <div id="options-container" class="hidden">
+                </div>
+            
+            <button id="reset-button" class="option-button hidden" onclick="resetFlow()">Start Over</button>
+            
+            <div id="acrobat-note" class="hidden">
+                **Don't have Adobe Acrobat?**<br>
+                Contact syssupport@spcollege.edu to request access to the Adobe Suite.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Flowchart Logic based on the new image
+
+        // Define the flowchart structure
+        const flowchart = {
+            'q1': {
+                question: 'Ask: Is this essential for teaching and learning?',
+                type: 'decision',
+                options: [
+                    { label: 'YES', next: 'q2' },
+                    { label: 'NO', next: 'a1' } 
+                ]
+            },
+            'q2': {
+                question: 'Was this item created by a third party vendor?',
+                type: 'decision',
+                options: [
+                    { label: 'YES', next: 'a2' },
+                    { label: 'NO', next: 'q3' }
+                ]
+            },
+            'q3': {
+                question: 'What kind of item is this?',
+                type: 'decision',
+                options: [
+                    { label: 'Word, PowerPoint, Excel, or PDF File', next: 'q4' },
+                    { label: 'Other/Web-based item (Assignment, Page, Discussion)', next: 'a3' } // Implied path from Q3 on the chart
+                ]
+            },
+            'q4': {
+                question: 'Can it be converted to a Canvas Page?',
+                type: 'decision',
+                options: [
+                    { label: 'YES', next: 'a4' },
+                    { label: 'NO', next: 'q5' }
+                ]
+            },
+            'q5': {
+                question: 'What kind of file is this?',
+                type: 'decision',
+                options: [
+                    { label: 'Word doc', next: 'a5' },
+                    { label: 'PowerPoint file', next: 'a6' },
+                    { label: 'Excel file', next: 'a7' },
+                    { label: 'PDF file', next: 'a8' }
+                ]
+            },
+            // Actions / End points
+            'a1': {
+                result: 'Delete from Files!',
+                type: 'result',
+                emoji: '🗑️'
+            },
+            'a2': {
+                result: 'Contact third party to provide an accessible version, and then replace the old item with the new one in Files.',
+                type: 'result',
+                emoji: '📞'
+            },
+            'a3': {
+                 // This action covers non-file items (Canvas native items). The chart is ambiguous here but follows q3.
+                result: 'This is a Canvas native item. Check the Canvas Accessibility Checker, YuJa Panorama, or use the Rich Content Editor tools to remediate.',
+                type: 'result',
+                emoji: '🛠️'
+            },
+            'a4': {
+                result: 'Do it! 🎉 Add a page. Either type or clean copy/paste information. Delete old file from Files.',
+                type: 'result',
+                emoji: '📄'
+            },
+            'a5': {
+                result: '1. Download. \n2. Open Word doc. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.',
+                type: 'result',
+                emoji: '✍️'
+            },
+            'a6': {
+                result: '1. Download. \n2. Open PowerPoint
