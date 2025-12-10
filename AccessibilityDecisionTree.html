@@ -3,193 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accessibility Decision Tree</title>
+    <title>Canvas Accessibility Decision Tree</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- General Styling --- */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
-            color: #333;
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --primary-navy: #002b5c;     /* Deep Navy */
+            --primary-gold: #b49635;     /* Muted Gold for accents */
+            --accent-green: #10b981;     /* Modern Emerald Green */
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-light: #6b7280;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* --- Main Container --- */
         #tree-container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border: 4px solid #001F3F; /* Navy border */
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 31, 63, 0.1);
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            border-top: 8px solid var(--primary-navy);
+            padding: 40px 20px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
         }
 
         h2 {
-            color: #001F3F; /* Navy */
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-navy);
             text-align: center;
-            margin-bottom: 40px;
-            font-size: 2em;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            letter-spacing: -0.5px;
         }
 
-        /* --- Node Styling --- */
+        /* --- Node Styling (Cards) --- */
         .node {
-            padding: 15px 25px;
-            border-radius: 8px;
+            padding: 20px 30px;
+            border-radius: 12px;
             text-align: center;
             font-weight: 600;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-            transition: all 0.4s ease;
-            margin: 10px auto;
-            max-width: 350px;
-            min-height: 40px;
+            box-shadow: var(--shadow);
+            margin: 0 auto;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            animation: slideIn 0.5s ease-out forwards;
+            background: white;
+            border-left: 6px solid transparent;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Start Node */
+        .start-node {
+            background-color: #fffbeb; /* Very light gold bg */
+            border: 2px solid var(--primary-navy);
+            color: var(--primary-navy);
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            display: inline-block; /* Keep start node compact */
+        }
+
+        /* Question Node */
+        .question-node {
+            border-left-color: var(--primary-navy);
+            color: var(--primary-navy);
+        }
+
+        /* Action/Result Node */
+        .action-node {
+            border-left-color: var(--accent-green);
+            background-color: #f0fdf4; /* Very light green bg */
+            color: var(--primary-navy);
+            text-align: left;
+        }
+
+        /* --- Result Text Styling --- */
+        .result-header {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1em;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 10px;
         }
 
-        /* Color Scheme */
-        .question-node {
-            background-color: #001F3F; /* Navy */
-            color: #FFD700; /* Gold text */
-            border: 2px solid #FFD700;
+        .result-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            white-space: pre-wrap;
+            background-color: rgba(255,255,255,0.8);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed var(--accent-green);
+            color: #064e3b;
         }
 
-        .action-node {
-            background-color: #32CD32; /* Lime Green */
-            color: #001F3F; /* Navy text */
-            border: 2px solid #001F3F;
-        }
-
-        .start-node {
-            background-color: #FFD700; /* Gold */
-            color: #001F3F; /* Navy text */
-            border: 2px solid #001F3F;
-            margin-bottom: 40px;
-        }
-
-        /* --- Options and Path Styling --- */
-        #options-container {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-
-        .option-button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-            background-color: #001F3F; /* Navy */
-            color: #FFD700; /* Gold text */
-        }
-
-        .option-button:hover {
-            background-color: #003366;
-            transform: scale(1.05);
-        }
-
-        /* --- Tree Structure Display --- */
+        /* --- Paths & Lines --- */
         #flow-display {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 50px; 
+            width: 100%;
+            padding-bottom: 20px; 
         }
 
         .path-segment {
-            position: relative;
-            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            width: 100%;
+            position: relative;
+            animation: fadeIn 0.8s ease forwards;
         }
 
-        .path-label {
-            font-size: 0.9em;
-            font-weight: bold;
-            color: #001F3F; /* Navy */
-            background-color: #ffffff;
-            padding: 2px 10px;
-            border: 1px solid #001F3F;
-            border-radius: 5px;
-            position: absolute;
-            top: -15px;
-            z-index: 10;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .path-line {
-            width: 3px;
+            width: 2px;
             height: 40px;
-            background-color: #FFD700; /* Gold line for visibility */
-            border-radius: 1.5px;
-        }
-        
-        /* Text formatting for results */
-        .result-text {
-            white-space: pre-wrap;
-            text-align: left;
-            padding: 20px;
-            margin-top: 15px;
-            border: 2px dashed #001F3F;
-            background-color: #f0fff0; /* Lightest green background */
-            border-radius: 8px;
-            font-size: 0.95em;
+            background-color: var(--primary-navy);
+            opacity: 0.3;
         }
 
-        .hidden {
-            display: none !important;
+        .path-label {
+            font-size: 0.85em;
+            font-weight: 700;
+            color: var(--card-bg);
+            background-color: var(--primary-navy);
+            padding: 4px 12px;
+            border-radius: 20px;
+            position: absolute;
+            top: -12px;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Controls & Buttons --- */
+        #controls {
+            margin-top: auto; /* Pushes controls to bottom if space permits */
+            padding-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 50px; /* Pill shape */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: var(--primary-navy);
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 31, 63, 0.2);
+            font-size: 1rem;
+        }
+
+        .option-button:hover {
+            background-color: #004080;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 31, 63, 0.3);
+        }
+
+        .option-button:focus {
+            outline: 3px solid var(--primary-gold);
+            outline-offset: 2px;
         }
 
         #reset-button {
-            margin-top: 40px;
+            padding: 10px 24px;
+            border: 2px solid var(--primary-navy);
+            background: transparent;
+            color: var(--primary-navy);
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
         
+        #reset-button:hover {
+            background-color: var(--primary-navy);
+            color: white;
+        }
+
+        /* --- Notes --- */
         #acrobat-note {
-            margin-top: 30px;
-            padding: 15px;
-            border: 1px solid #FFD700;
-            background-color: #fff8e1; /* Pale gold */
-            border-radius: 8px;
-            color: #333;
+            margin-top: 20px;
+            padding: 15px 20px;
+            border-left: 4px solid var(--primary-gold);
+            background-color: #fffbeb;
+            border-radius: 6px;
+            color: #78350f;
             font-size: 0.9em;
+            max-width: 500px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Responsive tweaks */
+        @media (max-width: 600px) {
+            #tree-container { padding: 20px 10px; }
+            .node { font-size: 0.95rem; padding: 15px; }
+            h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
     <div id="tree-container">
-        <h2>✨ Canvas Accessibility Remediation Tree</h2>
+        <h2>✨ Canvas Accessibility Tree</h2>
 
         <div id="flow-display">
             <div id="start-node" class="node start-node">
-                Item in Canvas
+                Start: Item in Canvas
             </div>
-            </div>
+        </div>
 
-        <div id="controls" style="text-align: center;">
+        <div id="controls">
             <div id="options-container" class="hidden">
                 </div>
             
-            <button id="reset-button" class="option-button hidden" onclick="resetFlow()">Start Over</button>
-            
             <div id="acrobat-note" class="hidden">
-                **Don't have Adobe Acrobat?**<br>
-                Contact syssupport@spcollege.edu to request access to the Adobe Suite.
+                <strong>Don't have Adobe Acrobat?</strong><br>
+                Contact <a href="mailto:syssupport@spcollege.edu" style="color: inherit; text-decoration: underline;">syssupport@spcollege.edu</a> to request access to the Adobe Suite.
             </div>
+
+            <button id="reset-button" class="hidden" onclick="resetFlow()">↻ Start Over</button>
         </div>
     </div>
 
     <script>
-        // JavaScript for Flowchart Logic based on the new image
+        // JavaScript for Flowchart Logic
 
-        // Define the flowchart structure
         const flowchart = {
             'q1': {
-                question: 'Ask: Is this essential for teaching and learning?',
+                question: 'Is this essential for teaching and learning?',
                 type: 'decision',
                 options: [
                     { label: 'YES', next: 'q2' },
@@ -209,7 +296,7 @@
                 type: 'decision',
                 options: [
                     { label: 'Word, PowerPoint, Excel, or PDF File', next: 'q4' },
-                    { label: 'Other/Web-based item (Assignment, Page, Discussion)', next: 'a3' } // Implied path from Q3 on the chart
+                    { label: 'Web-based item (Assignment, Page, etc.)', next: 'a3' }
                 ]
             },
             'q4': {
@@ -230,7 +317,7 @@
                     { label: 'PDF file', next: 'a8' }
                 ]
             },
-            // Actions / End points
+            // Actions
             'a1': {
                 result: 'Delete from Files!',
                 type: 'result',
@@ -242,7 +329,6 @@
                 emoji: '📞'
             },
             'a3': {
-                 // This action covers non-file items (Canvas native items). The chart is ambiguous here but follows q3.
                 result: 'This is a Canvas native item. Check the Canvas Accessibility Checker, YuJa Panorama, or use the Rich Content Editor tools to remediate.',
                 type: 'result',
                 emoji: '🛠️'
@@ -280,15 +366,10 @@
         const resetButtonEl = document.getElementById('reset-button');
         const acrobatNoteEl = document.getElementById('acrobat-note');
         
-        /**
-         * Renders the current path of the flowchart as a growing tree.
-         * @param {string} key - The key of the next node to add.
-         * @param {string | null} selectedLabel - The label of the choice that led to this node.
-         */
         function renderFlow(key, selectedLabel = null) {
             const node = flowchart[key];
 
-            // 1. Add the path segment (line and label)
+            // 1. Add Path Segment
             if (selectedLabel) {
                 const segment = document.createElement('div');
                 segment.className = 'path-segment';
@@ -302,29 +383,40 @@
 
                 segment.appendChild(line);
                 segment.appendChild(label);
+                
+                // Small additional line to connect label to next node
+                const lineBelow = document.createElement('div');
+                lineBelow.className = 'path-line';
+                lineBelow.style.height = '20px';
+                segment.appendChild(lineBelow);
+
                 flowDisplayEl.appendChild(segment);
             }
 
-            // 2. Create and Add the Node Element
+            // 2. Create Node
             const newNodeEl = document.createElement('div');
             newNodeEl.id = key;
             newNodeEl.className = `node ${node.type === 'decision' ? 'question-node' : 'action-node'}`;
 
             if (node.type === 'decision') {
-                newNodeEl.textContent = node.question;
+                newNodeEl.innerHTML = `<div>${node.question}</div>`;
             } else {
-                // If it's a result, display the detailed action
-                newNodeEl.textContent = `${node.emoji || '✅'} Remediation Action:`;
+                // Result Node Structure
+                const header = document.createElement('div');
+                header.className = 'result-header';
+                header.innerHTML = `<span style="font-size:1.5em">${node.emoji || '✅'}</span> Remediation Action:`;
                 
                 const resultTextEl = document.createElement('div');
                 resultTextEl.className = 'result-text';
                 resultTextEl.textContent = node.result;
+                
+                newNodeEl.appendChild(header);
                 newNodeEl.appendChild(resultTextEl);
             }
             
             flowDisplayEl.appendChild(newNodeEl);
 
-            // 3. Clear and Set Options
+            // 3. Update Controls
             optionsEl.innerHTML = '';
             acrobatNoteEl.classList.add('hidden');
 
@@ -340,34 +432,30 @@
                     optionsEl.appendChild(button);
                 });
             } else {
-                // It's a result node, show the reset button
                 optionsEl.classList.add('hidden');
                 resetButtonEl.classList.remove('hidden');
 
-                // Special case for PDF remediation
                 if (node.acrobat) {
                     acrobatNoteEl.classList.remove('hidden');
                 }
             }
 
-            // Scroll to the newest node
-            newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            // Smooth Scroll to new node
+            setTimeout(() => {
+                newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
         }
 
-        /**
-         * Resets the flowchart to the starting position.
-         */
         function resetFlow() {
             flowDisplayEl.innerHTML = `
                 <div id="start-node" class="node start-node">
-                    Item in Canvas
+                    Start: Item in Canvas
                 </div>
             `;
             optionsEl.classList.remove('hidden');
             resetButtonEl.classList.add('hidden');
             acrobatNoteEl.classList.add('hidden');
 
-            // Load the buttons for the first question (q1)
             optionsEl.innerHTML = '';
             flowchart['q1'].options.forEach(option => {
                 const button = document.createElement('button');
@@ -377,12 +465,10 @@
                 optionsEl.appendChild(button);
             });
             
-            document.getElementById('start-node').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('tree-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Initial setup
         document.addEventListener('DOMContentLoaded', resetFlow);
     </script>
-
 </body>
 </html>
