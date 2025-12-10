@@ -7,16 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS Variables for Easy Theming --- */
+        /* --- CSS Variables --- */
         :root {
-            --primary-navy: #002b5c;     /* Deep Academic Navy */
-            --primary-gold: #b49635;     /* Muted Gold/Brass */
-            --success-green: #059669;    /* Modern Emerald */
-            --bg-color: #f3f4f6;         /* Light Gray Background */
+            --primary-navy: #002b5c;     /* Deep Navy */
+            --primary-gold: #b49635;     /* Muted Gold */
+            --success-green: #059669;    /* Emerald Green */
+            --bg-color: #f3f4f6;         /* Light Gray */
             --card-bg: #ffffff;
             --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
@@ -52,16 +50,15 @@
             text-align: center;
             margin-bottom: 40px;
             font-size: 2rem;
-            letter-spacing: -0.02em;
         }
 
-        /* --- Node Styling (The Cards) --- */
+        /* --- Node Styling --- */
         .node {
             padding: 24px 32px;
             border-radius: 16px;
             text-align: center;
             font-weight: 500;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             margin: 0 auto;
             max-width: 550px;
             width: 100%;
@@ -78,33 +75,34 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Question Node Style */
+        /* Question Node */
         .question-node {
             border-left: 6px solid var(--primary-navy);
             color: var(--primary-navy);
             font-size: 1.1em;
         }
 
-        /* Start Node Style */
+        /* Start Node Badge */
         .start-node {
-            background-color: #fffbeb; /* Very pale gold bg */
+            background-color: #fffbeb;
             border: 2px dashed var(--primary-gold);
             color: var(--primary-navy);
             font-weight: 700;
             display: inline-block;
             width: auto;
-            padding: 15px 40px;
+            padding: 10px 30px;
+            margin-bottom: 20px;
         }
 
-        /* Action/Result Node Style */
+        /* Action Node */
         .action-node {
             border-left: 6px solid var(--success-green);
-            background-color: #ecfdf5; /* Very pale green bg */
+            background-color: #ecfdf5;
             color: var(--text-dark);
             text-align: left;
         }
 
-        /* --- Result Text Styling --- */
+        /* --- Result Text --- */
         .result-header {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
@@ -127,7 +125,7 @@
             font-size: 0.95em;
         }
 
-        /* --- The Path (Connecting Lines) --- */
+        /* --- Paths --- */
         #flow-display {
             display: flex;
             flex-direction: column;
@@ -142,18 +140,18 @@
             align-items: center;
             margin-bottom: 5px;
             width: 100%;
-            position: relative;
             animation: fadeIn 0.8s ease forwards;
         }
 
         @keyframes fadeIn {
+            from { opacity: 0; }
             to { opacity: 1; }
         }
 
         .path-line {
             width: 2px;
-            height: 30px;
-            background-color: #d1d5db; /* Subtle Gray Line */
+            height: 20px;
+            background-color: #d1d5db;
         }
 
         .path-label {
@@ -164,7 +162,6 @@
             padding: 4px 12px;
             border-radius: 20px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             z-index: 2;
         }
@@ -184,12 +181,13 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 20px;
+            min-height: 50px; /* Ensure space is reserved */
         }
 
         .option-button {
-            padding: 12px 28px;
+            padding: 12px 30px;
             border: none;
-            border-radius: 50px; /* Pill Shape */
+            border-radius: 50px;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
             font-size: 1rem;
@@ -201,13 +199,9 @@
         }
 
         .option-button:hover {
-            background-color: #1e3a8a; /* Lighter Navy */
+            background-color: #1e3a8a;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 31, 63, 0.3);
-        }
-
-        .option-button:active {
-            transform: translateY(0);
         }
 
         #reset-button {
@@ -227,26 +221,22 @@
             color: white;
         }
 
-        /* --- Informational Notes --- */
         #acrobat-note {
             margin-top: 20px;
             padding: 16px;
             border-left: 4px solid var(--primary-gold);
-            background-color: #fffbeb; /* Warning Yellow tint */
+            background-color: #fffbeb;
             border-radius: 6px;
             color: #92400e;
             font-size: 0.9em;
             max-width: 500px;
-            line-height: 1.5;
         }
 
         .hidden { display: none !important; }
 
-        /* Mobile Adjustments */
         @media (max-width: 600px) {
             #tree-container { padding: 20px 15px; }
             .node { padding: 20px; font-size: 0.95rem; }
-            h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -256,18 +246,14 @@
         <h2>✨ Canvas Accessibility Tree</h2>
 
         <div id="flow-display">
-            <div id="start-node" class="node start-node">
-                START: Item in Canvas
             </div>
-        </div>
 
         <div id="controls">
-            <div id="options-container" class="hidden">
-                </div>
+            <div id="options-container"></div>
             
             <div id="acrobat-note" class="hidden">
                 <strong>Don't have Adobe Acrobat?</strong><br>
-                Contact <a href="mailto:syssupport@spcollege.edu" style="color: inherit; text-decoration: underline;">syssupport@spcollege.edu</a> to request access to the Adobe Suite.
+                Contact <a href="mailto:syssupport@spcollege.edu" style="color: inherit; text-decoration: underline;">syssupport@spcollege.edu</a> to request access.
             </div>
 
             <button id="reset-button" class="hidden" onclick="resetFlow()">↻ Start Over</button>
@@ -321,40 +307,124 @@
                 ]
             },
             // Actions
-            'a1': {
-                result: 'Delete from Files!',
-                type: 'result',
-                emoji: '🗑️'
-            },
-            'a2': {
-                result: 'Contact third party to provide an accessible version, and then replace the old item with the new one in Files.',
-                type: 'result',
-                emoji: '📞'
-            },
-            'a3': {
-                result: 'This is a Canvas native item. Check the Canvas Accessibility Checker, YuJa Panorama, or use the Rich Content Editor tools to remediate.',
-                type: 'result',
-                emoji: '🛠️'
-            },
-            'a4': {
-                result: 'Do it! 🎉 Add a page. Either type or clean copy/paste information. Delete old file from Files.',
-                type: 'result',
-                emoji: '📄'
-            },
-            'a5': {
-                result: '1. Download. \n2. Open Word doc. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.',
-                type: 'result',
-                emoji: '✍️'
-            },
-            'a6': {
-                result: '1. Download. \n2. Open PowerPoint file. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.',
-                type: 'result',
-                emoji: '💡'
-            },
-            'a7': {
-                result: '1. Download. \n2. Open Excel file. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.',
-                type: 'result',
-                emoji: '📊'
-            },
-            'a8': {
-                result: '1. Download. \n2. Open with Adobe Acrobat
+            'a1': { result: 'Delete from Files!', type: 'result', emoji: '🗑️' },
+            'a2': { result: 'Contact third party to provide an accessible version, and then replace the old item with the new one in Files.', type: 'result', emoji: '📞' },
+            'a3': { result: 'This is a Canvas native item. Check the Canvas Accessibility Checker, YuJa Panorama, or use the Rich Content Editor tools to remediate.', type: 'result', emoji: '🛠️' },
+            'a4': { result: 'Do it! 🎉 Add a page. Either type or clean copy/paste information. Delete old file from Files.', type: 'result', emoji: '📄' },
+            'a5': { result: '1. Download. \n2. Open Word doc. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.', type: 'result', emoji: '✍️' },
+            'a6': { result: '1. Download. \n2. Open PowerPoint file. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.', type: 'result', emoji: '💡' },
+            'a7': { result: '1. Download. \n2. Open Excel file. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.', type: 'result', emoji: '📊' },
+            'a8': { result: '1. Download. \n2. Open with Adobe Acrobat. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file.', type: 'result', emoji: '🛡️', acrobat: true }
+        };
+
+        const flowDisplayEl = document.getElementById('flow-display');
+        const optionsEl = document.getElementById('options-container');
+        const resetButtonEl = document.getElementById('reset-button');
+        const acrobatNoteEl = document.getElementById('acrobat-note');
+        
+        function renderFlow(key, selectedLabel = null) {
+            const node = flowchart[key];
+
+            // 1. Render the connecting line (if not the very first load)
+            if (selectedLabel) {
+                const segment = document.createElement('div');
+                segment.className = 'path-segment';
+
+                const lineTop = document.createElement('div');
+                lineTop.className = 'path-line';
+                lineTop.style.height = '15px'; 
+
+                const label = document.createElement('span');
+                label.className = 'path-label';
+                label.textContent = selectedLabel;
+
+                const lineBottom = document.createElement('div');
+                lineBottom.className = 'path-line';
+                lineBottom.style.height = '15px';
+
+                segment.appendChild(lineTop);
+                segment.appendChild(label);
+                segment.appendChild(lineBottom);
+                
+                flowDisplayEl.appendChild(segment);
+            }
+
+            // 2. Render the Node
+            const newNodeEl = document.createElement('div');
+            newNodeEl.id = key;
+            newNodeEl.className = `node ${node.type === 'decision' ? 'question-node' : 'action-node'}`;
+
+            if (node.type === 'decision') {
+                newNodeEl.textContent = node.question;
+            } else {
+                const header = document.createElement('div');
+                header.className = 'result-header';
+                header.innerHTML = `<span>${node.emoji}</span> Remediation Action`;
+                
+                const resultTextEl = document.createElement('div');
+                resultTextEl.className = 'result-text';
+                resultTextEl.textContent = node.result;
+                
+                newNodeEl.appendChild(header);
+                newNodeEl.appendChild(resultTextEl);
+            }
+            
+            flowDisplayEl.appendChild(newNodeEl);
+
+            // 3. Handle Controls
+            optionsEl.innerHTML = '';
+            acrobatNoteEl.classList.add('hidden');
+
+            if (node.type === 'decision') {
+                optionsEl.classList.remove('hidden');
+                resetButtonEl.classList.add('hidden');
+                
+                node.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-button';
+                    button.textContent = option.label;
+                    button.onclick = () => renderFlow(option.next, option.label);
+                    optionsEl.appendChild(button);
+                });
+            } else {
+                optionsEl.classList.add('hidden');
+                resetButtonEl.classList.remove('hidden');
+
+                if (node.acrobat) {
+                    acrobatNoteEl.classList.remove('hidden');
+                }
+            }
+
+            // Scroll unless it's the very first item
+            if (selectedLabel) {
+                setTimeout(() => {
+                    newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+
+        function resetFlow() {
+            // 1. Clear everything
+            flowDisplayEl.innerHTML = `
+                <div id="start-node" class="node start-node">
+                    START: Item in Canvas
+                </div>
+            `;
+            
+            // 2. Trigger Question 1 immediately
+            // We pass null for label so no connecting line is drawn yet
+            renderFlow('q1', null);
+            
+            // 3. Reset utility buttons
+            resetButtonEl.classList.add('hidden');
+            acrobatNoteEl.classList.add('hidden');
+            
+            document.getElementById('tree-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', resetFlow);
+    </script>
+
+</body>
+</html>
