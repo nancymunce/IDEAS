@@ -8,8 +8,6 @@
     
     <style>
         /* --- SPC BRANDING COLORS --- */
-        /* PMS 2955 Blue is the core brand color */
-        /* PMS 7555 Gold is the secondary accent */
         :root {
             --spc-blue-pms2955: #002b5c;     /* Deep Academic Navy/Blue */
             --spc-gold-pms7555: #b49635;     /* Muted Gold/Brass */
@@ -26,13 +24,30 @@
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 0; /* Removing body padding to allow full-width banner */
             background-color: var(--bg-color);
             color: var(--text-dark);
             line-height: 1.6;
         }
 
+        /* --- SPC BRAND BANNER --- */
+        #spc-banner {
+            background-color: var(--spc-blue-pms2955);
+            color: white;
+            padding: 15px 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-align: center;
+            letter-spacing: 0.1em;
+            margin-bottom: 40px; /* Space before the tree container */
+        }
+        
         /* --- Main Container --- */
+        #tree-container-wrapper {
+            padding: 0 20px 40px 20px; /* Add overall padding back to the content */
+        }
+
         #tree-container {
             max-width: 850px;
             margin: 0 auto;
@@ -40,7 +55,7 @@
             border-radius: 24px;
             box-shadow: var(--shadow-lg);
             overflow: hidden;
-            border-top: 8px solid var(--spc-blue-pms2955);
+            border-top: 8px solid var(--spc-gold-pms7555); /* Changed top border to gold */
             padding: 40px;
             min-height: 80vh;
             display: flex;
@@ -67,6 +82,7 @@
             max-width: 550px;
             width: 100%;
             position: relative;
+            background: var(--card-bg); /* Ensure all nodes are on white background by default */
             /* Animation */
             opacity: 0;
             transform: translateY(20px);
@@ -77,18 +93,18 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Question Node Style - High Contrast SPC Blue */
+        /* Question Node Style - White background with Gold Border (new style) */
         .question-node {
-            background-color: var(--spc-blue-pms2955);
-            color: white; /* White text on Blue background for high contrast */
-            border: 1px solid var(--spc-blue-pms2955);
+            border: 3px solid var(--spc-gold-pms7555); /* Thick gold border */
+            color: var(--spc-blue-pms2955); /* Deep Blue text */
             font-size: 1.1em;
             text-align: center;
+            box-shadow: 0 0 10px rgba(180, 150, 53, 0.3); /* Subtle gold glow */
         }
 
-        /* Start Node Style */
+        /* Start Node Style (Remains Gold accented) */
         .start-node {
-            background-color: #fffbeb; /* Very pale gold bg */
+            background-color: #fffbeb; 
             border: 2px dashed var(--spc-gold-pms7555);
             color: var(--spc-blue-pms2955);
             font-weight: 700;
@@ -98,10 +114,10 @@
             margin-bottom: 20px;
         }
 
-        /* Action/Result Node Style (Remediation) */
+        /* Action/Result Node Style (Remains Green accented) */
         .action-node {
             border-left: 6px solid var(--success-green);
-            background-color: #ecfdf5; /* Very pale green bg */
+            background-color: #ecfdf5; 
             color: var(--text-dark);
             text-align: left;
             font-weight: 500;
@@ -143,7 +159,7 @@
         .path-line {
             width: 2px;
             height: 20px;
-            background-color: var(--spc-gold-pms7555); /* Changed line color to Gold */
+            background-color: var(--spc-gold-pms7555); /* Gold line for path */
         }
 
         .path-label {
@@ -192,7 +208,7 @@
         }
 
         .option-button:hover {
-            background-color: #1e3a8a; /* Lighter Blue */
+            background-color: #1e3a8a; 
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 31, 63, 0.3);
         }
@@ -238,27 +254,33 @@
     </style>
 </head>
 <body>
+    
+    <div id="spc-banner">
+        ST. PETERSBURG COLLEGE ACCESSIBILITY GUIDE
+    </div>
 
-    <div id="tree-container">
-        <h2>✨ Canvas Accessibility Tree</h2>
+    <div id="tree-container-wrapper">
+        <div id="tree-container">
+            <h2>Canvas Content Remediation Decision Tree</h2>
 
-        <div id="flow-display">
+            <div id="flow-display">
+                </div>
+
+            <div id="controls">
+                <div id="options-container"></div>
+                
+                <div id="acrobat-note" class="hidden">
+                    <strong>Don't have Adobe Acrobat?</strong><br>
+                    Contact <a href="mailto:syssupport@spcollege.edu" style="color: inherit; text-decoration: underline;">syssupport@spcollege.edu</a> to request access to the Adobe Suite.
+                </div>
+
+                <button id="reset-button" class="hidden" onclick="resetFlow()">↻ Start Over</button>
             </div>
-
-        <div id="controls">
-            <div id="options-container"></div>
-            
-            <div id="acrobat-note" class="hidden">
-                <strong>Don't have Adobe Acrobat?</strong><br>
-                Contact <a href="mailto:syssupport@spcollege.edu" style="color: inherit; text-decoration: underline;">syssupport@spcollege.edu</a> to request access to the Adobe Suite.
-            </div>
-
-            <button id="reset-button" class="hidden" onclick="resetFlow()">↻ Start Over</button>
         </div>
     </div>
 
     <script>
-        // --- LOGIC ---
+        // --- LOGIC (No changes here, only in CSS/HTML) ---
 
         const flowchart = {
             'q1': {
