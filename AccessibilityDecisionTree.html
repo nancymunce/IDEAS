@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canvas Accessibility Decision Tree</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS Variables & Reset --- */
+        /* --- CSS Variables for Easy Theming --- */
         :root {
-            --primary-navy: #002b5c;     /* Deep Navy */
-            --primary-gold: #b49635;     /* Muted Gold for accents */
-            --accent-green: #10b981;     /* Modern Emerald Green */
-            --bg-color: #f0f2f5;
+            --primary-navy: #002b5c;     /* Deep Academic Navy */
+            --primary-gold: #b49635;     /* Muted Gold/Brass */
+            --success-green: #059669;    /* Modern Emerald */
+            --bg-color: #f3f4f6;         /* Light Gray Background */
             --card-bg: #ffffff;
-            --text-main: #1f2937;
+            --text-dark: #1f2937;
             --text-light: #6b7280;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         * { box-sizing: border-box; }
@@ -26,20 +27,20 @@
             margin: 0;
             padding: 40px 20px;
             background-color: var(--bg-color);
-            color: var(--text-main);
+            color: var(--text-dark);
             line-height: 1.6;
         }
 
         /* --- Main Container --- */
         #tree-container {
-            max-width: 900px;
+            max-width: 850px;
             margin: 0 auto;
             background-color: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
             overflow: hidden;
             border-top: 8px solid var(--primary-navy);
-            padding: 40px 20px;
+            padding: 40px;
             min-height: 80vh;
             display: flex;
             flex-direction: column;
@@ -49,61 +50,67 @@
             font-family: 'Poppins', sans-serif;
             color: var(--primary-navy);
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             font-size: 2rem;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.02em;
         }
 
-        /* --- Node Styling (Cards) --- */
+        /* --- Node Styling (The Cards) --- */
         .node {
-            padding: 20px 30px;
-            border-radius: 12px;
+            padding: 24px 32px;
+            border-radius: 16px;
             text-align: center;
-            font-weight: 600;
-            box-shadow: var(--shadow);
+            font-weight: 500;
+            box-shadow: var(--shadow-md);
             margin: 0 auto;
-            max-width: 500px;
+            max-width: 550px;
             width: 100%;
             position: relative;
-            animation: slideIn 0.5s ease-out forwards;
             background: white;
-            border-left: 6px solid transparent;
+            border: 1px solid #e5e7eb;
+            /* Animation */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFade 0.5s ease forwards;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideUpFade {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Start Node */
-        .start-node {
-            background-color: #fffbeb; /* Very light gold bg */
-            border: 2px solid var(--primary-navy);
+        /* Question Node Style */
+        .question-node {
+            border-left: 6px solid var(--primary-navy);
             color: var(--primary-navy);
             font-size: 1.1em;
-            margin-bottom: 20px;
-            display: inline-block; /* Keep start node compact */
         }
 
-        /* Question Node */
-        .question-node {
-            border-left-color: var(--primary-navy);
+        /* Start Node Style */
+        .start-node {
+            background-color: #fffbeb; /* Very pale gold bg */
+            border: 2px dashed var(--primary-gold);
             color: var(--primary-navy);
+            font-weight: 700;
+            display: inline-block;
+            width: auto;
+            padding: 15px 40px;
         }
 
-        /* Action/Result Node */
+        /* Action/Result Node Style */
         .action-node {
-            border-left-color: var(--accent-green);
-            background-color: #f0fdf4; /* Very light green bg */
-            color: var(--primary-navy);
+            border-left: 6px solid var(--success-green);
+            background-color: #ecfdf5; /* Very pale green bg */
+            color: var(--text-dark);
             text-align: left;
         }
 
         /* --- Result Text Styling --- */
         .result-header {
             font-family: 'Poppins', sans-serif;
+            font-weight: 600;
             font-size: 1.1em;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            color: var(--success-green);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -111,22 +118,22 @@
 
         .result-text {
             font-family: 'Inter', sans-serif;
-            font-weight: 400;
             white-space: pre-wrap;
-            background-color: rgba(255,255,255,0.8);
+            background-color: rgba(255,255,255,0.6);
             padding: 15px;
             border-radius: 8px;
-            border: 1px dashed var(--accent-green);
+            border: 1px solid #d1fae5;
             color: #064e3b;
+            font-size: 0.95em;
         }
 
-        /* --- Paths & Lines --- */
+        /* --- The Path (Connecting Lines) --- */
         #flow-display {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            padding-bottom: 20px; 
+            padding-bottom: 30px; 
         }
 
         .path-segment {
@@ -140,36 +147,32 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
             to { opacity: 1; }
         }
 
         .path-line {
             width: 2px;
-            height: 40px;
-            background-color: var(--primary-navy);
-            opacity: 0.3;
+            height: 30px;
+            background-color: #d1d5db; /* Subtle Gray Line */
         }
 
         .path-label {
-            font-size: 0.85em;
+            font-size: 0.75em;
             font-weight: 700;
-            color: var(--card-bg);
+            color: white;
             background-color: var(--primary-navy);
             padding: 4px 12px;
             border-radius: 20px;
-            position: absolute;
-            top: -12px;
-            z-index: 10;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 2;
         }
 
         /* --- Controls & Buttons --- */
         #controls {
-            margin-top: auto; /* Pushes controls to bottom if space permits */
-            padding-top: 30px;
+            margin-top: auto; 
+            padding-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -186,37 +189,37 @@
         .option-button {
             padding: 12px 28px;
             border: none;
-            border-radius: 50px; /* Pill shape */
+            border-radius: 50px; /* Pill Shape */
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s ease;
             background-color: var(--primary-navy);
             color: white;
             box-shadow: 0 4px 6px rgba(0, 31, 63, 0.2);
-            font-size: 1rem;
         }
 
         .option-button:hover {
-            background-color: #004080;
+            background-color: #1e3a8a; /* Lighter Navy */
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 31, 63, 0.3);
         }
 
-        .option-button:focus {
-            outline: 3px solid var(--primary-gold);
-            outline-offset: 2px;
+        .option-button:active {
+            transform: translateY(0);
         }
 
         #reset-button {
-            padding: 10px 24px;
-            border: 2px solid var(--primary-navy);
-            background: transparent;
+            background: white;
             color: var(--primary-navy);
-            font-weight: 700;
+            border: 2px solid var(--primary-navy);
+            padding: 10px 24px;
             border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            margin-top: 20px;
         }
         
         #reset-button:hover {
@@ -224,25 +227,25 @@
             color: white;
         }
 
-        /* --- Notes --- */
+        /* --- Informational Notes --- */
         #acrobat-note {
             margin-top: 20px;
-            padding: 15px 20px;
+            padding: 16px;
             border-left: 4px solid var(--primary-gold);
-            background-color: #fffbeb;
+            background-color: #fffbeb; /* Warning Yellow tint */
             border-radius: 6px;
-            color: #78350f;
+            color: #92400e;
             font-size: 0.9em;
             max-width: 500px;
-            animation: slideIn 0.5s ease-out;
+            line-height: 1.5;
         }
 
         .hidden { display: none !important; }
 
-        /* Responsive tweaks */
+        /* Mobile Adjustments */
         @media (max-width: 600px) {
-            #tree-container { padding: 20px 10px; }
-            .node { font-size: 0.95rem; padding: 15px; }
+            #tree-container { padding: 20px 15px; }
+            .node { padding: 20px; font-size: 0.95rem; }
             h2 { font-size: 1.5rem; }
         }
     </style>
@@ -254,7 +257,7 @@
 
         <div id="flow-display">
             <div id="start-node" class="node start-node">
-                Start: Item in Canvas
+                START: Item in Canvas
             </div>
         </div>
 
@@ -272,7 +275,7 @@
     </div>
 
     <script>
-        // JavaScript for Flowchart Logic
+        // --- LOGIC ---
 
         const flowchart = {
             'q1': {
@@ -311,10 +314,10 @@
                 question: 'What kind of file is this?',
                 type: 'decision',
                 options: [
-                    { label: 'Word doc', next: 'a5' },
-                    { label: 'PowerPoint file', next: 'a6' },
-                    { label: 'Excel file', next: 'a7' },
-                    { label: 'PDF file', next: 'a8' }
+                    { label: 'Word Doc', next: 'a5' },
+                    { label: 'PowerPoint', next: 'a6' },
+                    { label: 'Excel', next: 'a7' },
+                    { label: 'PDF', next: 'a8' }
                 ]
             },
             // Actions
@@ -354,121 +357,4 @@
                 emoji: '📊'
             },
             'a8': {
-                result: '1. Download. \n2. Open with Adobe Acrobat. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file.',
-                type: 'result',
-                emoji: '🛡️',
-                acrobat: true
-            }
-        };
-
-        const flowDisplayEl = document.getElementById('flow-display');
-        const optionsEl = document.getElementById('options-container');
-        const resetButtonEl = document.getElementById('reset-button');
-        const acrobatNoteEl = document.getElementById('acrobat-note');
-        
-        function renderFlow(key, selectedLabel = null) {
-            const node = flowchart[key];
-
-            // 1. Add Path Segment
-            if (selectedLabel) {
-                const segment = document.createElement('div');
-                segment.className = 'path-segment';
-
-                const line = document.createElement('div');
-                line.className = 'path-line';
-
-                const label = document.createElement('span');
-                label.className = 'path-label';
-                label.textContent = selectedLabel;
-
-                segment.appendChild(line);
-                segment.appendChild(label);
-                
-                // Small additional line to connect label to next node
-                const lineBelow = document.createElement('div');
-                lineBelow.className = 'path-line';
-                lineBelow.style.height = '20px';
-                segment.appendChild(lineBelow);
-
-                flowDisplayEl.appendChild(segment);
-            }
-
-            // 2. Create Node
-            const newNodeEl = document.createElement('div');
-            newNodeEl.id = key;
-            newNodeEl.className = `node ${node.type === 'decision' ? 'question-node' : 'action-node'}`;
-
-            if (node.type === 'decision') {
-                newNodeEl.innerHTML = `<div>${node.question}</div>`;
-            } else {
-                // Result Node Structure
-                const header = document.createElement('div');
-                header.className = 'result-header';
-                header.innerHTML = `<span style="font-size:1.5em">${node.emoji || '✅'}</span> Remediation Action:`;
-                
-                const resultTextEl = document.createElement('div');
-                resultTextEl.className = 'result-text';
-                resultTextEl.textContent = node.result;
-                
-                newNodeEl.appendChild(header);
-                newNodeEl.appendChild(resultTextEl);
-            }
-            
-            flowDisplayEl.appendChild(newNodeEl);
-
-            // 3. Update Controls
-            optionsEl.innerHTML = '';
-            acrobatNoteEl.classList.add('hidden');
-
-            if (node.type === 'decision') {
-                optionsEl.classList.remove('hidden');
-                resetButtonEl.classList.add('hidden');
-                
-                node.options.forEach(option => {
-                    const button = document.createElement('button');
-                    button.className = 'option-button';
-                    button.textContent = option.label;
-                    button.onclick = () => renderFlow(option.next, option.label);
-                    optionsEl.appendChild(button);
-                });
-            } else {
-                optionsEl.classList.add('hidden');
-                resetButtonEl.classList.remove('hidden');
-
-                if (node.acrobat) {
-                    acrobatNoteEl.classList.remove('hidden');
-                }
-            }
-
-            // Smooth Scroll to new node
-            setTimeout(() => {
-                newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
-        }
-
-        function resetFlow() {
-            flowDisplayEl.innerHTML = `
-                <div id="start-node" class="node start-node">
-                    Start: Item in Canvas
-                </div>
-            `;
-            optionsEl.classList.remove('hidden');
-            resetButtonEl.classList.add('hidden');
-            acrobatNoteEl.classList.add('hidden');
-
-            optionsEl.innerHTML = '';
-            flowchart['q1'].options.forEach(option => {
-                const button = document.createElement('button');
-                button.className = 'option-button';
-                button.textContent = option.label;
-                button.onclick = () => renderFlow(option.next, option.label); 
-                optionsEl.appendChild(button);
-            });
-            
-            document.getElementById('tree-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        document.addEventListener('DOMContentLoaded', resetFlow);
-    </script>
-</body>
-</html>
+                result: '1. Download. \n2. Open with Adobe Acrobat
