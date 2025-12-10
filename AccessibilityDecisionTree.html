@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Accessibility Decision Tree - SPC Branded</title>
+    <title>Canvas Accessibility Decision Tree - SPC Enhanced</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- SPC BRANDING COLORS --- */
+        /* --- SPC ENHANCED COLOR PALETTE --- */
         :root {
-            --spc-blue-pms2955: #002b5c;     /* Deep Academic Navy/Blue */
-            --spc-gold-pms7555: #b49635;     /* Muted Gold/Brass */
-            --success-green: #059669;        /* Modern Emerald for success actions */
-            --bg-color: #f3f4f6;             /* Light Gray Background */
-            --card-bg: #ffffff;
-            --text-dark: #1f2937;
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --color-navy: #002D62;     /* Deep Navy Blue */
+            --color-gold: #FFC72C;     /* Vibrant Yellow/Gold */
+            --color-lime: #A4DE00;     /* Lime Green Accent */
+            --bg-page: #f4f4f9;        /* Light Grey Background (from Engagement page) */
+            --card-bg: #FFFFFF;
+            --text-dark: #333333;
+            --shadow-pop: 0 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow from Engagement page */
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         * { box-sizing: border-box; }
@@ -24,65 +24,77 @@
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 0; /* Removing body padding to allow full-width banner */
-            background-color: var(--bg-color);
+            padding: 0;
+            background-color: var(--bg-page);
             color: var(--text-dark);
             line-height: 1.6;
         }
 
-        /* --- SPC BRAND BANNER --- */
+        /* --- SPC BRAND BANNER (Enhanced from Engagement Code) --- */
         #spc-banner {
-            background-color: var(--spc-blue-pms2955);
-            color: white;
-            padding: 15px 20px;
+            background-color: var(--color-navy);
+            color: var(--card-bg);
+            padding: 20px 5%;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            font-size: 1.25rem;
             text-align: center;
             letter-spacing: 0.1em;
-            margin-bottom: 40px; /* Space before the tree container */
+        }
+        
+        #spc-banner h1 {
+            margin: 0;
+            font-size: 2.2em;
+            color: var(--color-gold); /* Gold for high contrast title */
+        }
+        
+        #spc-banner p {
+            margin: 5px 0 0 0;
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
         }
         
         /* --- Main Container --- */
         #tree-container-wrapper {
-            padding: 0 20px 40px 20px; /* Add overall padding back to the content */
+            padding: 40px 20px;
         }
 
         #tree-container {
             max-width: 850px;
             margin: 0 auto;
             background-color: var(--card-bg);
-            border-radius: 24px;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            border-top: 8px solid var(--spc-gold-pms7555); /* Changed top border to gold */
+            border-radius: 12px; /* Slightly softer radius */
+            box-shadow: var(--shadow-pop); /* Stronger overall shadow */
             padding: 40px;
             min-height: 80vh;
             display: flex;
             flex-direction: column;
+            border-top: 5px solid var(--color-gold); 
         }
 
-        h2 {
+        h2.main-title {
             font-family: 'Poppins', sans-serif;
-            color: var(--spc-blue-pms2955);
+            color: var(--color-navy);
             text-align: center;
             margin-bottom: 40px;
             font-size: 2rem;
+            border-bottom: 3px solid var(--color-gold); /* H2 style from Engagement page */
+            padding-bottom: 10px;
             letter-spacing: -0.02em;
         }
 
         /* --- Node Styling (The Cards) --- */
         .node {
-            padding: 24px 32px;
-            border-radius: 16px;
+            padding: 25px 35px;
+            border-radius: 12px;
             text-align: center;
             font-weight: 600;
             box-shadow: var(--shadow-md);
             margin: 0 auto;
-            max-width: 550px;
+            max-width: 580px;
             width: 100%;
             position: relative;
-            background: var(--card-bg); /* Ensure all nodes are on white background by default */
+            background: var(--card-bg);
             /* Animation */
             opacity: 0;
             transform: translateY(20px);
@@ -93,43 +105,47 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Question Node Style - White background with Gold Border (new style) */
+        /* Question Node Style - White background with Gold Border (High Contrast & Pop) */
         .question-node {
-            border: 3px solid var(--spc-gold-pms7555); /* Thick gold border */
-            color: var(--spc-blue-pms2955); /* Deep Blue text */
-            font-size: 1.1em;
+            border: 3px solid var(--color-gold); 
+            color: var(--color-navy); /* Deep Navy text for max readability */
+            font-size: 1.2em; /* Slightly larger text */
             text-align: center;
-            box-shadow: 0 0 10px rgba(180, 150, 53, 0.3); /* Subtle gold glow */
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Start Node Style (Remains Gold accented) */
+        /* Start Node Style */
         .start-node {
-            background-color: #fffbeb; 
-            border: 2px dashed var(--spc-gold-pms7555);
-            color: var(--spc-blue-pms2955);
+            background-color: var(--color-gold);
+            border: 2px dashed var(--color-navy);
+            color: var(--color-navy);
             font-weight: 700;
             display: inline-block;
             width: auto;
-            padding: 10px 30px;
-            margin-bottom: 20px;
+            padding: 12px 30px;
+            margin-bottom: 25px;
+            font-family: 'Poppins', sans-serif;
+            border-radius: 50px; /* Pill shape for START */
         }
 
-        /* Action/Result Node Style (Remains Green accented) */
+        /* Action/Result Node Style (Lime Green accented) */
         .action-node {
-            border-left: 6px solid var(--success-green);
-            background-color: #ecfdf5; 
+            border-left: 6px solid var(--color-lime);
+            background-color: #ecfdf5; /* Pale green background */
             color: var(--text-dark);
             text-align: left;
             font-weight: 500;
+            border: 1px solid #d1fae5;
         }
 
         /* --- Result Text Styling --- */
         .result-header {
             font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1em;
             margin-bottom: 12px;
-            color: var(--success-green);
+            color: var(--color-lime); /* Lime green header */
             display: flex;
             align-items: center;
             gap: 10px;
@@ -138,11 +154,11 @@
         .result-text {
             font-family: 'Inter', sans-serif;
             white-space: pre-wrap;
-            background-color: rgba(255,255,255,0.6);
+            background-color: var(--card-bg);
             padding: 15px;
             border-radius: 8px;
             border: 1px solid #d1fae5;
-            color: #064e3b;
+            color: var(--color-navy);
             font-size: 0.95em;
         }
 
@@ -157,16 +173,16 @@
         }
 
         .path-line {
-            width: 2px;
+            width: 3px; /* Slightly thicker line */
             height: 20px;
-            background-color: var(--spc-gold-pms7555); /* Gold line for path */
+            background-color: var(--color-gold); /* Gold line for path */
         }
 
         .path-label {
             font-size: 0.75em;
             font-weight: 700;
-            color: white;
-            background-color: var(--spc-blue-pms2955);
+            color: var(--card-bg);
+            background-color: var(--color-navy);
             padding: 4px 12px;
             border-radius: 20px;
             text-transform: uppercase;
@@ -178,7 +194,7 @@
         /* --- Controls & Buttons --- */
         #controls {
             margin-top: auto; 
-            padding-top: 20px;
+            padding-top: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -188,35 +204,35 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            gap: 20px; /* More space between buttons */
             margin-bottom: 20px;
             min-height: 50px;
         }
 
         .option-button {
-            padding: 12px 30px;
+            padding: 14px 40px; /* Larger buttons */
             border: none;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
+            font-weight: 700; /* Bolder text */
+            font-size: 1.05rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            background-color: var(--spc-blue-pms2955);
+            background-color: var(--color-navy);
             color: white;
-            box-shadow: 0 4px 6px rgba(0, 31, 63, 0.2);
+            box-shadow: 0 6px 10px rgba(0, 31, 63, 0.3); /* Deeper button shadow */
         }
 
         .option-button:hover {
-            background-color: #1e3a8a; 
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 31, 63, 0.3);
+            background-color: #004a92; 
+            transform: translateY(-3px); /* More dramatic lift */
+            box-shadow: 0 8px 15px rgba(0, 31, 63, 0.4);
         }
 
         #reset-button {
             background: white;
-            color: var(--spc-blue-pms2955);
-            border: 2px solid var(--spc-blue-pms2955);
+            color: var(--color-navy);
+            border: 2px solid var(--color-navy);
             padding: 10px 24px;
             border-radius: 8px;
             font-weight: 600;
@@ -226,22 +242,26 @@
         }
         
         #reset-button:hover {
-            background-color: var(--spc-blue-pms2955);
+            background-color: var(--color-navy);
             color: white;
         }
 
-        /* --- Informational Notes (SPC Gold Accent) --- */
+        /* --- Informational Notes (SPC Gold/Navy Accent) --- */
         #acrobat-note {
-            margin-top: 20px;
-            padding: 16px;
-            border-left: 4px solid var(--spc-gold-pms7555);
+            margin-top: 25px;
+            padding: 20px;
+            border-left: 5px solid var(--color-gold);
             background-color: var(--card-bg); 
-            border-radius: 6px;
+            border-radius: 8px;
             color: var(--text-dark);
-            font-size: 0.9em;
+            font-size: 0.95em;
             max-width: 500px;
             line-height: 1.5;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-md);
+        }
+        
+        #acrobat-note strong {
+            color: var(--color-navy);
         }
 
         .hidden { display: none !important; }
@@ -249,19 +269,22 @@
         /* Mobile Adjustments */
         @media (max-width: 600px) {
             #tree-container { padding: 20px 15px; }
-            .node { padding: 20px; font-size: 0.95rem; }
+            .node { padding: 20px; font-size: 1rem; }
+            .option-button { padding: 12px 30px; font-size: 1rem; }
+            #spc-banner h1 { font-size: 1.8em; }
         }
     </style>
 </head>
 <body>
     
     <div id="spc-banner">
-        ST. PETERSBURG COLLEGE ACCESSIBILITY GUIDE
+        <h1>ACCESSIBILITY GUIDE</h1>
+        <p>Canvas Content Remediation Decision Tree</p>
     </div>
 
     <div id="tree-container-wrapper">
         <div id="tree-container">
-            <h2>Canvas Content Remediation Decision Tree</h2>
+            <h2 class="main-title">Start Your Accessibility Check Here</h2>
 
             <div id="flow-display">
                 </div>
@@ -271,7 +294,7 @@
                 
                 <div id="acrobat-note" class="hidden">
                     <strong>Don't have Adobe Acrobat?</strong><br>
-                    Contact <a href="mailto:syssupport@spcollege.edu" style="color: inherit; text-decoration: underline;">syssupport@spcollege.edu</a> to request access to the Adobe Suite.
+                    Contact <a href="mailto:syssupport@spcollege.edu" style="color: var(--color-navy); text-decoration: underline;">syssupport@spcollege.edu</a> to request access to the Adobe Suite.
                 </div>
 
                 <button id="reset-button" class="hidden" onclick="resetFlow()">↻ Start Over</button>
@@ -280,7 +303,7 @@
     </div>
 
     <script>
-        // --- LOGIC (No changes here, only in CSS/HTML) ---
+        // --- LOGIC (Unchanged) ---
 
         const flowchart = {
             'q1': {
