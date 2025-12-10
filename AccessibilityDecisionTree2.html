@@ -10,8 +10,8 @@
         /* --- SPC ENHANCED COLOR PALETTE --- */
         :root {
             --color-navy: #002D62;     /* Deep Navy Blue */
-            --color-gold: #FFC72C;     /* Vibrant Yellow/Gold */
-            --color-lime: #A4DE00;     /* Lime Green Accent */
+            --color-gold: #FFC72C;     /* Vibrant Yellow/Gold (Now for Questions & Start) */
+            --color-lime: #A4DE00;     /* Lime Green Accent (Now for Actions) */
             --bg-page: #f4f4f9;        /* Light Grey Background */
             --card-bg: #FFFFFF;
             --text-dark: #333333;
@@ -112,9 +112,9 @@
 
         /* Question Node Style - GOLD BACKGROUND & NAVY BORDER */
         .question-node {
-            background-color: var(--color-gold); /* Gold Background */
-            border: 3px solid var(--color-navy); /* Navy Blue Border */
-            color: var(--color-navy); /* Navy Blue Text */
+            background-color: var(--color-gold); 
+            border: 3px solid var(--color-navy); 
+            color: var(--color-navy); 
             font-size: 1.2em; 
             text-align: center;
             font-family: 'Poppins', sans-serif;
@@ -123,7 +123,6 @@
 
         /* Start Node Style (Centered by parent) */
         .start-node {
-            /* Kept start node gold for visual link to questions */
             background-color: var(--color-lime); 
             border: 2px dashed var(--color-navy);
             color: var(--color-navy);
@@ -141,7 +140,7 @@
         /* Action/Result Node Style - LIME GREEN background, Navy border */
         .action-node {
             border: 3px solid var(--color-navy); 
-            background-color: var(--color-lime); /* Lime Green background */
+            background-color: var(--color-lime); 
             color: var(--color-navy); 
             text-align: left;
             font-weight: 500;
@@ -163,7 +162,7 @@
         .result-text {
             font-family: 'Inter', sans-serif;
             white-space: pre-wrap;
-            background-color: var(--card-bg); /* White inner background for best readability */
+            background-color: var(--card-bg); 
             padding: 15px;
             border-radius: 8px;
             border: 1px solid var(--color-navy); 
@@ -259,7 +258,8 @@
         #acrobat-note {
             margin-top: 25px;
             padding: 20px;
-            border-left: 5px solid var(--color-gold);
+            /* FINAL UPDATE: Thicker 7px Gold border */
+            border: 7px solid var(--color-gold); 
             background-color: var(--card-bg); 
             border-radius: 8px;
             color: var(--text-dark);
