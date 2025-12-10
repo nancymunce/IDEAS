@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Accessibility Decision Tree - SPC Enhanced</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- SPC ENHANCED COLOR PALETTE --- */
+        :root {
+            --color-navy: #002D62;     /* Deep Navy Blue */
+            --color-gold: #FFC72C;     /* Vibrant Yellow/Gold */
+            --color-lime: #A4DE00;     /* Lime Green Accent */
+            --bg-page: #f4f4f9;        /* Light Grey Background */
+            --card-bg: #FFFFFF;
+            --text-dark: #333333;
+            --shadow-pop: 0 8px 15px rgba(0, 0, 0, 0.2); 
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-page);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- SPC BRAND BANNER --- */
+        #spc-banner {
+            background-color: var(--color-navy);
+            color: var(--card-bg);
+            padding: 20px 5%;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+        
+        #spc-banner h1 {
+            margin: 0;
+            font-size: 2.2em;
+            color: var(--color-gold); 
+        }
+        
+        #spc-banner p {
+            margin: 5px 0 0 0;
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        /* --- Main Container --- */
+        #tree-container-wrapper {
+            padding: 40px 20px;
+        }
+
+        #tree-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border-radius: 12px; 
+            box-shadow: var(--shadow-pop);
+            padding: 40px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid var(--color-gold); 
+        }
+
+        h2.main-title {
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-navy);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            border-bottom: 3px solid var(--color-gold); 
+            padding-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Center content within flow-display (crucial for centering start-node) */
+        #flow-display {
+            text-align: center;
+        }
+
+        /* --- Node Styling (The Cards) --- */
+        .node {
+            padding: 25px 35px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+            margin-left: auto; 
+            margin-right: auto;
+            max-width: 580px;
+            width: 100%;
+            position: relative;
+            background: var(--card-bg);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFade 0.5s ease forwards;
+        }
+
+        @keyframes slideUpFade {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Question Node Style - GOLD BACKGROUND & NAVY BORDER */
+        .question-node {
+            background-color: var(--color-gold); /* Gold Background */
+            border: 3px solid var(--color-navy); /* Navy Blue Border */
+            color: var(--color-navy); /* Navy Blue Text */
+            font-size: 1.2em; 
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Start Node Style (Centered by parent) */
+        .start-node {
+            /* Kept start node gold for visual link to questions */
+            background-color: var(--color-gold); 
+            border: 2px dashed var(--color-navy);
+            color: var(--color-navy);
+            font-weight: 700;
+            display: inline-block; 
+            width: auto;
+            padding: 12px 30px;
+            margin-bottom: 25px;
+            font-family: 'Poppins', sans-serif;
+            border-radius: 50px;
+            margin-left: 0; 
+            margin-right: 0;
+        }
+
+        /* Action/Result Node Style - LIME GREEN background, Navy border */
+        .action-node {
+            border: 3px solid var(--color-navy); 
+            background-color: var(--color-lime); /* Lime Green background */
+            color: var(--color-navy); 
+            text-align: left;
+            font-weight: 500;
+            border-left: 3px solid var(--color-navy); 
+        }
+
+        /* --- Result Text Styling --- */
+        .result-header {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            color: var(--color-navy); 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-text {
+            font-family: 'Inter', sans-serif;
+            white-space: pre-wrap;
+            background-color: var(--card-bg); /* White inner background for best readability */
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--color-navy); 
+            color: var(--color-navy);
+            font-size: 0.95em;
+        }
+
+        /* --- The Path (Connecting Lines) --- */
+        .path-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 5px;
+            width: 100%;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .path-line {
+            width: 3px; 
+            height: 20px;
+            background-color: var(--color-gold); 
+        }
+
+        .path-label {
+            font-size: 0.75em;
+            font-weight: 700;
+            color: var(--card-bg);
+            background-color: var(--color-navy);
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+
+        /* --- Controls & Buttons --- */
+        #controls {
+            margin-top: auto; 
+            padding-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            min-height: 50px;
+        }
+
+        .option-button {
+            padding: 14px 40px; 
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700; 
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: var(--color-navy);
+            color: white;
+            box-shadow: 0 6px 10px rgba(0, 31, 63, 0.3);
+        }
+
+        .option-button:hover {
+            background-color: #004a92; 
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 31, 63, 0.4);
+        }
+
+        #reset-button {
+            background: white;
+            color: var(--color-navy);
+            border: 2px solid var(--color-navy);
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 20px;
+        }
+        
+        #reset-button:hover {
+            background-color: var(--color-navy);
+            color: white;
+        }
+
+        /* --- Informational Notes --- */
+        #acrobat-note {
+            margin-top: 25px;
+            padding: 20px;
+            border-left: 5px solid var(--color-gold);
+            background-color: var(--card-bg); 
+            border-radius: 8px;
+            color: var(--text-dark);
+            font-size: 0.95em;
+            max-width: 500px;
+            line-height: 1.5;
+            box-shadow: var(--shadow-md);
+        }
+        
+        #acrobat-note strong {
+            color: var(--color-navy);
+        }
+
+        .hidden { display: none !important; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            #tree-container { padding: 20px 15px; }
+            .node { padding: 20px; font-size: 1rem; }
+            .option-button { padding: 12px 30px; font-size: 1rem; }
+            #spc-banner h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="spc-banner">
+        <h1>ACCESSIBILITY GUIDE</h1>
+        <p>Canvas Content Remediation Decision Tree</p>
+    </div>
+
+    <div id="tree-container-wrapper">
+        <div id="tree-container">
+            <h2 class="main-title">Start Your Accessibility Check Here</h2>
+
+            <div id="flow-display">
+                </div>
+
+            <div id="controls">
+                <div id="options-container"></div>
+                
+                <div id="acrobat-note" class="hidden">
+                    <strong>Don't have Adobe Acrobat?</strong><br>
+                    Contact <a href="mailto:syssupport@spcollege.edu" style="color: var(--color-navy); text-decoration: underline;">syssupport@spcollege.edu</a> to request access to the Adobe Suite.
+                </div>
+
+                <button id="reset-button" class="hidden" onclick="resetFlow()">↻ Start Over</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- LOGIC (Unchanged) ---
+
+        const flowchart = {
+            'q1': {
+                question: 'Is this essential for teaching and learning?',
+                type: 'decision',
+                options: [
+                    { label: 'YES', next: 'q2' },
+                    { label: 'NO', next: 'a1' } 
+                ]
+            },
+            'q2': {
+                question: 'Was this item created by a third party vendor?',
+                type: 'decision',
+                options: [
+                    { label: 'YES', next: 'a2' },
+                    { label: 'NO', next: 'q3' }
+                ]
+            },
+            'q3': {
+                question: 'What kind of item is this?',
+                type: 'decision',
+                options: [
+                    { label: 'Word, PowerPoint, Excel, or PDF File', next: 'q4' },
+                    { label: 'Web-based item (Assignment, Page, etc.)', next: 'a3' }
+                ]
+            },
+            'q4': {
+                question: 'Can it be converted to a Canvas Page?',
+                type: 'decision',
+                options: [
+                    { label: 'YES', next: 'a4' },
+                    { label: 'NO', next: 'q5' }
+                ]
+            },
+            'q5': {
+                question: 'What kind of file is this?',
+                type: 'decision',
+                options: [
+                    { label: 'Word Doc', next: 'a5' },
+                    { label: 'PowerPoint', next: 'a6' },
+                    { label: 'Excel', next: 'a7' },
+                    { label: 'PDF', next: 'a8' }
+                ]
+            },
+            // Actions
+            'a1': { result: 'Delete from Files!', type: 'result', emoji: '🗑️' },
+            'a2': { result: 'Contact third party to provide an accessible version, and then replace the old item with the new one in Files.', type: 'result', emoji: '📞' },
+            'a3': { result: 'This is a Canvas native item. Check the Canvas Accessibility Checker, YuJa Panorama, or use the Rich Content Editor tools to remediate.', type: 'result', emoji: '🛠️' },
+            'a4': { result: 'Do it! 🎉 Add a page. Either type or clean copy/paste information. Delete old file from Files.', type: 'result', emoji: '📄' },
+            'a5': { result: '1. Download. \n2. Open Word doc. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.', type: 'result', emoji: '✍️' },
+            'a6': { result: '1. Download. \n2. Open PowerPoint file. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.', type: 'result', emoji: '💡' },
+            'a7': { result: '1. Download. \n2. Open Excel file. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file in Canvas.', type: 'result', emoji: '📊' },
+            'a8': { result: '1. Download. \n2. Open with Adobe Acrobat. \n3. Leave file name as is. \n4. Remediate. \n5. Replace file.', type: 'result', emoji: '🛡️', acrobat: true }
+        };
+
+        const flowDisplayEl = document.getElementById('flow-display');
+        const optionsEl = document.getElementById('options-container');
+        const resetButtonEl = document.getElementById('reset-button');
+        const acrobatNoteEl = document.getElementById('acrobat-note');
+        
+        function renderFlow(key, selectedLabel = null) {
+            const node = flowchart[key];
+
+            // 1. Render the connecting line (if not the very first load)
+            if (selectedLabel) {
+                const segment = document.createElement('div');
+                segment.className = 'path-segment';
+
+                const lineTop = document.createElement('div');
+                lineTop.className = 'path-line';
+                lineTop.style.height = '15px'; 
+
+                const label = document.createElement('span');
+                label.className = 'path-label';
+                label.textContent = selectedLabel;
+
+                const lineBottom = document.createElement('div');
+                lineBottom.className = 'path-line';
+                lineBottom.style.height = '15px';
+
+                segment.appendChild(lineTop);
+                segment.appendChild(label);
+                segment.appendChild(lineBottom);
+                
+                flowDisplayEl.appendChild(segment);
+            }
+
+            // 2. Render the Node
+            const newNodeEl = document.createElement('div');
+            newNodeEl.id = key;
+            newNodeEl.className = `node ${node.type === 'decision' ? 'question-node' : 'action-node'}`;
+            if (key === 'q1') {
+                newNodeEl.classList.add('first-question'); 
+            }
+
+
+            if (node.type === 'decision') {
+                newNodeEl.textContent = node.question;
+            } else {
+                const header = document.createElement('div');
+                header.className = 'result-header';
+                header.innerHTML = `<span>${node.emoji}</span> Remediation Action`;
+                
+                const resultTextEl = document.createElement('div');
+                resultTextEl.className = 'result-text';
+                resultTextEl.textContent = node.result;
+                
+                newNodeEl.appendChild(header);
+                newNodeEl.appendChild(resultTextEl);
+            }
+            
+            flowDisplayEl.appendChild(newNodeEl);
+
+            // 3. Handle Controls
+            optionsEl.innerHTML = '';
+            acrobatNoteEl.classList.add('hidden');
+
+            if (node.type === 'decision') {
+                optionsEl.classList.remove('hidden');
+                resetButtonEl.classList.add('hidden');
+                
+                node.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-button';
+                    button.textContent = option.label;
+                    button.onclick = () => renderFlow(option.next, option.label);
+                    optionsEl.appendChild(button);
+                });
+            } else {
+                optionsEl.classList.add('hidden');
+                resetButtonEl.classList.remove('hidden');
+
+                if (node.acrobat) {
+                    acrobatNoteEl.classList.remove('hidden');
+                }
+            }
+
+            // Scroll unless it's the very first item
+            if (key !== 'q1') {
+                setTimeout(() => {
+                    newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+
+        function resetFlow() {
+            // 1. Clear everything and render START node
+            flowDisplayEl.innerHTML = `
+                <div id="start-node" class="node start-node">
+                    START: Item in Canvas
+                </div>
+            `;
+            
+            // 2. Trigger Question 1 immediately after START
+            renderFlow('q1', null);
+            
+            // 3. Reset utility buttons
+            resetButtonEl.classList.add('hidden');
+            acrobatNoteEl.classList.add('hidden');
+            
+            document.getElementById('tree-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', resetFlow);
+    </script>
+
+</body>
+</html>
