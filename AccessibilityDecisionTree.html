@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Accessibility Decision Tree</title>
+    <title>Canvas Accessibility Decision Tree - SPC Branded</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS Variables --- */
+        /* --- SPC BRANDING COLORS --- */
+        /* PMS 2955 Blue is the core brand color */
+        /* PMS 7555 Gold is the secondary accent */
         :root {
-            --primary-navy: #002b5c;     /* Deep Navy */
-            --primary-gold: #b49635;     /* Muted Gold */
-            --success-green: #059669;    /* Emerald Green */
-            --bg-color: #f3f4f6;         /* Light Gray */
+            --spc-blue-pms2955: #002b5c;     /* Deep Academic Navy/Blue */
+            --spc-gold-pms7555: #b49635;     /* Muted Gold/Brass */
+            --success-green: #059669;        /* Modern Emerald for success actions */
+            --bg-color: #f3f4f6;             /* Light Gray Background */
             --card-bg: #ffffff;
             --text-dark: #1f2937;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
@@ -37,7 +40,7 @@
             border-radius: 24px;
             box-shadow: var(--shadow-lg);
             overflow: hidden;
-            border-top: 8px solid var(--primary-navy);
+            border-top: 8px solid var(--spc-blue-pms2955);
             padding: 40px;
             min-height: 80vh;
             display: flex;
@@ -46,25 +49,24 @@
 
         h2 {
             font-family: 'Poppins', sans-serif;
-            color: var(--primary-navy);
+            color: var(--spc-blue-pms2955);
             text-align: center;
             margin-bottom: 40px;
             font-size: 2rem;
+            letter-spacing: -0.02em;
         }
 
-        /* --- Node Styling --- */
+        /* --- Node Styling (The Cards) --- */
         .node {
             padding: 24px 32px;
             border-radius: 16px;
             text-align: center;
-            font-weight: 500;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
             margin: 0 auto;
             max-width: 550px;
             width: 100%;
             position: relative;
-            background: white;
-            border: 1px solid #e5e7eb;
             /* Animation */
             opacity: 0;
             transform: translateY(20px);
@@ -75,18 +77,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Question Node */
+        /* Question Node Style - High Contrast SPC Blue */
         .question-node {
-            border-left: 6px solid var(--primary-navy);
-            color: var(--primary-navy);
+            background-color: var(--spc-blue-pms2955);
+            color: white; /* White text on Blue background for high contrast */
+            border: 1px solid var(--spc-blue-pms2955);
             font-size: 1.1em;
+            text-align: center;
         }
 
-        /* Start Node Badge */
+        /* Start Node Style */
         .start-node {
-            background-color: #fffbeb;
-            border: 2px dashed var(--primary-gold);
-            color: var(--primary-navy);
+            background-color: #fffbeb; /* Very pale gold bg */
+            border: 2px dashed var(--spc-gold-pms7555);
+            color: var(--spc-blue-pms2955);
             font-weight: 700;
             display: inline-block;
             width: auto;
@@ -94,15 +98,16 @@
             margin-bottom: 20px;
         }
 
-        /* Action Node */
+        /* Action/Result Node Style (Remediation) */
         .action-node {
             border-left: 6px solid var(--success-green);
-            background-color: #ecfdf5;
+            background-color: #ecfdf5; /* Very pale green bg */
             color: var(--text-dark);
             text-align: left;
+            font-weight: 500;
         }
 
-        /* --- Result Text --- */
+        /* --- Result Text Styling --- */
         .result-header {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
@@ -125,15 +130,7 @@
             font-size: 0.95em;
         }
 
-        /* --- Paths --- */
-        #flow-display {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            padding-bottom: 30px; 
-        }
-
+        /* --- The Path (Connecting Lines) --- */
         .path-segment {
             display: flex;
             flex-direction: column;
@@ -143,25 +140,21 @@
             animation: fadeIn 0.8s ease forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         .path-line {
             width: 2px;
             height: 20px;
-            background-color: #d1d5db;
+            background-color: var(--spc-gold-pms7555); /* Changed line color to Gold */
         }
 
         .path-label {
             font-size: 0.75em;
             font-weight: 700;
             color: white;
-            background-color: var(--primary-navy);
+            background-color: var(--spc-blue-pms2955);
             padding: 4px 12px;
             border-radius: 20px;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             z-index: 2;
         }
@@ -181,7 +174,7 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 20px;
-            min-height: 50px; /* Ensure space is reserved */
+            min-height: 50px;
         }
 
         .option-button {
@@ -193,21 +186,21 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            background-color: var(--primary-navy);
+            background-color: var(--spc-blue-pms2955);
             color: white;
             box-shadow: 0 4px 6px rgba(0, 31, 63, 0.2);
         }
 
         .option-button:hover {
-            background-color: #1e3a8a;
+            background-color: #1e3a8a; /* Lighter Blue */
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 31, 63, 0.3);
         }
 
         #reset-button {
             background: white;
-            color: var(--primary-navy);
-            border: 2px solid var(--primary-navy);
+            color: var(--spc-blue-pms2955);
+            border: 2px solid var(--spc-blue-pms2955);
             padding: 10px 24px;
             border-radius: 8px;
             font-weight: 600;
@@ -217,23 +210,27 @@
         }
         
         #reset-button:hover {
-            background-color: var(--primary-navy);
+            background-color: var(--spc-blue-pms2955);
             color: white;
         }
 
+        /* --- Informational Notes (SPC Gold Accent) --- */
         #acrobat-note {
             margin-top: 20px;
             padding: 16px;
-            border-left: 4px solid var(--primary-gold);
-            background-color: #fffbeb;
+            border-left: 4px solid var(--spc-gold-pms7555);
+            background-color: var(--card-bg); 
             border-radius: 6px;
-            color: #92400e;
+            color: var(--text-dark);
             font-size: 0.9em;
             max-width: 500px;
+            line-height: 1.5;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .hidden { display: none !important; }
 
+        /* Mobile Adjustments */
         @media (max-width: 600px) {
             #tree-container { padding: 20px 15px; }
             .node { padding: 20px; font-size: 0.95rem; }
@@ -253,7 +250,7 @@
             
             <div id="acrobat-note" class="hidden">
                 <strong>Don't have Adobe Acrobat?</strong><br>
-                Contact <a href="mailto:syssupport@spcollege.edu" style="color: inherit; text-decoration: underline;">syssupport@spcollege.edu</a> to request access.
+                Contact <a href="mailto:syssupport@spcollege.edu" style="color: inherit; text-decoration: underline;">syssupport@spcollege.edu</a> to request access to the Adobe Suite.
             </div>
 
             <button id="reset-button" class="hidden" onclick="resetFlow()">↻ Start Over</button>
@@ -396,7 +393,7 @@
             }
 
             // Scroll unless it's the very first item
-            if (selectedLabel) {
+            if (key !== 'q1') {
                 setTimeout(() => {
                     newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 100);
@@ -404,15 +401,14 @@
         }
 
         function resetFlow() {
-            // 1. Clear everything
+            // 1. Clear everything and render START node
             flowDisplayEl.innerHTML = `
                 <div id="start-node" class="node start-node">
                     START: Item in Canvas
                 </div>
             `;
             
-            // 2. Trigger Question 1 immediately
-            // We pass null for label so no connecting line is drawn yet
+            // 2. Trigger Question 1 immediately after START
             renderFlow('q1', null);
             
             // 3. Reset utility buttons
