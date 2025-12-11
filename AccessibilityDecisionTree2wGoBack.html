@@ -10,8 +10,8 @@
         /* --- SPC ENHANCED COLOR PALETTE --- */
         :root {
             --color-navy: #002D62;     /* Deep Navy Blue */
-            --color-gold: #FFC72C;     /* Vibrant Yellow/Gold (Questions & Start) */
-            --color-lime: #A4DE00;     /* Lime Green Accent (Actions) */
+            --color-gold: #FFC72C;     /* Vibrant Yellow/Gold (Questions & Path) */
+            --color-lime: #A4DE00;     /* Lime Green Accent (Actions & Start) */
             --bg-page: #f4f4f9;        /* Light Grey Background */
             --card-bg: #FFFFFF;
             --text-dark: #333333;
@@ -123,7 +123,7 @@
 
         /* Start Node Style (Centered by parent) */
         .start-node {
-            background-color: var(--color-gold); 
+            background-color: var(--color-lime); 
             border: 2px dashed var(--color-navy);
             color: var(--color-navy);
             font-weight: 700;
@@ -215,19 +215,10 @@
             gap: 20px;
             margin-bottom: 20px;
             min-height: 50px;
-            width: 100%; /* Ensure container respects width */
+            width: 100%; 
         }
         
-        .button-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%; /* Full width for button group */
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .option-button, .back-button {
+        .option-button {
             padding: 14px 40px; 
             border: none;
             border-radius: 50px;
@@ -252,13 +243,20 @@
         }
 
         .back-button {
-            background-color: var(--bg-page); /* Light background for Go Back */
+            background-color: var(--bg-page); 
             color: var(--color-navy);
             border: 2px solid var(--color-navy);
             padding: 10px 24px;
             font-size: 0.95rem;
             border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Make it separate and centered in the button container */
+            margin-top: 10px;
+            width: 100%;
+            max-width: 400px; 
         }
 
         .back-button:hover {
@@ -310,8 +308,8 @@
             .node { padding: 20px; font-size: 1rem; }
             .option-button { padding: 12px 30px; font-size: 1rem; }
             #spc-banner h1 { font-size: 1.8em; }
-            .button-group { flex-direction: column; }
-            .option-button, .back-button { width: 100%; }
+            #options-container { flex-direction: column; }
+            .option-button { width: 100%; }
         }
     </style>
 </head>
@@ -404,7 +402,7 @@
         const resetButtonEl = document.getElementById('reset-button');
         const acrobatNoteEl = document.getElementById('acrobat-note');
         
-        let history = []; // Stores the key of the parent node for each step taken.
+        let history = []; // Tracks the key of the parent node for each step taken.
 
         /**
          * Helper function to transition from one node to the next, updating history.
@@ -418,96 +416,11 @@
         }
 
         /**
-         * Moves the flow back one step by removing the last two DOM elements and re-rendering previous options.
+         * Renders the options and back button for a given node key.
+         * @param {string} key - The key of the node whose controls should be displayed.
+         * @param {object} node - The flowchart object for the key.
          */
-        function goBack() {
-            if (history.length === 0) return; // Should not happen if button logic is correct
-
-            // 1. Remove the current node (The last child)
-            const currentNode = flowDisplayEl.lastChild;
-            if (currentNode) {
-                flowDisplayEl.removeChild(currentNode);
-            }
-
-            // 2. Remove the path segment (The new last child)
-            const pathSegment = flowDisplayEl.lastChild;
-            if (pathSegment) {
-                flowDisplayEl.removeChild(pathSegment);
-            }
-
-            // 3. Get the key of the node to return to
-            const prevKey = history.pop();
-            
-            // 4. Re-render the options for the previous node
-            renderFlow(prevKey); 
-
-            // Scroll to the previous node
-            const prevNode = document.getElementById(prevKey);
-             if (prevNode) {
-                 prevNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
-             } else {
-                 // Special case: if we go back to the start (q1)
-                 document.getElementById('tree-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-             }
-        }
-
-
-        function renderFlow(key, selectedLabel = null) {
-            const node = flowchart[key];
-
-            // If we are moving forward (i.e., selectedLabel is provided), we render the new path segment and node.
-            if (selectedLabel !== null) {
-                // 1. Render the connecting line
-                const segment = document.createElement('div');
-                segment.className = 'path-segment';
-
-                const lineTop = document.createElement('div');
-                lineTop.className = 'path-line';
-                lineTop.style.height = '15px'; 
-
-                const label = document.createElement('span');
-                label.className = 'path-label';
-                label.textContent = selectedLabel;
-
-                const lineBottom = document.createElement('div');
-                lineBottom.className = 'path-line';
-                lineBottom.style.height = '15px';
-
-                segment.appendChild(lineTop);
-                segment.appendChild(label);
-                segment.appendChild(lineBottom);
-                
-                flowDisplayEl.appendChild(segment);
-
-                // 2. Render the Node
-                const newNodeEl = document.createElement('div');
-                newNodeEl.id = key;
-                newNodeEl.className = `node ${node.type === 'decision' ? 'question-node' : 'action-node'}`;
-                
-                if (node.type === 'decision') {
-                    newNodeEl.textContent = node.question;
-                } else {
-                    const header = document.createElement('div');
-                    header.className = 'result-header';
-                    header.innerHTML = `<span>${node.emoji}</span> Remediation Action`;
-                    
-                    const resultTextEl = document.createElement('div');
-                    resultTextEl.className = 'result-text';
-                    resultTextEl.textContent = node.result;
-                    
-                    newNodeEl.appendChild(header);
-                    newNodeEl.appendChild(resultTextEl);
-                }
-                
-                flowDisplayEl.appendChild(newNodeEl);
-                
-                // Scroll to the new node
-                setTimeout(() => {
-                    newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 100);
-            }
-            
-            // 3. Handle Controls (Options)
+        function renderControls(key, node) {
             optionsEl.innerHTML = '';
             acrobatNoteEl.classList.add('hidden');
 
@@ -515,22 +428,16 @@
                 optionsEl.classList.remove('hidden');
                 resetButtonEl.classList.add('hidden');
                 
-                const buttonGroup = document.createElement('div');
-                buttonGroup.className = 'button-group';
-
                 node.options.forEach(option => {
                     const button = document.createElement('button');
                     button.className = 'option-button';
                     button.textContent = option.label;
-                    // Changed click handler to use the new transition helper
                     button.onclick = () => transition(key, option.next, option.label);
                     optionsEl.appendChild(button);
                 });
                 
-                // Add the Go Back button if we are past Q2 (history.length >= 2)
-                // Note: Q1 is never pushed, so after Q1->Q2, history.length is 1.
-                // After Q2->Q3, history.length is 2. So Q3 is the first step with a back button.
-                if (history.length >= 2 || (key !== 'q1' && history.length >= 1)) { 
+                // Show Go Back button on Q2 and all subsequent questions (Q2, Q3, Q4, Q5)
+                if (key !== 'q1') { 
                     const backButton = document.createElement('button');
                     backButton.className = 'back-button';
                     backButton.textContent = '← Go Back';
@@ -541,9 +448,14 @@
 
             } else { // Result/Action Node
                 optionsEl.classList.add('hidden');
+                resetButtonEl.classList.remove('hidden');
+
+                if (node.acrobat) {
+                    acrobatNoteEl.classList.remove('hidden');
+                }
                 
-                // For result nodes, we still show the Go Back button for exploration
-                if (history.length >= 2) {
+                // Show Go Back button on A2 and all subsequent actions (A2, A3, ..., A8)
+                if (key !== 'a1') {
                     const backButton = document.createElement('button');
                     backButton.className = 'back-button';
                     backButton.textContent = '← Go Back to Options';
@@ -551,14 +463,126 @@
                     optionsEl.appendChild(backButton);
                     optionsEl.classList.remove('hidden'); // Show options just for the back button
                 }
-
-                resetButtonEl.classList.remove('hidden');
-
-                if (node.acrobat) {
-                    acrobatNoteEl.classList.remove('hidden');
-                }
             }
         }
+
+
+        /**
+         * Renders a single node without a path segment (used for initial Q1 render).
+         * @param {string} key - The key of the node to render.
+         */
+        function renderInitialQ1Node(key) {
+             const node = flowchart[key];
+             const newNodeEl = document.createElement('div');
+             newNodeEl.id = key;
+             newNodeEl.className = `node ${node.type === 'decision' ? 'question-node' : 'action-node'}`;
+             
+             if (node.type === 'decision') {
+                 newNodeEl.textContent = node.question;
+             }
+             
+             flowDisplayEl.appendChild(newNodeEl);
+        }
+
+        /**
+         * Renders the path segment and the new node when moving forward.
+         * @param {string} key - The key of the new node.
+         * @param {string} selectedLabel - The label of the path segment.
+         */
+        function renderNewStep(key, selectedLabel) {
+            const node = flowchart[key];
+
+            // 1. Render the connecting line
+            const segment = document.createElement('div');
+            segment.className = 'path-segment';
+
+            const lineTop = document.createElement('div');
+            lineTop.className = 'path-line';
+            lineTop.style.height = '15px'; 
+
+            const label = document.createElement('span');
+            label.className = 'path-label';
+            label.textContent = selectedLabel;
+
+            const lineBottom = document.createElement('div');
+            lineBottom.className = 'path-line';
+            lineBottom.style.height = '15px';
+
+            segment.appendChild(lineTop);
+            segment.appendChild(label);
+            segment.appendChild(lineBottom);
+            
+            flowDisplayEl.appendChild(segment);
+
+            // 2. Render the Node
+            const newNodeEl = document.createElement('div');
+            newNodeEl.id = key;
+            newNodeEl.className = `node ${node.type === 'decision' ? 'question-node' : 'action-node'}`;
+            
+            if (node.type === 'decision') {
+                newNodeEl.textContent = node.question;
+            } else {
+                const header = document.createElement('div');
+                header.className = 'result-header';
+                header.innerHTML = `<span>${node.emoji}</span> Remediation Action`;
+                
+                const resultTextEl = document.createElement('div');
+                resultTextEl.className = 'result-text';
+                resultTextEl.textContent = node.result;
+                
+                newNodeEl.appendChild(header);
+                newNodeEl.appendChild(resultTextEl);
+            }
+            
+            flowDisplayEl.appendChild(newNodeEl);
+
+            // Scroll to the new node
+            setTimeout(() => {
+                newNodeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        function renderFlow(key, selectedLabel = null) {
+            const node = flowchart[key];
+
+            if (selectedLabel !== null) {
+                renderNewStep(key, selectedLabel);
+            }
+            
+            renderControls(key, node); 
+        }
+
+        /**
+         * Moves the flow back one step by removing the last two DOM elements and re-rendering previous options.
+         */
+        function goBack() {
+            if (history.length === 0) return;
+
+            // 1. Remove the current node (The last child)
+            const currentNode = flowDisplayEl.lastChild;
+            if (currentNode) {
+                flowDisplayEl.removeChild(currentNode);
+            }
+
+            // 2. Remove the path segment (The new last child)
+            const pathSegment = flowDisplayEl.lastChild;
+            if (pathSegment && pathSegment.classList.contains('path-segment')) {
+                flowDisplayEl.removeChild(pathSegment);
+            }
+
+            // 3. Get the key of the node to return to
+            const prevKey = history.pop();
+            
+            // 4. Re-render the controls for the previous node (which is now the last child)
+            renderControls(prevKey, flowchart[prevKey]); 
+
+            // Scroll to the previous node
+            const prevNode = document.getElementById(prevKey);
+             if (prevNode) {
+                 prevNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+             }
+        }
+
 
         function resetFlow() {
             history = []; // Clear history
@@ -570,11 +594,13 @@
                 </div>
             `;
             
-            // 2. Trigger Question 1 immediately after START
-            // Note: We don't push 'q1' to history, as it's the anchor point.
-            renderFlow('q1', null);
+            // 2. Manually render Q1 (The initially missing step)
+            renderInitialQ1Node('q1');
             
-            // 3. Reset utility buttons
+            // 3. Render controls for Q1
+            renderControls('q1', flowchart['q1']);
+            
+            // 4. Reset utility buttons
             resetButtonEl.classList.add('hidden');
             acrobatNoteEl.classList.add('hidden');
             
