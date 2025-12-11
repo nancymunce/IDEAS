@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teach Online: Calculating Student Time on Task - SPC</title>
+    
+    <style>
+        /* ------------------------------------------------------------------
+         * SPC Themed Styling 
+         * Assumed Colors: #004D99 (Deep Blue), #00B8D9 (Bright Teal), #F0F0F0 (Light Gray)
+         * ------------------------------------------------------------------ */
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #333333; /* SPC_Text_Dark */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .spc-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- Header/Banner Styles --- */
+        .spc-header-banner {
+            background-color: #004D99; /* SPC_Primary_Blue */
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .spc-header-banner h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* --- Navigation & Headings --- */
+        .spc-nav {
+            text-align: right;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #F0F0F0;
+            padding-bottom: 10px;
+        }
+
+        .spc-nav a {
+            color: #004D99; 
+            text-decoration: none;
+            padding: 0 5px;
+        }
+        
+        .spc-nav a:hover {
+            color: #00B8D9;
+            text-decoration: underline;
+        }
+
+        .spc-section-heading {
+            border-bottom: 3px solid #00B8D9; /* SPC_Accent_Teal */
+            padding-bottom: 5px;
+            margin-top: 40px;
+            color: #004D99; /* SPC_Primary_Blue */
+            font-size: 1.8em;
+        }
+
+        /* --- Callout Box --- */
+        .spc-callout {
+            background-color: #F0F0F0; /* SPC_Light_Gray */
+            border-left: 5px solid #00B8D9; /* SPC_Accent_Teal */
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+        
+        .spc-callout strong {
+            color: #004D99;
+        }
+
+        /* --- Table Styling (Time on Task) --- */
+        .spc-time-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-radius: 6px;
+            overflow: hidden; /* Ensures border-radius applies to table */
+        }
+
+        .spc-time-table th {
+            background-color: #004D99; /* SPC_Primary_Blue */
+            color: white;
+            padding: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+
+        .spc-time-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            vertical-align: middle;
+        }
+
+        .spc-time-table tr:nth-child(even) {
+            background-color: #F0F0F0; /* SPC_Light_Gray */
+        }
+
+        .spc-credit-column {
+            font-weight: bold;
+            color: #004D99; /* SPC_Primary_Blue */
+            font-size: 1.1em;
+        }
+        
+        /* --- Links/Resources Section --- */
+        .spc-link-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 30px;
+        }
+
+        .spc-link-list li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .spc-link-list li::before {
+            content: "🔗"; 
+            position: absolute;
+            left: 0;
+            color: #00B8D9; /* SPC_Accent_Teal */
+            font-size: 1.1em;
+            line-height: 1;
+        }
+        
+        .spc-link-list a {
+            color: #004D99;
+            text-decoration: none;
+        }
+
+        .spc-link-list a:hover {
+            color: #00B8D9;
+            text-decoration: underline;
+        }
+        
+        .two-column-layout {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        .column h3 {
+            color: #004D99;
+            border-bottom: 2px solid #F0F0F0;
+            padding-bottom: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="spc-container">
+
+        <div class="spc-header-banner">
+            <h1>Teach Online: Calculating Student Time on Task</h1>
+            <p>Aligning online course effort with the credit hour standard.</p>
+        </div>
+
+        <div class="spc-nav">
+            &lt;&lt; <a href="#">Teach Online Step by Step</a> |
+            <a href="#">Remote Teaching Checklist</a> |
+            <a href="#">OSCQR 2</a> |
+            <a href="#">OSCQR 9</a>
+        </div>
+
+        <h2 class="spc-section-heading">Understanding the Credit Hour Standard</h2>
+
+        <div class="spc-callout">
+            The classical **Carnegie definition** of a semester credit hour stipulates that one semester credit hour be awarded for fifteen sessions of 50-minutes duration in classroom lecture-recitation each requiring **two hours of outside preparation** by the student.
+        </div>
+
+        <p>In online instruction, rather than focusing on "contact hours," an estimate of **Time on Task** is the necessary adaptation. This involves calculating the total time a student is expected to spend on all course activities, both online and offline.</p>
+        
+        <p>These activities should include viewing, reading, writing, collaborations, and interactions.</p>
+        
+        <h2 class="spc-section-heading">Undergraduate Time on Task Estimation</h2>
+
+        <p>The standard formula for an undergraduate course is: **For every 1 credit, the student has 3 total hours of work each week** for the full semester (typically 15 weeks).</p>
+
+        <p>For a full semester 3-credit course, an online undergraduate student should expect 9 hours of work per week for 15 weeks, totaling **135 hours** for the course.</p>
+
+        <table class="spc-time-table">
+            <thead>
+                <tr>
+                    <th>Credit</th>
+                    <th>15 Weeks</th>
+                    <th>8 Weeks</th>
+                    <th>3 Weeks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="spc-credit-column">3 Credits</td>
+                    <td>9 hours per week</td>
+                    <td>17 hours per week</td>
+                    <td>45 hours per week</td>
+                </tr>
+                <tr>
+                    <td class="spc-credit-column">2 Credits</td>
+                    <td>6 hours per week</td>
+                    <td>12 hours per week</td>
+                    <td>30 hours per week</td>
+                </tr>
+                <tr>
+                    <td class="spc-credit-column">1 Credit</td>
+                    <td>3 hours per week</td>
+                    <td>6 hours per week</td>
+                    <td>15 hours per week</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2 class="spc-section-heading">Graduate Time on Task Estimation</h2>
+
+        <p>Graduate students are expected to spend **more time** on their online course activities. Below is an estimation of *approximate* numbers of hours of work per week required:</p>
+
+        <ul>
+            <li>A 4-credit 15-week graduate online course = **225 total hours**.</li>
+            <li>A 3-credit 15-week graduate online course = **180 total hours**.</li>
+        </ul>
+
+        <table class="spc-time-table">
+            <thead>
+                <tr>
+                    <th>Credit</th>
+                    <th>15 Weeks</th>
+                    <th>8 Weeks</th>
+                    <th>3 Weeks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="spc-credit-column">4 Credits</td>
+                    <td>~ 15 hours per week</td>
+                    <td>~ 28 hours per week</td>
+                    <td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td class="spc-credit-column">3 Credits</td>
+                    <td>~ 12 hours per week</td>
+                    <td>~ 24 hours per week</td>
+                    <td>~ 45 hours per week</td>
+                </tr>
+                <tr>
+                    <td class="spc-credit-column">2 Credits</td>
+                    <td>~ 9 hours per week</td>
+                    <td>~ 17 hours per week</td>
+                    <td>~ 30 hours per week</td>
+                </tr>
+                <tr>
+                    <td class="spc-credit-column">1 Credit</td>
+                    <td>~ 6 hours per week</td>
+                    <td>~ 12 hours per week</td>
+                    <td>~ 15 hours per week</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="text-align: center; margin-top: 30px; font-style: italic;">Although we can provide these basic guidelines, determining how much time the work in a course would take the students each week is ultimately up to the course designer/subject matter expert.</p>
+
+        <h2 class="spc-section-heading">Calculators and Guidelines</h2>
+
+        <p>Below are some calculators and guidelines to assist you in calculating workload, dividing, and understanding time on task to better organize and plan online course activities:</p>
+
+        <div class="two-column-layout">
+            <div class="column">
+                <h3>Calculators and Estimators</h3>
+                <ul class="spc-link-list">
+                    <li><a href="#">Course Workload Estimator – Rice</a></li>
+                    <li><a href="#">Enhanced Course Workload Estimator – Wake Forest</a></li>
+                    <li><a href="#">Course workload estimator</a></li>
+                    <li><a href="#">Student workload calculator</a></li>
+                    <li><a href="#">Credit Hour Calculator</a></li>
+                </ul>
+            </div>
+            
+            <div class="column">
+                <h3>Guidelines and Policies</h3>
+                <ul class="spc-link-list">
+                    <li><a href="#">How many hours a week do online courses require?</a></li>
+                    <li><a href="#">Defining unit of credit, contact hours and course workload - U of Arizona Example</a></li>
+                    <li><a href="#">Unit of Credit definition</a></li>
+                    <li><a href="#">Unit of Credit Policy</a></li>
+                    <li><a href="#">Credit hour best practices</a></li>
+                    <li><a href="#">Determining Credit Hours in an Online Course</a></li>
+                    <li><a href="#">Credit hour policy – Binghamton University (including online)</a></li>
+                    <li><a href="#">Credit contact hour guidelines – Geneseo (including online) 2021 guidelines</a></li>
+                    <li><a href="#">Credits and workload – Purchase</a></li>
+                    <li><a href="#">Additional guidance on student workload and remote instruction (NY Department of Education)</a></li>
+                    <li><a href="#">Middle States Commission on Higher Education Credit Hour Policy</a></li>
+                    <li><a href="#">SUNY Policy: Credit/Contact Hour</a></li>
+                    <li><a href="#">Online Course Design: time on task .pdf</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
