@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATST vs. IDEAS | Support Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --atst-color: #005596; /* SPC Blue */
+            --ideas-color: #00a79d; /* IDEAS Teal */
+            --bg-dark: #121212;
+            --text-light: #f4f4f4;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(90deg, var(--atst-color), var(--ideas-color));
+        }
+
+        header h1 { font-size: 3rem; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; }
+        header p { opacity: 0.9; font-size: 1.2rem; margin-top: 10px; }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 100vh;
+        }
+
+        .column {
+            flex: 1;
+            min-width: 350px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .atst-col { border-top: 8px solid var(--atst-color); background: #1a1a1a; }
+        .ideas-col { border-top: 8px solid var(--ideas-color); background: #222; }
+
+        .sticky-head {
+            position: sticky;
+            top: 0;
+            background: inherit;
+            padding: 20px 0;
+            z-index: 10;
+            border-bottom: 1px solid #444;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .atst-badge { background: var(--atst-color); color: white; }
+        .ideas-badge { background: var(--ideas-color); color: white; }
+
+        h2 { font-size: 2.5rem; margin-bottom: 5px; }
+        .tagline { font-style: italic; color: #aaa; margin-bottom: 20px; }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .section:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05); }
+
+        h3 { 
+            margin-bottom: 15px; 
+            font-size: 1.3rem; 
+            display: flex; 
+            align-items: center;
+            gap: 10px;
+        }
+
+        .atst-col h3 { color: #5fb4f5; }
+        .ideas-col h3 { color: #5ef3e8; }
+
+        ul { list-style: none; }
+        li { 
+            margin-bottom: 12px; 
+            padding-left: 20px; 
+            position: relative; 
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+
+        li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: inherit;
+            opacity: 0.5;
+        }
+
+        .ten-second-test {
+            background: #000;
+            padding: 30px;
+            text-align: center;
+            width: 100%;
+            border-top: 1px solid #333;
+        }
+
+        .test-box {
+            display: inline-block;
+            padding: 20px 40px;
+            border: 2px dashed #555;
+            border-radius: 15px;
+        }
+
+        .test-box span { font-weight: bold; font-size: 1.2rem; }
+        .highlight-atst { color: var(--atst-color); }
+        .highlight-ideas { color: var(--ideas-color); }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The Support Divide</h1>
+    <p>Navigating the lanes of ATST and IDEAS</p>
+</header>
+
+<div class="container">
+    <div class="column atst-col">
+        <div class="sticky-head">
+            <span class="badge atst-badge">Technical & Operational</span>
+            <h2>ATST</h2>
+            <p class="tagline">The "How do I do this?" & "Why isn't it working?" Crew</p>
+        </div>
+
+        <div class="section">
+            <h3>1. Canvas Plumbing & Access</h3>
+            <ul>
+                <li>Login loops, missing courses, and dashboard issues.</li>
+                <li>Browser compatibility, cache/cookies, and mobile app behavior.</li>
+                <li>"Why can't my student see the course?"</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>2. Course Shell Management</h3>
+            <ul>
+                <li>Creating shells, cross-listing, and term/date corrections.</li>
+                <li>Moving content, course copies, and fixing broken import links.</li>
+                <li>Managing roles (TA, Observer, Guest) and permissions.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>3. Assignments & Gradebook Setup</h3>
+            <ul>
+                <li>Setting due dates, extensions, and weighted groups.</li>
+                <li>SpeedGrader mechanics and resolving "Missing/Late" flags.</li>
+                <li>Configuring Quizzes (Classic vs. New) and Proctoring tools.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>4. Integrated Tools (The Tech Side)</h3>
+            <ul>
+                <li><strong>Copyleaks:</strong> Technical setup, AI detection toggles, and report access.</li>
+                <li><strong>Panopto:</strong> Recording issues, recorder downloads, and embedding videos.</li>
+                <li><strong>Parchment:</strong> Badge creation, roster uploads, and technical issuance.</li>
+                <li><strong>Titan Hub:</strong> Form configuration, QR code tracking, and approval workflows.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>5. 1:1 Support</h3>
+            <ul>
+                <li>Screen-sharing to troubleshoot a specific bug.</li>
+                <li>Walking through the mechanical setup of a new tool.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="column ideas-col">
+        <div class="sticky-head">
+            <span class="badge ideas-badge">Pedagogical & Design</span>
+            <h2>IDEAS</h2>
+            <p class="tagline">The "What should I design & why?" Crew</p>
+        </div>
+
+        <div class="section">
+            <h3>1. Alignment & Objectives</h3>
+            <ul>
+                <li>Mapping module activities to state-approved course objectives.</li>
+                <li>Ensuring objective 3 is actually assessed (Gap analysis).</li>
+                <li>Scaffolding learning toward official outcomes.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>2. Blueprint & Course Strategy</h3>
+            <ul>
+                <li>Designing the structure of a standard course.</li>
+                <li>Deciding what should be locked vs. flexible for adjuncts.</li>
+                <li>Maintaining design consistency across programs.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>3. Engagement & Presence (RSI)</h3>
+            <ul>
+                <li>Designing Regular & Substantive Interaction (RSI).</li>
+                <li>Creating proactive communication plans and instructor presence.</li>
+                <li>Improving discussion quality and student belonging.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>4. Advanced Pedagogical Design</h3>
+            <ul>
+                <li><strong>AI Strategy:</strong> Shifting from policing to literacy; writing guidance statements.</li>
+                <li><strong>Video Strategy:</strong> When to use video and how to make it interactive.</li>
+                <li><strong>Retention:</strong> Interpreting D/F/W patterns to redesign weak assessments.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>5. Quality Matters (QM)</h3>
+            <ul>
+                <li>Pre-review consultation and strengthening measurable alignment.</li>
+                <li>Reducing cognitive overload through better navigation design.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="ten-second-test">
+    <div class="test-box">
+        <span>THE 10-SECOND TEST</span><br>
+        "How do I <span class="highlight-atst">technically</span> do this?" → <strong>ATST</strong><br>
+        "What should I <span class="highlight-ideas">design</span> and why?" → <strong>IDEAS</strong>
+    </div>
+</div>
+
+</body>
+</html>
