@@ -3,259 +3,742 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATST vs. IDEAS | Support Guide</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <title>ATST vs IDEAS - Full Comparison</title>
     <style>
         :root {
-            --atst-color: #005596; /* SPC Blue */
-            --ideas-color: #00a79d; /* IDEAS Teal */
-            --bg-dark: #121212;
-            --text-light: #f4f4f4;
+            --atst-blue: #005596;
+            --ideas-teal: #00a79d;
+            --bg-color: #ffffff;
+            --text-color: #333;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: #f9f9f9;
         }
 
         header {
+            background-color: #222;
+            color: white;
             text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(90deg, var(--atst-color), var(--ideas-color));
+            padding: 2rem;
+            border-bottom: 5px solid var(--atst-blue);
         }
 
-        header h1 { font-size: 3rem; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; }
-        header p { opacity: 0.9; font-size: 1.2rem; margin-top: 10px; }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
             min-height: 100vh;
         }
 
         .column {
-            flex: 1;
-            min-width: 350px;
             padding: 40px;
-            transition: all 0.3s ease;
         }
 
-        .atst-col { border-top: 8px solid var(--atst-color); background: #1a1a1a; }
-        .ideas-col { border-top: 8px solid var(--ideas-color); background: #222; }
+        .atst-column {
+            background-color: #f0f7ff;
+            border-right: 1px solid #ddd;
+        }
 
-        .sticky-head {
-            position: sticky;
-            top: 0;
-            background: inherit;
-            padding: 20px 0;
-            z-index: 10;
-            border-bottom: 1px solid #444;
+        .ideas-column {
+            background-color: #f0fffb;
+        }
+
+        h1 { margin: 0; font-size: 2.5rem; }
+        h2 { 
+            font-size: 2rem; 
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid;
+        }
+
+        .atst-column h2 { color: var(--atst-blue); border-color: var(--atst-blue); }
+        .ideas-column h2 { color: var(--ideas-teal); border-color: var(--ideas-teal); }
+
+        .intro-text {
+            font-style: italic;
             margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.5;
         }
 
-        .badge {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .atst-badge { background: var(--atst-color); color: white; }
-        .ideas-badge { background: var(--ideas-color); color: white; }
-
-        h2 { font-size: 2.5rem; margin-bottom: 5px; }
-        .tagline { font-style: italic; color: #aaa; margin-bottom: 20px; }
-
-        .section {
+        .category {
             margin-bottom: 40px;
-            padding: 20px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.2s ease;
         }
 
-        .section:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05); }
-
-        h3 { 
-            margin-bottom: 15px; 
-            font-size: 1.3rem; 
-            display: flex; 
-            align-items: center;
-            gap: 10px;
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .atst-col h3 { color: #5fb4f5; }
-        .ideas-col h3 { color: #5ef3e8; }
+        .atst-column h3 { border-left: 5px solid var(--atst-blue); color: var(--atst-blue); }
+        .ideas-column h3 { border-left: 5px solid var(--ideas-teal); color: var(--ideas-teal); }
 
-        ul { list-style: none; }
-        li { 
-            margin-bottom: 12px; 
-            padding-left: 20px; 
-            position: relative; 
-            font-size: 0.95rem;
-            color: #ccc;
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.4;
         }
 
         li::before {
-            content: "→";
+            content: "•";
             position: absolute;
             left: 0;
-            color: inherit;
-            opacity: 0.5;
+            font-weight: bold;
         }
 
-        .ten-second-test {
-            background: #000;
-            padding: 30px;
+        .atst-column li::before { color: var(--atst-blue); }
+        .ideas-column li::before { color: var(--ideas-teal); }
+
+        .footer-test {
+            grid-column: span 2;
+            background: #222;
+            color: white;
+            padding: 40px;
             text-align: center;
-            width: 100%;
-            border-top: 1px solid #333;
         }
 
         .test-box {
             display: inline-block;
+            border: 2px solid #555;
             padding: 20px 40px;
-            border: 2px dashed #555;
-            border-radius: 15px;
+            border-radius: 10px;
+            font-size: 1.2rem;
         }
 
-        .test-box span { font-weight: bold; font-size: 1.2rem; }
-        .highlight-atst { color: var(--atst-color); }
-        .highlight-ideas { color: var(--ideas-color); }
-
-        @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            header h1 { font-size: 2rem; }
+        @media (max-width: 1000px) {
+            .comparison-container { grid-template-columns: 1fr; }
+            .footer-test { grid-column: span 1; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>The Support Divide</h1>
-    <p>Navigating the lanes of ATST and IDEAS</p>
+    <h1>Instructional Support Lanes</h1>
 </header>
 
-<div class="container">
-    <div class="column atst-col">
-        <div class="sticky-head">
-            <span class="badge atst-badge">Technical & Operational</span>
-            <h2>ATST</h2>
-            <p class="tagline">The "How do I do this?" & "Why isn't it working?" Crew</p>
-        </div>
+<div class="comparison-container">
+    <div class="column atst-column">
+        <h2>ATST</h2>
+        <p class="intro-text">ATST is your Canvas + instructional technology support crew (tickets + 1:1 help) for “how do I do this in Canvas / why isn’t this working / how do I set this up,” including things like Zoom teaching support and other instructional-tech tools.</p>
 
-        <div class="section">
-            <h3>1. Canvas Plumbing & Access</h3>
+        <div class="category">
+            <h3>1) Getting into Canvas, access, accounts, and “why can’t I see…?”</h3>
             <ul>
-                <li>Login loops, missing courses, and dashboard issues.</li>
-                <li>Browser compatibility, cache/cookies, and mobile app behavior.</li>
-                <li>"Why can't my student see the course?"</li>
+                <li>“I can’t log into Canvas — what do I do?”</li>
+                <li>“My course isn’t showing on my Dashboard.”</li>
+                <li>“I’m listed as a teacher in Banner/MySPC but I don’t have access in Canvas.”</li>
+                <li>“A student says they can’t access the course / it disappeared.”</li>
+                <li>“I can’t access Canvas from home / it keeps looping / blank screen.”</li>
+                <li>“Canvas is slow / spinning wheel / pages won’t load.”</li>
+                <li>“Which browser should I use? Do I need to clear cache/cookies?”</li>
+                <li>“How do I use the Help/Support button inside Canvas to get help or find guides?”</li>
             </ul>
         </div>
 
-        <div class="section">
-            <h3>2. Course Shell Management</h3>
+        <div class="category">
+            <h3>2) Course shells, course creation, term/section issues</h3>
             <ul>
-                <li>Creating shells, cross-listing, and term/date corrections.</li>
-                <li>Moving content, course copies, and fixing broken import links.</li>
-                <li>Managing roles (TA, Observer, Guest) and permissions.</li>
+                <li>“Can you create a Canvas course shell for me?”</li>
+                <li>“Why do I have multiple shells for the same class?”</li>
+                <li>“What’s the difference between SPC course types in Canvas?”</li>
+                <li>“My course has the wrong term / wrong dates.”</li>
+                <li>“My combined course cross-listing isn’t right.”</li>
+                <li>“Can you help me separate a combined course back out?”</li>
+                <li>“Why does my sandbox behave differently than my live course?”</li>
+                <li>“Can you confirm I’m working in the correct course (published vs unpublished, correct CRN/section)?”</li>
+                <li>“Why does this course show ‘read-only’ or not let me edit?”</li>
             </ul>
         </div>
 
-        <div class="section">
-            <h3>3. Assignments & Gradebook Setup</h3>
+        <div class="category">
+            <h3>3) Enrollments, adds/drops, roles, permissions</h3>
             <ul>
-                <li>Setting due dates, extensions, and weighted groups.</li>
-                <li>SpeedGrader mechanics and resolving "Missing/Late" flags.</li>
-                <li>Configuring Quizzes (Classic vs. New) and Proctoring tools.</li>
+                <li>“A student added the class and isn’t showing up in Canvas.”</li>
+                <li>“A student dropped but still shows — what’s the timeline?”</li>
+                <li>“I have an observer/tutor/TA — what role should they have?”</li>
+                <li>“How do I add a colleague (teacher/designer/TA) to my course?”</li>
+                <li>“Can you remove someone from my course?”</li>
+                <li>“Why can a TA see grades / why can’t they post announcements?”</li>
+                <li>“How do I add a test student?”</li>
+                <li>“How do I conclude an enrollment?”</li>
+                <li>“Why can’t a student submit (role/permissions issue)?”</li>
             </ul>
         </div>
 
-        <div class="section">
-            <h3>4. Integrated Tools (The Tech Side)</h3>
+        <div class="category">
+            <h3>4) Course copy, imports, exports, and content moves</h3>
             <ul>
-                <li><strong>Copyleaks:</strong> Technical setup, AI detection toggles, and report access.</li>
-                <li><strong>Panopto:</strong> Recording issues, recorder downloads, and embedding videos.</li>
-                <li><strong>Parchment:</strong> Badge creation, roster uploads, and technical issuance.</li>
-                <li><strong>Titan Hub:</strong> Form configuration, QR code tracking, and approval workflows.</li>
+                <li>“How do I copy content from last term into this term?”</li>
+                <li>“My course import failed — how do I fix it?”</li>
+                <li>“Why are my assignments/quizzes showing the wrong dates after import?”</li>
+                <li>“How do I export a course / save a backup?”</li>
+                <li>“Can you help me move content between shells safely (without breaking links)?”</li>
+                <li>“My content came over but the files are missing — why?”</li>
+                <li>“How do I copy a module/page/assignment from one course to another?”</li>
+                <li>“How do I use ‘Send To’ or sharing tools properly?”</li>
             </ul>
         </div>
 
-        <div class="section">
-            <h3>5. 1:1 Support</h3>
+        <div class="category">
+            <h3>5) Standard course content and course population support</h3>
             <ul>
-                <li>Screen-sharing to troubleshoot a specific bug.</li>
-                <li>Walking through the mechanical setup of a new tool.</li>
+                <li>“Can you help populate/copy the standard content into my shell?”</li>
+                <li>“My standard/blueprinted content didn’t appear—what do I do?”</li>
+                <li>“I think I’m in the wrong shell type for what I was supposed to receive.”</li>
+                <li>“What’s the right ticket path to get standard course content loaded?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>6) Course settings, navigation, and publishing controls</h3>
+            <ul>
+                <li>“How do I publish/unpublish the course?”</li>
+                <li>“How do I publish/unpublish modules, pages, assignments?”</li>
+                <li>“Why do students see ‘locked’?”</li>
+                <li>“How do I set course start/end dates?”</li>
+                <li>“How do I change the Home page?”</li>
+                <li>“How do I adjust course navigation (hide items, reorder links)?”</li>
+                <li>“Why is my course in a different format than another course?”</li>
+                <li>“How do I enable/disable features (feature options)?”</li>
+                <li>“Why can’t I see New Quizzes / why do I see two quiz tools?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>7) Modules, Pages, Files, and links (the everyday “Canvas plumbing”)</h3>
+            <ul>
+                <li>“How do I build modules the right way?”</li>
+                <li>“Why are links broken after I copied content?”</li>
+                <li>“How do I fix a ‘file not found’ or access denied link?”</li>
+                <li>“How do I upload files / organize folders / replace files without breaking links?”</li>
+                <li>“Why can’t students open PDFs/videos?”</li>
+                <li>“How do I make a page accessible / readable on mobile?”</li>
+                <li>“How do I embed a document/video/slide?”</li>
+                <li>“Why does my image not display?”</li>
+                <li>“Why do students get ‘access denied’ to a file?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>8) Announcements, Inbox, communication, scheduling</h3>
+            <ul>
+                <li>“How do I send an announcement to all sections?”</li>
+                <li>“Why didn’t students get my announcement?”</li>
+                <li>“How do I use Canvas Inbox (messages, ‘send to’, attachments)?”</li>
+                <li>“Why can’t I message a particular student?”</li>
+                <li>“How do I set up or change notifications?”</li>
+                <li>“Why do students say they aren’t getting notifications?”</li>
+                <li>“How do I use the Canvas Calendar / Scheduler?”</li>
+                <li>“How do I schedule office hours or appointment groups?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>9) Assignments, submissions, and the gradebook</h3>
+            <ul>
+                <li>“How do I create an assignment (online upload, text entry, external tool, on-paper)?”</li>
+                <li>“How do I set due dates for multiple sections?”</li>
+                <li>“How do I give an extension to one student?”</li>
+                <li>“A student submitted late — how do I accept it?”</li>
+                <li>“Why can’t a student submit / button is missing?”</li>
+                <li>“How do I use SpeedGrader?”</li>
+                <li>“How do I use rubrics with assignments?”</li>
+                <li>“How do I mute/hide grades?”</li>
+                <li>“Why are grades not calculating correctly?”</li>
+                <li>“How do I set up weighted assignment groups?”</li>
+                <li>“How do I drop the lowest score?”</li>
+                <li>“How do I handle an ‘excused’ assignment?”</li>
+                <li>“How do I post grades so students can see them?”</li>
+                <li>“How do I export grades / download submissions?”</li>
+                <li>“Why is the gradebook showing ‘Missing’ or ‘Late’ unexpectedly?”</li>
+                <li>“How do I resolve ‘G’/incomplete/zero confusion for students?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>10) Quizzes, exams, proctoring, and testing tech</h3>
+            <ul>
+                <li>“How do I create a quiz and set time limits/attempts?”</li>
+                <li>“What’s the difference between Classic Quizzes and New Quizzes?”</li>
+                <li>“How do I give extra time to a student?”</li>
+                <li>“Why can’t a student start the exam?”</li>
+                <li>“My quiz locked early / didn’t submit / froze — what now?”</li>
+                <li>“How do I set availability windows?”</li>
+                <li>“How do I build question banks / item banks?”</li>
+                <li>“How do I use lockdown/proctoring tools (settings, common issues)?”</li>
+                <li>“Students are getting kicked out of proctoring / webcam not detected.”</li>
+                <li>“Browser compatibility for testing tools.”</li>
+                <li>“Accommodations workflow questions: time extensions, extra attempts, availability.”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>11) Discussions, groups, and collaboration tools</h3>
+            <ul>
+                <li>“How do I create a discussion (graded/ungraded)?”</li>
+                <li>“How do I require posts before seeing replies?”</li>
+                <li>“Why can’t a student reply?”</li>
+                <li>“How do I set up group discussions?”</li>
+                <li>“How do I create Groups and assign students?”</li>
+                <li>“How do group assignments work?”</li>
+                <li>“Why are group submissions messy / who submitted for the group?”</li>
+                <li>“How do I set up Collaborations (Google/Office/etc.) for groups?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>12) Multimedia teaching tools (Zoom and similar instructional tech)</h3>
+            <ul>
+                <li>“How do I teach with Zoom through SPC (links, settings, basic workflow)?”</li>
+                <li>“Why won’t my Zoom meeting link work for students?”</li>
+                <li>“How do I handle Zoom recording links and student access?”</li>
+                <li>“Audio/video problems (mic/camera not working) in live sessions.”</li>
+                <li>“How do I share Zoom guidance with students?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>13) Third-party tools and integrations (LTI/external tools)</h3>
+            <ul>
+                <li>“My publisher homework link won’t load / says unauthorized.”</li>
+                <li>“Students can’t access the external tool from the module.”</li>
+                <li>“Grade passback from the tool to Canvas isn’t working.”</li>
+                <li>“External tool duplicates gradebook columns.”</li>
+                <li>“Roster mismatch between Canvas and the tool.”</li>
+                <li>“Consent/privacy popups or blocked cookies preventing tool launch.”</li>
+                <li>“How do I add an external tool assignment properly?”</li>
+                <li>“Why does it work for me but not for students?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>14) Accessibility, accommodations, and “can students access this?”</h3>
+            <ul>
+                <li>“Why can’t a student open this file/link/video?”</li>
+                <li>“How do I add captions / why aren’t captions showing?”</li>
+                <li>“Screen reader or browser issues in Canvas.”</li>
+                <li>“How do I give extended time/extra attempts (accommodation support)?”</li>
+                <li>“Color/contrast or formatting problems in Canvas pages (how to fix in the editor).”</li>
+                <li>“My embedded content isn’t keyboard-navigable — is there a Canvas-safe way to embed?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>15) Canvas “how-to” support by feature</h3>
+            <ul>
+                <li>Pages: editing, formatting, embedding, linking</li>
+                <li>Modules: requirements, prerequisites, locking/unlocking</li>
+                <li>Files: storage, organizing, replacing, permissions</li>
+                <li>People: adding users, roles, sections</li>
+                <li>Syllabus tool, course summary, calendar feed</li>
+                <li>Outcomes (setup troubleshooting more than pedagogy)</li>
+                <li>Analytics (where to find them, what’s available)</li>
+                <li>Student View issues</li>
+                <li>Mobile app behavior differences (teacher/student apps)</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>16) Security / privacy / safe tech practices</h3>
+            <ul>
+                <li>“What does end-to-end encryption mean and when does it matter?”</li>
+                <li>“Is this tool secure to use with students?”</li>
+                <li>“Why am I being prompted for permissions/consent?”</li>
+                <li>“How should I handle sensitive student data in a tool?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>17) MySPC / faculty operational tools</h3>
+            <ul>
+                <li>“How do I enter MySPC attendance?”</li>
+                <li>“Where do I find the right faculty portal/resource links for teaching tasks?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>18) 1:1 Support</h3>
+            <ul>
+                <li>“Can someone hop on a call and show me how to set this up?”</li>
+                <li>“Can someone screen-share with me to troubleshoot why it’s not working?”</li>
+                <li>“Can you help me design my Canvas workflow for this assignment/quiz (mechanically)?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>Copyleaks Support (ATST)</h3>
+            <ul>
+                <li>“How do I enable Copyleaks in my course?”</li>
+                <li>“How do I add Copyleaks to an assignment?”</li>
+                <li>“Why don’t I see Copyleaks as an option in External Tools?”</li>
+                <li>“How do I adjust similarity thresholds?”</li>
+                <li>“How do I enable AI detection?”</li>
+                <li>“What’s the difference between plagiarism detection and AI detection in Copyleaks?”</li>
+                <li>“How do I exclude references or quoted material from similarity scoring?”</li>
+                <li>“How do I allow resubmissions?”</li>
+                <li>“Can I turn Copyleaks on after students already submitted?”</li>
+                <li>“Students can’t see the Copyleaks submission link.”</li>
+                <li>“A student says their paper won’t upload.”</li>
+                <li>“Why is Copyleaks stuck processing?”</li>
+                <li>“Student got an error when submitting.”</li>
+                <li>“Why does it say unsupported file type?”</li>
+                <li>“Why is a student’s report missing?”</li>
+                <li>“Where do I find the similarity report?”</li>
+                <li>“Why is the similarity score so high?”</li>
+                <li>“Why is it flagging my own assignment template?”</li>
+                <li>“Why is it showing self-plagiarism?”</li>
+                <li>“Why does AI detection say ‘likely AI’?”</li>
+                <li>“How do I download/share the report?”</li>
+                <li>“Why didn’t the grade pass back to Canvas?”</li>
+                <li>“Why are there duplicate grade columns?”</li>
+                <li>“Why does the Copyleaks grade not match Canvas?”</li>
+                <li>“How do I hide similarity scores from students?”</li>
+                <li>“How do I disconnect Copyleaks from an assignment?”</li>
+                <li>“Is Copyleaks storing student papers?”</li>
+                <li>“What database is it checking against?”</li>
+                <li>“How do I adjust institutional settings?”</li>
+                <li>“Can I disable AI detection for one assignment?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>Panopto Support (ATST)</h3>
+            <ul>
+                <li>“How do I record a lecture using Panopto?”</li>
+                <li>“How do I download the recorder?”</li>
+                <li>“My Panopto recorder won’t launch.”</li>
+                <li>“Why is my microphone not detected?”</li>
+                <li>“Why is my webcam not working?”</li>
+                <li>“How do I record slides + video together?”</li>
+                <li>“How do I record only my screen?”</li>
+                <li>“How do I record a student presentation?”</li>
+                <li>“How do I embed a Panopto video in a Canvas page?”</li>
+                <li>“Why won’t my video embed?”</li>
+                <li>“Why does it say ‘access denied’?”</li>
+                <li>“How do I move a video to a different folder?”</li>
+                <li>“How do I replace a video without breaking the link?”</li>
+                <li>“Why does the video show for me but not students?”</li>
+                <li>“How do I link Panopto to my course?”</li>
+                <li>“Students say they can’t view the recording.”</li>
+                <li>“How do I share a video outside my course?”</li>
+                <li>“How do I make a video available to multiple sections?”</li>
+                <li>“How do I restrict access dates?”</li>
+                <li>“How do I prevent downloads?”</li>
+                <li>“Why does it say ‘no access’ for a student?”</li>
+                <li>“Video is buffering.”</li>
+                <li>“Students say audio is out of sync.”</li>
+                <li>“Captions aren’t showing.”</li>
+                <li>“Video won’t load on mobile.”</li>
+                <li>“Panopto player isn’t displaying correctly in Canvas.”</li>
+                <li>“Why is the video quality poor?”</li>
+                <li>“How do I request captions?”</li>
+                <li>“How long does caption processing take?”</li>
+                <li>“Why are captions inaccurate?”</li>
+                <li>“How do I edit captions?”</li>
+                <li>“How do I download captions?”</li>
+                <li>“How do I make sure my video is accessible?”</li>
+                <li>“How do I see who watched my video?”</li>
+                <li>“Can I see how long students watched?”</li>
+                <li>“How do I download viewing reports?”</li>
+                <li>“Why does analytics show zero views?”</li>
+                <li>“How much storage do I have?”</li>
+                <li>“Can I delete old recordings?”</li>
+                <li>“How do I archive videos?”</li>
+                <li>“What happens to Panopto videos after a course ends?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>Parchment Support (ATST)</h3>
+            <ul>
+                <li>“I can’t log into Parchment.”</li>
+                <li>“I don’t see my badge-issuing dashboard.”</li>
+                <li>“Why don’t I have issuer permissions?”</li>
+                <li>“How do I add another badge issuer?”</li>
+                <li>“My role doesn’t allow me to create badges — how do I fix that?”</li>
+                <li>“How do I create a new digital badge?”</li>
+                <li>“How do I upload badge artwork?”</li>
+                <li>“How do I add criteria and metadata?”</li>
+                <li>“How do I connect learning outcomes to a badge?”</li>
+                <li>“How do I set expiration dates?”</li>
+                <li>“How do I update an existing badge?”</li>
+                <li>“How do I duplicate a badge template?”</li>
+                <li>“How do I upload a roster?”</li>
+                <li>“Can Parchment pull a roster automatically?”</li>
+                <li>“Why didn’t all students receive the badge?”</li>
+                <li>“How do I resend a badge?”</li>
+                <li>“How do I revoke a badge?”</li>
+                <li>“Why does it show ‘pending’?”</li>
+                <li>“How do I issue badges in bulk?”</li>
+                <li>“Why is the student email not recognized?”</li>
+                <li>“A student says they didn’t receive their badge.”</li>
+                <li>“Student can’t claim their badge.”</li>
+                <li>“Why can’t they download/share to LinkedIn?”</li>
+                <li>“The badge link isn’t working.”</li>
+                <li>“Student says badge metadata is wrong.”</li>
+                <li>“How does Parchment connect to Canvas?”</li>
+                <li>“Can we automate badge issuance from course completion?”</li>
+                <li>“Why didn’t the badge trigger after course completion?”</li>
+                <li>“Is the badge verifiable externally?”</li>
+                <li>“How do employers verify a badge?”</li>
+                <li>“Why is the badge not displaying correctly on LinkedIn?”</li>
+                <li>“How do I see who earned the badge?”</li>
+                <li>“How do I download completion data?”</li>
+                <li>“How do I track badge acceptance rates?”</li>
+                <li>“Where do I see expiration tracking?”</li>
+                <li>“What metadata fields are required?”</li>
+                <li>“How do I edit competency statements?”</li>
+                <li>“Can I update badge descriptions after issuance?”</li>
+                <li>“Who controls issuer branding?”</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>Titan Hub Support (ATST)</h3>
+            <ul>
+                <li>“I can’t log into Titan Hub.”</li>
+                <li>“Why don’t I see my organization/event?”</li>
+                <li>“I can’t find the activity submission form.”</li>
+                <li>“Why does my role not allow approvals?”</li>
+                <li>“How do I switch between student and admin view?”</li>
+                <li>“How do I create an event?”</li>
+                <li>“How do I set attendance tracking?”</li>
+                <li>“How do I upload proof of participation?”</li>
+                <li>“How do I create a reflection form?”</li>
+                <li>“How do I connect an activity to a badge?”</li>
+                <li>“How do I set completion criteria?”</li>
+                <li>“How do I set approval workflows?”</li>
+                <li>“Why didn’t attendance record?”</li>
+                <li>“How do I scan QR codes?”</li>
+                <li>“Why didn’t the student’s hours update?”</li>
+                <li>“How do I manually approve participation?”</li>
+                <li>“How do I correct attendance errors?”</li>
+                <li>“How does Titan Hub connect to Parchment?”</li>
+                <li>“Why didn’t the badge trigger?”</li>
+                <li>“Why are students showing as completed in Titan Hub but not in Parchment?”</li>
+                <li>“How do I sync completion data?”</li>
+                <li>“Student says they submitted but I don’t see it.”</li>
+                <li>“Why can’t the student upload their reflection?”</li>
+                <li>“Why does their submission show ‘pending’?”</li>
+                <li>“Why can’t they edit their submission?”</li>
+                <li>“How do students download proof of participation?”</li>
+                <li>“How do I pull a report of completed activities?”</li>
+                <li>“How do I export engagement hours?”</li>
+                <li>“How do I track participation by organization?”</li>
+                <li>“How do I see approval bottlenecks?”</li>
+                <li>“How do I change approval permissions?”</li>
+                <li>“How do I assign reviewers?”</li>
+                <li>“Why is this activity not counting toward completion?”</li>
+                <li>“How do I archive past events?”</li>
+                <li>“How do I duplicate an event template?”</li>
             </ul>
         </div>
     </div>
 
-    <div class="column ideas-col">
-        <div class="sticky-head">
-            <span class="badge ideas-badge">Pedagogical & Design</span>
-            <h2>IDEAS</h2>
-            <p class="tagline">The "What should I design & why?" Crew</p>
-        </div>
-
-        <div class="section">
-            <h3>1. Alignment & Objectives</h3>
+    <div class="column ideas-column">
+        <h2>IDEAS</h2>
+        
+        <div class="category">
+            <h3>1) Working Within State-Approved Course Objectives</h3>
+            <p><strong>IDEAS will answer:</strong></p>
             <ul>
-                <li>Mapping module activities to state-approved course objectives.</li>
-                <li>Ensuring objective 3 is actually assessed (Gap analysis).</li>
-                <li>Scaffolding learning toward official outcomes.</li>
+                <li>“How do I align my assignments to these state-approved objectives?”</li>
+                <li>“How do I ensure every objective is actually assessed?”</li>
+                <li>“Where in my course is Objective 3 addressed?”</li>
+                <li>“How do I scaffold learning toward this objective?”</li>
+                <li>“How do I make this required objective engaging?”</li>
+                <li>“How do I map module-level objectives to official course objectives?”</li>
+                <li>“How do I show alignment clearly for QM?”</li>
+            </ul>
+            <p><strong>IDEAS will NOT answer:</strong></p>
+            <ul>
+                <li>“Can I rewrite Objective 2?”</li>
+                <li>“Can I remove this objective?”</li>
+                <li>“Can I change the wording of this outcome?”</li>
+                <li>(Those go to Curriculum & Instruction.)</li>
             </ul>
         </div>
 
-        <div class="section">
-            <h3>2. Blueprint & Course Strategy</h3>
+        <div class="category">
+            <h3>2) Standard Course Design & Blueprint Integrity</h3>
+            <p><strong>IDEAS answers:</strong></p>
             <ul>
-                <li>Designing the structure of a standard course.</li>
-                <li>Deciding what should be locked vs. flexible for adjuncts.</li>
-                <li>Maintaining design consistency across programs.</li>
+                <li>“How should this standard course be structured?”</li>
+                <li>“What belongs in the Parent shell?”</li>
+                <li>“What must remain locked?”</li>
+                <li>“What flexibility should adjuncts have?”</li>
+                <li>“How do we preserve design consistency?”</li>
+                <li>“How do we revise a standard course responsibly?”</li>
+                <li>“How do we update design without breaking alignment?”</li>
+                <li>“How do we ensure engagement across all sections?”</li>
+            </ul>
+            <p><strong>IDEAS does NOT:</strong></p>
+            <ul>
+                <li>Load shells</li>
+                <li>Troubleshoot blueprint sync</li>
+                <li>Fix content import errors</li>
+                <li>(That’s ATST.)</li>
             </ul>
         </div>
 
-        <div class="section">
-            <h3>3. Engagement & Presence (RSI)</h3>
+        <div class="category">
+            <h3>3) Assignment & Assessment Design</h3>
+            <p><strong>IDEAS supports:</strong></p>
             <ul>
-                <li>Designing Regular & Substantive Interaction (RSI).</li>
-                <li>Creating proactive communication plans and instructor presence.</li>
-                <li>Improving discussion quality and student belonging.</li>
+                <li>Designing assignments that assess fixed objectives</li>
+                <li>Increasing rigor without increasing overload</li>
+                <li>Creating authentic assessments</li>
+                <li>Designing AI-aware assignments</li>
+                <li>Reducing academic dishonesty through design</li>
+                <li>Improving rubric clarity</li>
+                <li>Scaffolding large projects</li>
+                <li>Building application-based activities</li>
+                <li>Improving feedback strategy</li>
+                <li>Reducing grading fatigue through better structure</li>
+            </ul>
+            <p><strong>IDEAS does NOT:</strong></p>
+            <ul>
+                <li>Change official grading policies</li>
+                <li>Override institutional academic integrity processes</li>
+                <li>Troubleshoot gradebook mechanics</li>
             </ul>
         </div>
 
-        <div class="section">
-            <h3>4. Advanced Pedagogical Design</h3>
+        <div class="category">
+            <h3>4) Engagement & RSI (Design-Level)</h3>
+            <p><strong>IDEAS supports:</strong></p>
             <ul>
-                <li><strong>AI Strategy:</strong> Shifting from policing to literacy; writing guidance statements.</li>
-                <li><strong>Video Strategy:</strong> When to use video and how to make it interactive.</li>
-                <li><strong>Retention:</strong> Interpreting D/F/W patterns to redesign weak assessments.</li>
+                <li>Designing Regular & Substantive Interaction</li>
+                <li>Structuring instructor presence</li>
+                <li>Improving discussion quality</li>
+                <li>Designing meaningful weekly touchpoints</li>
+                <li>Increasing belonging and clarity</li>
+                <li>Reducing student confusion</li>
+                <li>Designing proactive communication plans</li>
+                <li>Improving navigation clarity from a student-experience perspective</li>
+            </ul>
+            <p><strong>IDEAS does NOT:</strong></p>
+            <ul>
+                <li>Show faculty how to click “Post Announcement”</li>
+                <li>Troubleshoot notification settings</li>
             </ul>
         </div>
 
-        <div class="section">
-            <h3>5. Quality Matters (QM)</h3>
+        <div class="category">
+            <h3>5) Quality & Standards (Design Perspective)</h3>
+            <p><strong>IDEAS supports:</strong></p>
             <ul>
-                <li>Pre-review consultation and strengthening measurable alignment.</li>
-                <li>Reducing cognitive overload through better navigation design.</li>
+                <li>QM alignment review</li>
+                <li>Pre-review consultation</li>
+                <li>Strengthening measurable alignment</li>
+                <li>Improving accessibility by design</li>
+                <li>Designing clear instructions</li>
+                <li>Improving consistency across modules</li>
+                <li>Reducing cognitive overload</li>
+                <li>Ensuring course flow makes sense</li>
+            </ul>
+            <p><strong>IDEAS does NOT:</strong></p>
+            <ul>
+                <li>Change institutional standards</li>
+                <li>Override state requirements</li>
+                <li>Fix broken tool integrations</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>6) AI Integration Strategy</h3>
+            <p><strong>IDEAS supports:</strong></p>
+            <ul>
+                <li>Writing AI guidance statements</li>
+                <li>Designing AI-permitted assignments</li>
+                <li>Helping faculty shift from “AI policing” to “AI literacy”</li>
+                <li>Designing reflection-based AI use</li>
+                <li>Reducing misuse through authentic design</li>
+            </ul>
+            <p><strong>IDEAS does NOT:</strong></p>
+            <ul>
+                <li>Configure Copyleaks</li>
+                <li>Troubleshoot AI detection errors</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>7) Video & Multimedia — Pedagogical Use</h3>
+            <p><strong>IDEAS supports:</strong></p>
+            <ul>
+                <li>Deciding when to use video</li>
+                <li>Structuring effective video</li>
+                <li>Embedding interaction into video</li>
+                <li>Aligning video to objectives</li>
+                <li>Designing instructor presence through multimedia</li>
+            </ul>
+            <p><strong>IDEAS does NOT:</strong></p>
+            <ul>
+                <li>Fix Panopto playback errors</li>
+                <li>Troubleshoot captions</li>
+                <li>Fix embedding issues</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>8) Data-Informed Course Improvement</h3>
+            <p><strong>IDEAS supports:</strong></p>
+            <ul>
+                <li>Interpreting D/F/W patterns</li>
+                <li>Redesigning weak assessments</li>
+                <li>Improving retention through course clarity</li>
+                <li>Adjusting scaffolding</li>
+                <li>Improving pacing</li>
+            </ul>
+            <p><strong>IDEAS does NOT:</strong></p>
+            <ul>
+                <li>Pull system-level technical reports</li>
+                <li>Fix analytics dashboards</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h3>9) Faculty Development & Teaching Practice</h3>
+            <p><strong>IDEAS supports:</strong></p>
+            <ul>
+                <li>Transitioning to online teaching</li>
+                <li>Improving asynchronous facilitation</li>
+                <li>Enhancing feedback strategies</li>
+                <li>Building clarity in instructions</li>
+                <li>Improving student-centered language</li>
+                <li>Incorporating empathy intentionally</li>
+            </ul>
+            <p><strong>IDEAS does NOT:</strong></p>
+            <ul>
+                <li>Solve login problems</li>
+                <li>Fix course publishing errors</li>
             </ul>
         </div>
     </div>
-</div>
 
-<div class="ten-second-test">
-    <div class="test-box">
-        <span>THE 10-SECOND TEST</span><br>
-        "How do I <span class="highlight-atst">technically</span> do this?" → <strong>ATST</strong><br>
-        "What should I <span class="highlight-ideas">design</span> and why?" → <strong>IDEAS</strong>
+    <div class="footer-test">
+        <div class="test-box">
+            <strong>The 10-Second Test</strong><br>
+            If the question is:<br><br>
+            “How do I technically do this?” → <strong>ATST</strong><br>
+            “What should I design and why?” → <strong>IDEAS</strong>
+        </div>
     </div>
 </div>
 
